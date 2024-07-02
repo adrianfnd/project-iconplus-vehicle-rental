@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('riwayat_surat_jalan', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('id_surat_jalan');
+            $table->foreign('id_surat_jalan')->references('id')->on('surat_jalan')->onDelete('cascade');
+            $table->date('tanggal');
+            $table->text('keterangan');
+            $table->boolean('sudah_dicetak')->default(false);
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('riwayat_surat_jalan');
+    }
+};
