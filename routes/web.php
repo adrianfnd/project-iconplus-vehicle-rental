@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +14,31 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/login', function () {
-    return view('login');
+// Auth
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login'])->name('login.action');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+// Routes Staff Pemeliharaan dan Aset
+Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(function () {   
+    
+});
+
+// Routes Staff Fasilitas
+Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(function () {   
+    
+});
+
+// Routes Staff Admin
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {   
+    
+});
+
+// Routes Vendor Penyedia
+Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {   
+    
 });

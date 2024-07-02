@@ -29,12 +29,16 @@ class AuthController extends Controller
             $user = Auth::user()->load('role');
 
             if ($user->role->name == 'pemeliharaan') {
+                dd('pemeliharaan');
                 return redirect()->route('pemeliharaan.landing');
             } elseif ($user->role->name == 'fasilitas') {
+                dd('fasilitas');
                 return redirect()->route('fasilitas.landing');
             } elseif ($user->role->name == 'admin') {
+                dd('admin');
                 return redirect()->route('admin.landing');
             } elseif ($user->role->name == 'vendor') {
+                dd('vendor');
                 return redirect()->route('vendor.landing');
             }
         }
