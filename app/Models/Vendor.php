@@ -18,4 +18,9 @@ class Vendor extends Model
         'alamat',
         'kontak',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
