@@ -10,6 +10,8 @@ class Penyewaan extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'penyewaan';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 

@@ -29,8 +29,7 @@ class AuthController extends Controller
             $user = Auth::user()->load('role');
 
             if ($user->role->name == 'pemeliharaan') {
-                dd('pemeliharaan');
-                return redirect()->route('pemeliharaan.landing');
+                return redirect()->route('pemeliharaan.sewa-kendaraan.index');
             } elseif ($user->role->name == 'fasilitas') {
                 dd('fasilitas');
                 return redirect()->route('fasilitas.landing');

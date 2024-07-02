@@ -10,6 +10,8 @@ class Kendaraan extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'kendaraan';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 
