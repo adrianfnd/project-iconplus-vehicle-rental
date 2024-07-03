@@ -49,6 +49,18 @@
                             <label for="sewa_untuk">Sewa Untuk</label>
                             <p class="form-control">{{ $pengajuan->sewa_untuk }}</p>
                         </div>
+                        <div class="form-group">
+                            <label for="apakah_luar_bandung">Apakah di luar Bandung?</label>
+                            <div class="col-sm-9">
+                                <p class="form-control">
+                                    @if ($pengajuan->is_outside_bandung == 1)
+                                        Ya
+                                    @else
+                                        Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                         <div class="mt-4">
                             <h5>Catatan Penting:</h5>
                             <ul>
@@ -59,11 +71,11 @@
                             </ul>
                         </div>
                         <div class="mt-4">
+                            <a href="{{ route('fasilitas.sewa-kendaraan.index') }}" class="btn btn-light">Kembali</a>
                             @if ($pengajuan->status == 'Pengajuan')
                                 <button type="button" class="btn btn-danger" id="rejectButton">Reject</button>
                                 <button type="button" class="btn btn-success" id="approveButton">Approve</button>
                             @endif
-                            <a href="{{ route('fasilitas.sewa-kendaraan.index') }}" class="btn btn-light">Kembali</a>
                         </div>
                     </div>
                 </div>
@@ -72,6 +84,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         document.getElementById('rejectButton').addEventListener('click', function() {
             Swal.fire({
@@ -128,9 +141,9 @@
                 '</select>' +
                 '</div>' +
                 '<div style="text-align: left; margin-bottom: 15px;">' +
-                '<label for="use_driver" style="display: inline-block; width: 80px;"></label>' +
-                '<input type="checkbox" id="use_driver" style="margin-left: -40px;" class="swal2-checkbox">' +
-                '<label for="use_driver" style="margin-left: 5px;">Pakai Driver</label>' +
+                '<label for="include_driver" style="display: inline-block; width: 80px;"></label>' +
+                '<input type="checkbox" id="include_driver" style="margin-left: -40px;" class="swal2-checkbox" value="1">' +
+                '<label for="include_driver" style="margin-left: 5px;">Pakai Driver</label>' +
                 '</div>' +
                 '<div id="driver_selection" style="text-align: left; margin-bottom: 15px; display: none;">' +
                 '<label for="driver_id" style="display: inline-block; width: 80px; margin-left: 40px;">Driver</label>' +
@@ -145,7 +158,7 @@
                 confirmButtonText: 'Approve',
                 cancelButtonText: 'Close',
                 didOpen: () => {
-                    const useDriverCheckbox = Swal.getPopup().querySelector('#use_driver');
+                    const useDriverCheckbox = Swal.getPopup().querySelector('#include_driver');
                     const driverSelection = Swal.getPopup().querySelector('#driver_selection');
                     useDriverCheckbox.addEventListener('change', function() {
                         driverSelection.style.display = this.checked ? 'block' : 'none';
@@ -153,7 +166,7 @@
                 },
                 preConfirm: () => {
                     const vendor = Swal.getPopup().querySelector('#vendor_id').value;
-                    const useDriver = Swal.getPopup().querySelector('#use_driver').checked;
+                    const useDriver = Swal.getPopup().querySelector('#include_driver').checked;
                     const driver = Swal.getPopup().querySelector('#driver_id').value;
 
                     if (!vendor) {
@@ -166,7 +179,7 @@
                     }
                     return {
                         vendor_id: vendor,
-                        use_driver: useDriver,
+                        include_driver: useDriver,
                         driver_id: driver
                     };
                 }
@@ -190,11 +203,11 @@
 
                     const useDriverInput = document.createElement('input');
                     useDriverInput.type = 'hidden';
-                    useDriverInput.name = 'use_driver';
-                    useDriverInput.value = result.value.use_driver;
+                    useDriverInput.name = 'include_driver';
+                    useDriverInput.value = result.value.include_driver;
                     form.appendChild(useDriverInput);
 
-                    if (result.value.use_driver) {
+                    if (result.value.include_driver) {
                         const driverInput = document.createElement('input');
                         driverInput.type = 'hidden';
                         driverInput.name = 'driver_id';

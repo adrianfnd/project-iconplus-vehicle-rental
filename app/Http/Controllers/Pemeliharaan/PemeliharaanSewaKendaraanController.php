@@ -14,14 +14,16 @@ class PemeliharaanSewaKendaraanController extends Controller
 {
     public function index()
     {
-        $pengajuan = Penyewaan::all();
+        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan'])
+                            ->get();
         
         return view('pemeliharaan.sewa-kendaraan.index', compact('pengajuan'));
     }
 
     public function show($id)
     {
-        $pengajuan = Penyewaan::findOrFail($id);
+        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan'])
+                            ->findOrFail($id);
 
         return view('pemeliharaan.sewa-kendaraan.show', compact('pengajuan'));
     }
@@ -29,28 +31,10 @@ class PemeliharaanSewaKendaraanController extends Controller
     public function create()
     {
         $kendaraans = Kendaraan::all();
-
         $jabatans = Jabatan::all();
 
         return view('pemeliharaan.sewa-kendaraan.create', compact('kendaraans', 'jabatans'));
     }
-
-    public function update($id)
-    {
-        $pengajuan = Penyewaan::where('status', 'Rejected by Fasilitas')
-                        ->orWhere('status', 'Rejected by Vendor')
-                        ->findOrFail($id);
-    
-        $pengajuan->delete();
-
-        $kendaraans = Kendaraan::all();
-
-        $jabatans = Jabatan::all();
-    
-        return view('pemeliharaan.sewa-kendaraan.create', compact('kendaraans', 'jabatans'));
-    }
-    
-
 
     public function store(Request $request)
     {
@@ -62,6 +46,7 @@ class PemeliharaanSewaKendaraanController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'sewa_untuk' => 'required|string|max:255',
+            'apakah_luar_bandung' => 'required',
         ], [
             'nama.required' => 'Kolom nama harus diisi.',
             'nama.string' => 'Nama harus berupa teks.',
@@ -79,6 +64,7 @@ class PemeliharaanSewaKendaraanController extends Controller
             'sewa_untuk.required' => 'Kolom sewa untuk harus diisi.',
             'sewa_untuk.string' => 'Sewa untuk harus berupa teks.',
             'sewa_untuk.max' => 'Sewa untuk tidak boleh lebih dari 255 karakter.',
+            'apakah_luar_bandung.required' => 'Kolom apakah luar bandung harus diisi.',
         ]);
 
         $tanggalMulai = Carbon::parse($request->input('tanggal_mulai'));
@@ -90,6 +76,7 @@ class PemeliharaanSewaKendaraanController extends Controller
             'kontak_penyewa' => $request->input('kontak'),
             'tanggal_mulai' => $tanggalMulai,
             'tanggal_selesai' => $tanggalSelesai,
+            'is_outside_bandung' => $request->input('apakah_luar_bandung'),
             'id_jabatan' => $request->input('jabatan'),
             'id_kendaraan' => $request->input('kendaraan'),
             'jumlah_hari_sewa' => $jumlahHariSewa,
@@ -98,5 +85,19 @@ class PemeliharaanSewaKendaraanController extends Controller
         ]);
 
         return redirect()->route('pemeliharaan.sewa-kendaraan.index')->with('success', 'Pengajuan berhasil dibuat.');
+    }
+
+    public function update($id)
+    {
+        $pengajuan = Penyewaan::where('status', 'Rejected by Fasilitas')
+                        ->orWhere('status', 'Rejected by Vendor')
+                        ->findOrFail($id);
+    
+        $pengajuan->delete();
+
+        $kendaraans = Kendaraan::all();
+        $jabatans = Jabatan::all();
+    
+        return view('pemeliharaan.sewa-kendaraan.create', compact('kendaraans', 'jabatans'));
     }
 }

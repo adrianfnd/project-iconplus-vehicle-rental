@@ -45,6 +45,18 @@
                             <label for="sewa_untuk">Sewa Untuk</label>
                             <p class="form-control">{{ $pengajuan->sewa_untuk }}</p>
                         </div>
+                        <div class="form-group">
+                            <label for="apakah_luar_bandung">Apakah di luar Bandung?</label>
+                            <div class="col-sm-9">
+                                <p class="form-control">
+                                    @if ($pengajuan->is_outside_bandung == 1)
+                                        Ya
+                                    @else
+                                        Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                         <a href="{{ route('pemeliharaan.sewa-kendaraan.index') }}" class="btn btn-light">Kembali</a>
                     </div>
                 </div>

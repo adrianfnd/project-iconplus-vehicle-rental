@@ -18,7 +18,7 @@
                         <h4 class="card-title">Form Pengajuan Sewa Kendaraan</h4>
                         <p class="card-description">Isilah formulir di bawah ini untuk mengajukan sewa kendaraan sesuai
                             kebutuhan Anda.</p>
-                        <form action="{{ route('pemeliharaan.sewa-kendaraan.store') }}" method="POST">
+                        <form id="createForm" action="{{ route('pemeliharaan.sewa-kendaraan.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="nama">Nama</label>
@@ -94,12 +94,55 @@
                                     <span class="text-danger">{{ $errors->first('sewa_untuk') }}</span>
                                 @endif
                             </div>
-                            <button type="submit" class="btn btn-gradient-primary me-2">Buat</button>
+                            <div class="form-group">
+                                <label for="apakah_luar_bandung">Apakah di luar Bandung?</label>
+                                <div class="col-sm-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="apakah_luar_bandung"
+                                                id="luar_bandung_ya" value="1"> Ya <i class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="apakah_luar_bandung"
+                                                id="luar_bandung_tidak" value="0" checked> Tidak <i
+                                                class="input-helper"></i></label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('luar_bandung_ya'))
+                                    <span class="text-danger">{{ $errors->first('luar_bandung_ya') }}</span>
+                                @endif
+                            </div>
                             <a href="{{ route('pemeliharaan.sewa-kendaraan.index') }}" class="btn btn-light">Kembali</a>
+                            <button type="button" class="btn btn-gradient-primary me-2"
+                                onclick="confirmSubmit()">Buat</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmSubmit() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan mengajukan sewa kendaraan ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, ajukan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('createForm').submit();
+                }
+            })
+        }
+    </script>
 @endsection

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id_vendor')->nullable();
             $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_driver')->nullable();
-            $table->foreign('id_driver')->references('id')->on('vendor')->onDelete('cascade');
+            $table->foreign('id_driver')->references('id')->on('driver')->onDelete('cascade');
             $table->boolean('include_driver')->default(false);
             $table->string('nama_penyewa');
             $table->string('kontak_penyewa');
