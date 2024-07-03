@@ -19,11 +19,14 @@ class Penyewaan extends Model
         'id_kendaraan',
         'id_vendor',
         'id_driver',
+        'include_driver',
         'nama_penyewa',
         'kontak_penyewa',
+        'sewa_untuk',
         'jumlah_hari_sewa',
         'tanggal_mulai',
         'tanggal_selesai',
+        'is_outside_bandung',
         'kilometer_awal',
         'kilometer_akhir',
         'nilai_sewa',
@@ -34,6 +37,7 @@ class Penyewaan extends Model
         'keterangan',
         'tanggal_pembayaran',
         'status',
+        'reject_notes',
     ];
 
     public function kendaraan()

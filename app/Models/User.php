@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Vendor::class);
     }
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
 }

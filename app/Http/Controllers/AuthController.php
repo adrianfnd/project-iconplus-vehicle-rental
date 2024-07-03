@@ -31,14 +31,11 @@ class AuthController extends Controller
             if ($user->role->name == 'pemeliharaan') {
                 return redirect()->route('pemeliharaan.sewa-kendaraan.index');
             } elseif ($user->role->name == 'fasilitas') {
-                dd('fasilitas');
-                return redirect()->route('fasilitas.landing');
+                return redirect()->route('fasilitas.sewa-kendaraan.index');
             } elseif ($user->role->name == 'admin') {
-                dd('admin');
-                return redirect()->route('admin.landing');
+                return redirect()->route('admin.sewa-kendaraan.index');
             } elseif ($user->role->name == 'vendor') {
-                dd('vendor');
-                return redirect()->route('vendor.landing');
+                return redirect()->route('vendor.sewa-kendaraan.index');
             }
         }
     

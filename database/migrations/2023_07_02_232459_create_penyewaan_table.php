@@ -12,15 +12,20 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_kendaraan');
             $table->foreign('id_kendaraan')->references('id')->on('kendaraan')->onDelete('cascade');
+            $table->uuid('id_jabatan')->nullable();
+            $table->foreign('id_jabatan')->references('id')->on('jabatan')->onDelete('cascade');
             $table->uuid('id_vendor')->nullable();
             $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_driver')->nullable();
             $table->foreign('id_driver')->references('id')->on('vendor')->onDelete('cascade');
+            $table->boolean('include_driver')->default(false);
             $table->string('nama_penyewa');
             $table->string('kontak_penyewa');
+            $table->string('sewa_untuk')->nullable();
             $table->integer('jumlah_hari_sewa');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->boolean('is_outside_bandung')->default(false);
             $table->integer('kilometer_awal')->nullable();
             $table->integer('kilometer_akhir')->nullable();
             $table->decimal('nilai_sewa', 10, 2)->nullable();
@@ -31,6 +36,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->date('tanggal_pembayaran')->nullable();
             $table->string('status');
+            $table->string('reject_notes')->nullable();
             $table->timestamps();
         });
     }

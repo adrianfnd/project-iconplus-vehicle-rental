@@ -18,11 +18,6 @@
                         <h4 class="card-title">Daftar Pengajuan Sewa Kendaraan</h4>
                         <p class="card-description">Berikut adalah daftar pengajuan sewa kendaraan yang telah diajukan.</p>
 
-                        <div class="mb-3 d-flex justify-content-end">
-                            <a href="{{ route('pemeliharaan.sewa-kendaraan.create') }}" class="btn btn-sm btn-primary">Buat
-                                Pengajuan</a>
-                        </div>
-
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -49,7 +44,7 @@
                                         <td>{{ $item->kendaraan->nama }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>
-                                            <a href="{{ route('pemeliharaan.sewa-kendaraan.show', $item->id) }}"
+                                            <a href="{{ route('vendor.sewa-kendaraan.show', $item->id) }}"
                                                 class="btn btn-sm btn-primary">Detail</a>
                                         </td>
                                     </tr>

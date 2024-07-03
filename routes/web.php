@@ -6,20 +6,20 @@ use App\Http\Controllers\Pemeliharaan\PemeliharaanSewaKendaraanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanSuratJalanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanRiwayatSuratJalanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanLaporanController;
-use App\Http\Controllers\FasilitasSewaKendaraanController;
-use App\Http\Controllers\FasilitasPembayaranController;
-use App\Http\Controllers\FasilitasRiwayatSuratJalanController;
-use App\Http\Controllers\FasilitasLaporanController;
-use App\Http\Controllers\AdminSewaKendaraanController;
-use App\Http\Controllers\AdminSuratJalanController;
-use App\Http\Controllers\AdminPembayaranController;
-use App\Http\Controllers\AdminRiwayatSuratJalanController;
-use App\Http\Controllers\AdminLaporanController;
-use App\Http\Controllers\VendorSewaKendaraanController;
-use App\Http\Controllers\VendorSuratJalanController;
-use App\Http\Controllers\VendorPembayaranController;
-use App\Http\Controllers\VendorRiwayatSuratJalanController;
-use App\Http\Controllers\VendorLaporanController;
+use App\Http\Controllers\Fasilitas\FasilitasSewaKendaraanController;
+use App\Http\Controllers\Fasilitas\FasilitasPembayaranController;
+use App\Http\Controllers\Fasilitas\FasilitasRiwayatSuratJalanController;
+use App\Http\Controllers\Fasilitas\FasilitasLaporanController;
+use App\Http\Controllers\Admin\AdminSewaKendaraanController;
+use App\Http\Controllers\Admin\AdminSuratJalanController;
+use App\Http\Controllers\Admin\AdminPembayaranController;
+use App\Http\Controllers\Admin\AdminRiwayatSuratJalanController;
+use App\Http\Controllers\Admin\AdminLaporanController;
+use App\Http\Controllers\Vendor\VendorSewaKendaraanController;
+use App\Http\Controllers\Vendor\VendorSuratJalanController;
+use App\Http\Controllers\Vendor\VendorPembayaranController;
+use App\Http\Controllers\Vendor\VendorRiwayatSuratJalanController;
+use App\Http\Controllers\Vendor\VendorLaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 // Routes Staff Pemeliharaan dan Aset
 Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(function () {
     Route::get('sewa-kendaraan', [PemeliharaanSewaKendaraanController::class, 'index'])->name('pemeliharaan.sewa-kendaraan.index');
+    Route::get('sewa-kendaraan-{id}', [PemeliharaanSewaKendaraanController::class, 'show'])->name('pemeliharaan.sewa-kendaraan.show');
     Route::get('sewa-kendaraan/create', [PemeliharaanSewaKendaraanController::class, 'create'])->name('pemeliharaan.sewa-kendaraan.create');
     Route::post('sewa-kendaraan', [PemeliharaanSewaKendaraanController::class, 'store'])->name('pemeliharaan.sewa-kendaraan.store');
     
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
 // Routes Staff Fasilitas
 Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(function () {
     Route::get('sewa-kendaraan', [FasilitasSewaKendaraanController::class, 'index'])->name('fasilitas.sewa-kendaraan.index');
+    Route::get('sewa-kendaraan-{id}', [FasilitasSewaKendaraanController::class, 'show'])->name('fasilitas.sewa-kendaraan.show');
     Route::post('sewa-kendaraan/{id}/approve', [FasilitasSewaKendaraanController::class, 'approve'])->name('fasilitas.sewa-kendaraan.approve');
     Route::post('sewa-kendaraan/{id}/decline', [FasilitasSewaKendaraanController::class, 'decline'])->name('fasilitas.sewa-kendaraan.decline');
     
@@ -76,6 +78,7 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
 // Routes Staff Admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('sewa-kendaraan', [AdminSewaKendaraanController::class, 'index'])->name('admin.sewa-kendaraan.index');
+    Route::get('sewa-kendaraan-{id}', [AdminSewaKendaraanController::class, 'show'])->name('admin.sewa-kendaraan.show');
     Route::post('sewa-kendaraan/{id}/approve', [AdminSewaKendaraanController::class, 'approve'])->name('admin.sewa-kendaraan.approve');
     
     Route::get('surat-jalan/create', [AdminSuratJalanController::class, 'create'])->name('admin.surat-jalan.create');
@@ -95,6 +98,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 // Routes Vendor Penyedia
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
     Route::get('sewa-kendaraan', [VendorSewaKendaraanController::class, 'index'])->name('vendor.sewa-kendaraan.index');
+    Route::get('sewa-kendaraan-{id}', [VendorSewaKendaraanController::class, 'show'])->name('vendor.sewa-kendaraan.show');
     Route::post('sewa-kendaraan/{id}/approve', [VendorSewaKendaraanController::class, 'approve'])->name('vendor.sewa-kendaraan.approve');
     Route::post('sewa-kendaraan/{id}/decline', [VendorSewaKendaraanController::class, 'decline'])->name('vendor.sewa-kendaraan.decline');
     

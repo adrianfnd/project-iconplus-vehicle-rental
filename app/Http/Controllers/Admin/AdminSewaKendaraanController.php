@@ -4,19 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\SewaKendaraan;
+use App\Models\Penyewaan;
 
 class AdminSewaKendaraanController extends Controller
 {
     public function index()
     {
-        $pengajuan = SewaKendaraan::all();
+        $pengajuan = Penyewaan::all();
         return view('admin.sewa-kendaraan.index', compact('pengajuan'));
+    }
+
+    public function show($id)
+    {
+        $pengajuan = Penyewaan::find($id);
+
+        return view('admin.sewa-kendaraan.show', compact('pengajuan'));
     }
 
     public function approve($id)
     {
-        $pengajuan = SewaKendaraan::find($id);
+        $pengajuan = Penyewaan::find($id);
         $pengajuan->status = 'approved';
         $pengajuan->save();
 
