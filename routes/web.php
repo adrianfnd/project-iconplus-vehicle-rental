@@ -46,7 +46,8 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
     Route::get('sewa-kendaraan-{id}', [PemeliharaanSewaKendaraanController::class, 'show'])->name('pemeliharaan.sewa-kendaraan.show');
     Route::get('sewa-kendaraan/create', [PemeliharaanSewaKendaraanController::class, 'create'])->name('pemeliharaan.sewa-kendaraan.create');
     Route::post('sewa-kendaraan', [PemeliharaanSewaKendaraanController::class, 'store'])->name('pemeliharaan.sewa-kendaraan.store');
-    
+    Route::put('sewa-kendaraan/{id}', [PemeliharaanSewaKendaraanController::class, 'update'])->name('pemeliharaan.sewa-kendaraan.update');
+
     Route::get('surat-jalan', [PemeliharaanSuratJalanController::class, 'index'])->name('pemeliharaan.surat-jalan.index');
     Route::post('surat-jalan/{id}', [PemeliharaanSuratJalanController::class, 'update'])->name('pemeliharaan.surat-jalan.update');
     Route::get('surat-jalan/{id}/download', [PemeliharaanSuratJalanController::class, 'download'])->name('pemeliharaan.surat-jalan.download');
@@ -61,8 +62,8 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
 Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(function () {
     Route::get('sewa-kendaraan', [FasilitasSewaKendaraanController::class, 'index'])->name('fasilitas.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [FasilitasSewaKendaraanController::class, 'show'])->name('fasilitas.sewa-kendaraan.show');
-    Route::post('sewa-kendaraan/{id}/approve', [FasilitasSewaKendaraanController::class, 'approve'])->name('fasilitas.sewa-kendaraan.approve');
-    Route::post('sewa-kendaraan/{id}/decline', [FasilitasSewaKendaraanController::class, 'decline'])->name('fasilitas.sewa-kendaraan.decline');
+    Route::post('sewa-kendaraan-approve-{id}', [FasilitasSewaKendaraanController::class, 'approve'])->name('fasilitas.sewa-kendaraan.approve');
+    Route::post('sewa-kendaraan-decline-{id}', [FasilitasSewaKendaraanController::class, 'decline'])->name('fasilitas.sewa-kendaraan.decline');
     
     Route::get('pembayaran', [FasilitasPembayaranController::class, 'index'])->name('fasilitas.pembayaran.index');
     Route::post('pembayaran/{id}/approve', [FasilitasPembayaranController::class, 'approve'])->name('fasilitas.pembayaran.approve');

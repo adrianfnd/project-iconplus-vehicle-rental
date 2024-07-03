@@ -33,8 +33,12 @@
                                     <th>Tanggal Selesai</th>
                                     <th>Jumlah Hari</th>
                                     <th>Nama Kendaraan</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>
+                                        <center>Status</center>
+                                    </th>
+                                    <th>
+                                        <center>Aksi</center>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,12 +49,48 @@
                                         <td>{{ $item->kontak_penyewa }}</td>
                                         <td>{{ $item->tanggal_mulai }}</td>
                                         <td>{{ $item->tanggal_selesai }}</td>
-                                        <td>{{ $item->jumlah_hari_sewa }}</td>
+                                        <td>{{ $item->jumlah_hari_sewa }} Hari</td>
                                         <td>{{ $item->kendaraan->nama }}</td>
-                                        <td>{{ $item->status }}</td>
                                         <td>
-                                            <a href="{{ route('pemeliharaan.sewa-kendaraan.show', $item->id) }}"
-                                                class="btn btn-sm btn-primary">Detail</a>
+                                            <center>
+                                                @if ($item->status == 'Pengajuan')
+                                                    <span class="badge badge-success">Pengajuan</span>
+                                                @elseif ($item->status == 'Approved by Fasilitas')
+                                                    <span class="badge badge-success">Approved by Fasilitas</span>
+                                                @elseif ($item->status == 'Rejected by Fasilitas')
+                                                    <span class="badge badge-danger">Rejected by Fasilitas</span>
+                                                @elseif ($item->status == 'Approved by Administrasi')
+                                                    <span class="badge badge-success">Approved by Administrasi</span>
+                                                @elseif ($item->status == 'Approved by Vendor')
+                                                    <span class="badge badge-success">Approved by Vendor</span>
+                                                @elseif ($item->status == 'Rejected by Vendor')
+                                                    <span class="badge badge-danger">Rejected by Vendor</span>
+                                                @elseif ($item->status == 'Surat Jalan')
+                                                    <span class="badge badge-info">Surat Jalan</span>
+                                                @else
+                                                    <span class="badge badge-warning">Status tidak diketahui</span>
+                                                @endif
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <div class="d-flex justify-content-center" style="gap: 5px;">
+                                                    <a href="{{ route('pemeliharaan.sewa-kendaraan.show', $item->id) }}"
+                                                        class="btn btn-sm btn-primary">Lihat</a>
+                                                    @if ($item->status == 'Rejected by Fasilitas' || $item->status == 'Rejected by Vendor')
+                                                        <form
+                                                            action="{{ route('pemeliharaan.sewa-kendaraan.update', $item->id) }}"
+                                                            method="POST" class="delete-form">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-sm btn-danger">Buat
+                                                                Ulang</button>
+                                                            <input type="hidden" class="reject-notes"
+                                                                value="{{ $item->reject_notes }}">
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </center>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,5 +127,26 @@
                 timer: 2000
             });
         }
+
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var rejectNotes = this.querySelector('.reject-notes').value;
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dibuat ulang tidak dapat dikembalikan! " + (rejectNotes ?
+                        'Catatan Penolakan: ' + rejectNotes : ''),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Buat Ulang!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
     </script>
 @endsection

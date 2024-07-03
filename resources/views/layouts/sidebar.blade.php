@@ -1,11 +1,11 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('pemeliharaan.laporan-mingguan') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
         @if (auth()->user()->role->name == 'pemeliharaan')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"

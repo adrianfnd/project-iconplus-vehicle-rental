@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             VendorSeeder::class,
             UserSeeder::class,
             KendaraanSeeder::class,
+            JabatanSeeder::class,
         ]);
     }
 }

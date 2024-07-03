@@ -28,8 +28,12 @@
                                     <th>Tanggal Selesai</th>
                                     <th>Jumlah Hari</th>
                                     <th>Nama Kendaraan</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>
+                                        <center>Status</center>
+                                    </th>
+                                    <th>
+                                        <center>Aksi</center>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,12 +44,34 @@
                                         <td>{{ $item->kontak_penyewa }}</td>
                                         <td>{{ $item->tanggal_mulai }}</td>
                                         <td>{{ $item->tanggal_selesai }}</td>
-                                        <td>{{ $item->jumlah_hari_sewa }}</td>
+                                        <td>{{ $item->jumlah_hari_sewa }} Hari</td>
                                         <td>{{ $item->kendaraan->nama }}</td>
-                                        <td>{{ $item->status }}</td>
                                         <td>
-                                            <a href="{{ route('fasilitas.sewa-kendaraan.show', $item->id) }}"
-                                                class="btn btn-sm btn-primary">Detail</a>
+                                            <center>
+                                                @if ($item->status == 'Pengajuan')
+                                                    <span class="badge badge-success">Pengajuan</span>
+                                                @elseif ($item->status == 'Approved by Fasilitas')
+                                                    <span class="badge badge-success">Approved by Fasilitas</span>
+                                                @elseif ($item->status == 'Rejected by Fasilitas')
+                                                    <span class="badge badge-danger">Rejected by Fasilitas</span>
+                                                @elseif ($item->status == 'Approved by Administrasi')
+                                                    <span class="badge badge-success">Approved by Administrasi</span>
+                                                @elseif ($item->status == 'Approved by Vendor')
+                                                    <span class="badge badge-success">Approved by Vendor</span>
+                                                @elseif ($item->status == 'Rejected by Vendor')
+                                                    <span class="badge badge-danger">Rejected by Vendor</span>
+                                                @elseif ($item->status == 'Surat Jalan')
+                                                    <span class="badge badge-info">Surat Jalan</span>
+                                                @else
+                                                    <span class="badge badge-warning">Status tidak diketahui</span>
+                                                @endif
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <a href="{{ route('fasilitas.sewa-kendaraan.show', $item->id) }}"
+                                                    class="btn btn-sm btn-primary">Lihat</a>
+                                            </center>
                                         </td>
                                     </tr>
                                 @endforeach

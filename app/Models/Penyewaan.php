@@ -17,6 +17,7 @@ class Penyewaan extends Model
 
     protected $fillable = [
         'id_kendaraan',
+        'id_jabatan',
         'id_vendor',
         'id_driver',
         'include_driver',
@@ -53,5 +54,10 @@ class Penyewaan extends Model
     public function driver()
     {
         return $this->belongsTo(Driver::class, 'id_driver');
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan');
     }
 }

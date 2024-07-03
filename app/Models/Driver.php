@@ -10,6 +10,8 @@ class Driver extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'driver';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 

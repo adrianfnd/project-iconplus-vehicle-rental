@@ -10,6 +10,8 @@ class Vendor extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'vendor';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 

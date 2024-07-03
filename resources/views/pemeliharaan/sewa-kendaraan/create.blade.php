@@ -37,6 +37,18 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="jabatan">Jabatan</label>
+                                <select class="form-control form-control-lg" id="jabatan" name="jabatan" required>
+                                    <option value="">Pilih Jabatan</option>
+                                    @foreach ($jabatans as $jabatan)
+                                        <option value="{{ $jabatan->id }}">{{ $jabatan->nama_jabatan }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('jabatan'))
+                                    <span class="text-danger">{{ $errors->first('jabatan') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <label for="kendaraan">Kendaraan</label>
                                 <select class="form-control form-control-lg" id="kendaraan" name="kendaraan"
                                     value="{{ old('kendaraan') }}" required>
@@ -63,6 +75,23 @@
                                     value="{{ old('tanggal_selesai') }}" required>
                                 @if ($errors->has('tanggal_selesai'))
                                     <span class="text-danger">{{ $errors->first('tanggal_selesai') }}</span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="sewa_untuk">Sewa Untuk</label>
+                                <select class="form-control form-control-lg" id="sewa_untuk" name="sewa_untuk" required>
+                                    <option value="">Pilih Tujuan Sewa</option>
+                                    <option value="Pemeliharaan">Pemeliharaan</option>
+                                    <option value="Visit">Visit</option>
+                                    <option value="Pengecekan">Pengecekan</option>
+                                    <option value="Pendampingan">Pendampingan</option>
+                                    <option value="Pemasaran">Pemasaran</option>
+                                    <option value="Survey">Survey</option>
+                                    <option value="Tracing Core">Tracing Core</option>
+                                    <option value="Kegiatan GM">Kegiatan GM (General Manager)</option>
+                                </select>
+                                @if ($errors->has('sewa_untuk'))
+                                    <span class="text-danger">{{ $errors->first('sewa_untuk') }}</span>
                                 @endif
                             </div>
                             <button type="submit" class="btn btn-gradient-primary me-2">Buat</button>

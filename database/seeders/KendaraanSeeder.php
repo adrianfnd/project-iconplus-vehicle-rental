@@ -24,7 +24,7 @@ class KendaraanSeeder extends Seeder
             for ($i = 1; $i <= 3; $i++) {
                 DB::table('kendaraan')->insert([
                     'id' => Str::uuid(),
-                    'nama' => $tipe . ' ' . $i,
+                    'nama' => $tipe,
                     'tipe' => $tipe,
                     'nomor_plat' => 'B ' . rand(1000, 9999) . ' ' . chr(rand(65, 90)) . chr(rand(65, 90)),
                     'stok' => rand(1, 5),
