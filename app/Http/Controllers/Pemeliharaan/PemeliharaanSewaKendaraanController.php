@@ -21,7 +21,7 @@ class PemeliharaanSewaKendaraanController extends Controller
 
     public function show($id)
     {
-        $pengajuan = Penyewaan::find($id);
+        $pengajuan = Penyewaan::findOrFail($id);
 
         return view('pemeliharaan.sewa-kendaraan.show', compact('pengajuan'));
     }
