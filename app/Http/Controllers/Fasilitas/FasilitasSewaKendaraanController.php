@@ -47,7 +47,6 @@ class FasilitasSewaKendaraanController extends Controller
         $pengajuan->include_driver = $request->include_driver === 'true' ? 1 : 0;
         $pengajuan->id_driver = $request->driver_id;
         $pengajuan->id_vendor = $request->vendor_id;
-
         $pengajuan->reject_notes = null;
         
         $pengajuan->save();

@@ -65,7 +65,40 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nilai_sewa">Nilai Sewa</label>
+                                    <p class="form-control">
+                                        {{ 'Rp ' . number_format($pengajuan->nilai_sewa, 0, ',', '.') . ' / Hari' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="total_nilai_sewa">Total Nilai Sewa</label>
+                                    <p class="form-control">
+                                        {{ 'Rp ' . number_format($pengajuan->total_nilai_sewa, 0, ',', '.') }}</p>
+                                </div>
+                            </div>
+                        </div>
                         @if ($pengajuan->include_driver == 1)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="biaya_driver">Biaya Driver</label>
+                                        <p class="form-control">
+                                            {{ 'Rp ' . number_format($pengajuan->biaya_driver, 0, ',', '.') . ' / Hari' }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="total_biaya_driver">Total Biaya Driver</label>
+                                        <p class="form-control">
+                                            {{ 'Rp ' . number_format($pengajuan->total_biaya_driver, 0, ',', '.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="driver">Driver</label>
                                 <p class="form-control">{{ $pengajuan->driver->nama }}</p>
@@ -74,10 +107,10 @@
                         <div class="mt-4">
                             <h5>Catatan Penting:</h5>
                             <ul>
-                                <li>Jika Pemeliharaan Max 4 hari</li>
-                                <li>Jika Visit, Pengecekan, Pendampingan, Pemasaran, dan Survey Max 2 hari</li>
-                                <li>Jika Tracing Core Max 6 hari</li>
-                                <li>Kegiatan GM (General Manager) Max 2 hari</li>
+                                <li>Nilai Sewa Di daerah Lingkup Bandung: 250.000/hari</li>
+                                <li>Nilai Sewa Di daerah Luar Bandung: 275.000/hari</li>
+                                <li>Nilai Sewa Driver di Lingkup Bandung: 150.000</li>
+                                <li>Nilai Sewa Driver Luar Bandung: 175.000</li>
                             </ul>
                         </div>
                         <div class="mt-4">

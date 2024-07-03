@@ -12,7 +12,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_penyewaan');
             $table->foreign('id_penyewaan')->references('id')->on('penyewaan');
-            $table->date('tanggal_terbit');
+            $table->string('link_pdf')->nullable();
+            $table->date('tanggal_terbit')->nullable();
             $table->timestamps();
         });
     }

@@ -10,12 +10,15 @@ class SuratJalan extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'surat_jalan';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 
     protected $fillable = [
         'id_penyewaan',
         'tanggal_terbit',
+        'link_pdf',
     ];
 
     public function penyewaan()
