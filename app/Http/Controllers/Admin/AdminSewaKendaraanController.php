@@ -10,24 +10,34 @@ class AdminSewaKendaraanController extends Controller
 {
     public function index()
     {
-        $pengajuan = Penyewaan::all();
+        $pengajuan = Penyewaan::whereIn('status', [
+                        'Approved by Fasilitas',
+                        'Approved by Administrasi',
+                        'Approved by Vendor'
+                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ->get();
+
         return view('admin.sewa-kendaraan.index', compact('pengajuan'));
     }
 
     public function show($id)
     {
-        $pengajuan = Penyewaan::find($id);
+        $pengajuan = Penyewaan::whereIn('status', [
+                        'Approved by Fasilitas',
+                        'Approved by Administrasi',
+                        'Approved by Vendor'
+                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ->findOrFail($id);
 
         return view('admin.sewa-kendaraan.show', compact('pengajuan'));
     }
 
     public function approve($id)
     {
-        $pengajuan = Penyewaan::find($id);
-        $pengajuan->status = 'approved';
+        $pengajuan = Penyewaan::where('status', 'Approved by Fasilitas')->findOrFail($id);
+        $pengajuan->status = 'Approved by Administrasi';
         $pengajuan->save();
 
-        return redirect()->route('admin.sewa-kendaraan.index')
-            ->with('success', 'Pengajuan berhasil disetujui.');
+        return redirect()->route('admin.sewa-kendaraan.index')->with('success', 'Pengajuan berhasil disetujui.');
     }
 }

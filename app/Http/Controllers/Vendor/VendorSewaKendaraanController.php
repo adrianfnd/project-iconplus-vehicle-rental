@@ -10,21 +10,33 @@ class VendorSewaKendaraanController extends Controller
 {
     public function index()
     {
-        $pengajuan = Penyewaan::all();
+        $pengajuan = Penyewaan::where('id_vendor', auth()->user()->vendor->id)
+                    ->whereIn('status', [
+                        'Approved by Administrasi',
+                        'Approved by Vendor'
+                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ->get();
+
         return view('vendor.sewa-kendaraan.index', compact('pengajuan'));
     }
 
     public function show($id)
     {
-        $pengajuan = Penyewaan::find($id);
+        $pengajuan = Penyewaan::where('id_vendor', auth()->user()->vendor->id)
+                    ->whereIn('status', [
+                        'Approved by Administrasi',
+                        'Approved by Vendor'
+                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ->findOrFail($id);
 
         return view('vendor.sewa-kendaraan.show', compact('pengajuan'));
     }
 
     public function approve($id)
     {
-        $pengajuan = Penyewaan::find($id);
-        $pengajuan->status = 'approved';
+        $pengajuan = Penyewaan::where('id_vendor', auth()->user()->vendor->id)
+                    ->where('status', 'Approved by Administrasi')->findOrFail($id);
+        $pengajuan->status = 'Surat Jalan';
         $pengajuan->save();
 
         return redirect()->route('vendor.sewa-kendaraan.index')
