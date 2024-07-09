@@ -9,6 +9,34 @@ use PDF;
 
 class AdminSuratJalanController extends Controller
 {
+    public function index()
+    {
+        $suratJalan = SuratJalan::with('penyewaan')->get();
+        return view('admin.surat-jalan.index', compact('suratJalan'));
+    }
+
+    public function show($id)
+    {
+        $suratJalan = SuratJalan::with('penyewaan')
+                    // ->whereIn('status', [
+                    //     'Approved by Fasilitas',
+                    //     'Approved by Administrasi',
+                    //     'Approved by Vendor'
+                    // ])->whereNotIn('status', ['Surat Jalan'])
+                    ->findOrFail($id);
+
+        $nilaiSewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
+
+        $biayaDriver = $suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
+
+        $suratJalan->penyewaan->nilai_sewa = $nilaiSewa;
+        $suratJalan->penyewaan->biaya_driver = $biayaDriver;
+        $suratJalan->penyewaan->total_nilai_sewa = $nilaiSewa * $suratJalan->penyewaan->jumlah_hari_sewa;
+        $suratJalan->penyewaan->total_biaya_driver = $biayaDriver * $suratJalan->penyewaan->jumlah_hari_sewa;
+
+        return view('admin.surat-jalan.show', compact('suratJalan'));
+    }
+
     public function create()
     {
         return view('admin.surat-jalan.create');

@@ -81,10 +81,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('sewa-kendaraan', [AdminSewaKendaraanController::class, 'index'])->name('admin.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [AdminSewaKendaraanController::class, 'show'])->name('admin.sewa-kendaraan.show');
     Route::post('sewa-kendaraan/{id}/approve', [AdminSewaKendaraanController::class, 'approve'])->name('admin.sewa-kendaraan.approve');
-    
-    Route::get('surat-jalan/create', [AdminSuratJalanController::class, 'create'])->name('admin.surat-jalan.create');
-    Route::post('surat-jalan', [AdminSuratJalanController::class, 'store'])->name('admin.surat-jalan.store');
+
     Route::get('surat-jalan', [AdminSuratJalanController::class, 'index'])->name('admin.surat-jalan.index');
+    Route::get('surat-jalan-{id}', [AdminSuratJalanController::class, 'show'])->name('admin.surat-jalan.show');
     Route::get('surat-jalan/{id}/generate-pdf', [AdminSuratJalanController::class, 'generatePDF'])->name('admin.surat-jalan.generate-pdf');
     
     Route::get('pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
