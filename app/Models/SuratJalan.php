@@ -21,6 +21,8 @@ class SuratJalan extends Model
         'tanggal_terbit',
         'is_lebih_hari',
         'lebih_hari',
+        'bukti_biaya_bbm_tol_parkir',
+        'bukti_lainnya',
         'status'
     ];
 

@@ -42,20 +42,30 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="biaya_bbm_tol_parkir">Total Biaya BBM TOL dan Parkir</label>
-                                    <input type="file" class="form-control-file" id="biaya_bbm_tol_parkir"
-                                        value="{{ old('biaya_bbm_tol_parkir') }}" name="biaya_bbm_tol_parkir"
-                                        accept="image/*" required>
-                                    @if ($errors->has('biaya_bbm_tol_parkir'))
-                                        <span class="text-danger">{{ $errors->first('biaya_bbm_tol_parkir') }}</span>
+                                    <label for="bukti_biaya_bbm_tol_parkir">Upload Bukti Biaya BBM TOL dan Parkir</label>
+                                    <input type="file" class="form-control-file" id="bukti_biaya_bbm_tol_parkir"
+                                        value="{{ old('bukti_biaya_bbm_tol_parkir[]') }}"
+                                        name="bukti_biaya_bbm_tol_parkir[]" accept="image/jpeg,image/png" required multiple>
+                                    <br>
+                                    <small class="form-text text-muted mt-1">
+                                        Format file: gambar (JPG, PNG). Anda dapat mengunggah lebih dari satu gambar.
+                                    </small>
+                                    <div id="bukti_biaya_bbm_tol_parkir_preview" class="mt-2 d-flex flex-wrap"></div>
+                                    @if ($errors->has('bukti_biaya_bbm_tol_parkir'))
+                                        <span class="text-danger">{{ $errors->first('bukti_biaya_bbm_tol_parkir') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto">Upload Foto</label>
-                                    <input type="file" class="form-control-file" id="foto" name="foto"
-                                        accept="image/*" required>
-                                    @if ($errors->has('foto'))
-                                        <span class="text-danger">{{ $errors->first('foto') }}</span>
+                                    <label for="bukti_lainnya">Upload Bukti Lainnya</label>
+                                    <input type="file" class="form-control-file" id="bukti_lainnya"
+                                        name="bukti_lainnya[]" accept="image/jpeg,image/png" required multiple>
+                                    <br>
+                                    <small class="form-text text-muted mt-1">
+                                        Format file: gambar (JPG, PNG). Anda dapat mengunggah lebih dari satu gambar.
+                                    </small>
+                                    <div id="bukti_lainnya_preview" class="mt-2 d-flex flex-wrap"></div>
+                                    @if ($errors->has('bukti_lainnya'))
+                                        <span class="text-danger">{{ $errors->first('bukti_lainnya') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -91,6 +101,35 @@
                     lebihHariInput.style.display = 'none';
                 }
             });
+
+            function handleFilePreview(inputElement, previewElement) {
+                inputElement.addEventListener('change', function(event) {
+                    previewElement.innerHTML = '';
+                    const files = event.target.files;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.width = '150px';
+                            img.style.height = '150px';
+                            img.style.objectFit = 'cover';
+                            img.style.margin = '5px';
+                            previewElement.appendChild(img);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            const biayaInput = document.getElementById('bukti_biaya_bbm_tol_parkir');
+            const biayaPreview = document.getElementById('bukti_biaya_bbm_tol_parkir_preview');
+            handleFilePreview(biayaInput, biayaPreview);
+
+            const bukti_lainnyaInput = document.getElementById('bukti_lainnya');
+            const bukti_lainnyaPreview = document.getElementById('bukti_lainnya_preview');
+            handleFilePreview(bukti_lainnyaInput, bukti_lainnyaPreview);
         });
     </script>
 @endsection

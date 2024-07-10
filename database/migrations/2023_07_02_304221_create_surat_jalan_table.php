@@ -16,6 +16,8 @@ return new class extends Migration
             $table->date('tanggal_terbit')->nullable();
             $table->boolean('is_lebih_hari')->default(false);
             $table->integer('lebih_hari')->nullable();
+            $table->text('bukti_biaya_bbm_tol_parkir')->nullable();
+            $table->text('bukti_lainnya')->nullable();
             $table->string('status');
             $table->timestamps();
         });
