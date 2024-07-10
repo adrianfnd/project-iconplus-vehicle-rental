@@ -49,6 +49,7 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
     Route::put('sewa-kendaraan/{id}', [PemeliharaanSewaKendaraanController::class, 'update'])->name('pemeliharaan.sewa-kendaraan.update');
 
     Route::get('surat-jalan', [PemeliharaanSuratJalanController::class, 'index'])->name('pemeliharaan.surat-jalan.index');
+    Route::get('surat-jalan-{id}', [PemeliharaanSuratJalanController::class, 'show'])->name('pemeliharaan.surat-jalan.show');
     Route::post('surat-jalan/{id}', [PemeliharaanSuratJalanController::class, 'update'])->name('pemeliharaan.surat-jalan.update');
     Route::get('surat-jalan/{id}/download', [PemeliharaanSuratJalanController::class, 'download'])->name('pemeliharaan.surat-jalan.download');
     
