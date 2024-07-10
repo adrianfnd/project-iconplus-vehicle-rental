@@ -48,20 +48,14 @@
                                         <td>{{ $item->penyewaan->kendaraan->nama }}</td>
                                         <td>
                                             <center>
-                                                @if ($item->penyewaan->status == 'Pengajuan')
-                                                    <span class="badge badge-success">Pengajuan</span>
-                                                @elseif ($item->penyewaan->status == 'Approved by Fasilitas')
-                                                    <span class="badge badge-success">Approved by Fasilitas</span>
-                                                @elseif ($item->penyewaan->status == 'Rejected by Fasilitas')
-                                                    <span class="badge badge-danger">Rejected by Fasilitas</span>
-                                                @elseif ($item->penyewaan->status == 'Approved by Administrasi')
-                                                    <span class="badge badge-success">Approved by Administrasi</span>
-                                                @elseif ($item->penyewaan->status == 'Approved by Vendor')
-                                                    <span class="badge badge-success">Approved by Vendor</span>
-                                                @elseif ($item->penyewaan->status == 'Rejected by Vendor')
-                                                    <span class="badge badge-danger">Rejected by Vendor</span>
-                                                @elseif ($item->penyewaan->status == 'Surat Jalan')
+                                                @if ($item->status == 'Surat Jalan')
                                                     <span class="badge badge-info">Surat Jalan</span>
+                                                @elseif ($item->status == 'Dalam Perjalanan')
+                                                    <span class="badge badge-warning">Dalam Perjalanan</span>
+                                                @elseif ($item->status == 'Selesai')
+                                                    <span class="badge badge-success">Selesai</span>
+                                                @elseif ($item->status == 'Rejected by ')
+                                                    <span class="badge badge-danger">Rejected by </span>
                                                 @else
                                                     <span class="badge badge-warning">Status tidak diketahui</span>
                                                 @endif

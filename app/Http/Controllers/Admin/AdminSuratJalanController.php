@@ -5,25 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SuratJalan;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class AdminSuratJalanController extends Controller
 {
     public function index()
     {
-        $suratJalan = SuratJalan::with('penyewaan')->get();
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->whereNotIn('status', ['Pembayaran'])
+                        ->get();
+
         return view('admin.surat-jalan.index', compact('suratJalan'));
     }
 
     public function show($id)
     {
         $suratJalan = SuratJalan::with('penyewaan')
-                    // ->whereIn('status', [
-                    //     'Approved by Fasilitas',
-                    //     'Approved by Administrasi',
-                    //     'Approved by Vendor'
-                    // ])->whereNotIn('status', ['Surat Jalan'])
-                    ->findOrFail($id);
+                        ->whereNotIn('status', ['Pembayaran'])
+                        ->findOrFail($id);
 
         $nilaiSewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
 
@@ -37,25 +37,38 @@ class AdminSuratJalanController extends Controller
         return view('admin.surat-jalan.show', compact('suratJalan'));
     }
 
-    public function create()
+    public function createPDF(Request $request, $id)
     {
-        return view('admin.surat-jalan.create');
-    }
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('status', 'Surat Jalan')
+                        ->findOrFail($id);
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'id_penyewaan' => 'required|uuid',
-            'tanggal_terbit' => 'required|date',
-        ]);
+        $penyewaan = $suratJalan->penyewaan;
 
-        $suratJalan = SuratJalan::create($request->all());
-        
-        $pdf = PDF::loadView('admin.surat-jalan.pdf', compact('suratJalan'));
+        $nilaiSewa = $penyewaan->is_outside_bandung ? 275000 : 250000;
 
-        $pdfPath = storage_path('app/public/surat-jalan/' . $suratJalan->id . '.pdf');
-        $pdf->save($pdfPath);
+        $biayaDriver = $penyewaan->is_outside_bandung ? 175000 : 150000;
 
-        return response()->download($pdfPath);
+        $penyewaan->nilai_sewa = $nilaiSewa;
+        $penyewaan->biaya_driver = $biayaDriver;
+        $penyewaan->total_nilai_sewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
+        $penyewaan->total_biaya_driver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+        $penyewaan->total_biaya = $penyewaan->total_nilai_sewa + $penyewaan->total_biaya_driver;
+
+        $suratJalan->tanggal_terbit = date('Y-m-d');
+
+        $pdf = PDF::loadView('admin.surat-jalan.pdf', compact('suratJalan', 'penyewaan'));
+
+        $vendorName = $penyewaan->vendor->nama;
+        $fileName = 'surat_jalan_' . $suratJalan->id . '.pdf';
+        $pdfPath = 'public/surat-jalan/' . $vendorName . '/' . $fileName;
+        Storage::put($pdfPath, $pdf->output());
+
+        $suratJalan->link_pdf = Storage::url($pdfPath);
+        $suratJalan->tanggal_terbit = date('Y-m-d');
+        $suratJalan->status = 'Dalam Perjalanan';
+        $suratJalan->save();
+
+        return redirect()->route('admin.surat-jalan.index')->with('success', 'Surat jalan berhasil dibuat dan dalam perjalanan.');
     }
 }

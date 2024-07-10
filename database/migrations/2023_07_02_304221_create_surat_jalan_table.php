@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreign('id_penyewaan')->references('id')->on('penyewaan');
             $table->string('link_pdf')->nullable();
             $table->date('tanggal_terbit')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

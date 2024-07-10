@@ -118,8 +118,8 @@
                         </div>
                         <div class="mt-4">
                             <a href="{{ route('admin.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
-                            @if ($suratJalan->penyewaan->status == 'Surat Jalan')
-                                <button type="button" class="btn btn-success" id="approveButton">Approve</button>
+                            @if ($suratJalan->status == 'Surat Jalan')
+                                <button type="button" class="btn btn-success" id="createButton">Create Surat Jalan</button>
                             @endif
                         </div>
                     </div>
@@ -131,12 +131,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        document.getElementById('approveButton').addEventListener('click', function() {
+        document.getElementById('createButton').addEventListener('click', function() {
             Swal.fire({
-                title: 'Approve Pengajuan',
-                text: 'Apakah Anda yakin ingin menyetujui pengajuan ini?',
+                title: 'Create Surat Jalan',
+                text: 'Apakah Anda yakin ingin membuat surat jalan dari penyewaan ini?',
                 showCancelButton: true,
-                confirmButtonText: 'Approve',
+                confirmButtonText: 'Create',
                 cancelButtonText: 'Close',
                 preConfirm: () => {
                     return true;
@@ -146,7 +146,7 @@
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action =
-                        '{{ route('admin.surat-jalan.approve', $suratJalan->id) }}';
+                        '{{ route('admin.surat-jalan.createpdf', $suratJalan->id) }}';
 
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';

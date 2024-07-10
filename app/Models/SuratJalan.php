@@ -19,6 +19,7 @@ class SuratJalan extends Model
         'id_penyewaan',
         'tanggal_terbit',
         'link_pdf',
+        'status'
     ];
 
     public function penyewaan()
