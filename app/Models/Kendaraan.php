@@ -20,6 +20,7 @@ class Kendaraan extends Model
         'tipe',
         'nomor_plat',
         'stok',
+        'total_kilometer',
         'image_url',
         'tarif_harian',
     ];

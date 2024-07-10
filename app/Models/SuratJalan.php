@@ -17,8 +17,10 @@ class SuratJalan extends Model
 
     protected $fillable = [
         'id_penyewaan',
-        'tanggal_terbit',
         'link_pdf',
+        'tanggal_terbit',
+        'is_lebih_hari',
+        'lebih_hari',
         'status'
     ];
 

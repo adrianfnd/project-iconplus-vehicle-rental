@@ -50,8 +50,9 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
 
     Route::get('surat-jalan', [PemeliharaanSuratJalanController::class, 'index'])->name('pemeliharaan.surat-jalan.index');
     Route::get('surat-jalan-{id}', [PemeliharaanSuratJalanController::class, 'show'])->name('pemeliharaan.surat-jalan.show');
-    Route::post('surat-jalan/{id}', [PemeliharaanSuratJalanController::class, 'update'])->name('pemeliharaan.surat-jalan.update');
-    Route::get('surat-jalan/{id}/download', [PemeliharaanSuratJalanController::class, 'download'])->name('pemeliharaan.surat-jalan.download');
+    Route::get('surat-jalan/pdf-{id}', [PemeliharaanSuratJalanController::class, 'showPdf'])->name('pemeliharaan.surat-jalan.pdf');
+    Route::get('surat-jalan/detail-{id}', [PemeliharaanSuratJalanController::class, 'showDone'])->name('pemeliharaan.surat-jalan.detail');
+    Route::post('surat-jalan/done-{id}', [PemeliharaanSuratJalanController::class, 'done'])->name('pemeliharaan.surat-jalan.done');
     
     Route::get('riwayat-surat-jalan', [PemeliharaanRiwayatSuratJalanController::class, 'index'])->name('pemeliharaan.riwayat-surat-jalan.index');
     

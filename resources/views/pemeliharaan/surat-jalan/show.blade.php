@@ -15,19 +15,16 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h4 class="card-title">Surat Jalan</h4>
-                            <div>
-                                <a href="{{ url($suratJalan->link_pdf) }}" class="btn btn-primary btn-sm" download>
-                                    <i class="mdi mdi-download"></i> Download
-                                </a>
-                                <button onclick="printPDF()" class="btn btn-info btn-sm">
-                                    <i class="mdi mdi-printer"></i> Print
-                                </button>
-                            </div>
+                        <h4 class="card-title">Surat Jalan</h4>
+                        <p class="card-description">Detail Surat Jalan</p>
+                        <div class="mb-3 d-flex justify-content-end">
+                            <a href="{{ url($suratJalan->link_pdf) }}" class="btn btn-primary btn-sm" download>
+                                <i class="mdi mdi-download"></i> Download
+                            </a>
                         </div>
                         <div class="pdf-container">
-                            <iframe src="{{ url($suratJalan->link_pdf) }}" width="100%" height="600px"></iframe>
+                            <embed src="{{ url('/pemeliharaan/surat-jalan/pdf-' . $suratJalan->id) }}"
+                                type="application/pdf" width="100%" height="750px" />
                         </div>
                         <div class="mt-4">
                             <a href="{{ route('pemeliharaan.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
@@ -37,11 +34,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function printPDF() {
-            const iframe = document.querySelector('iframe');
-            iframe.contentWindow.print();
-        }
-    </script>
 @endsection

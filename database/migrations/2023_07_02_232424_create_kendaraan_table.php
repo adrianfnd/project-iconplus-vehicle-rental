@@ -14,6 +14,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('nomor_plat');
             $table->integer('stok');
+            $table->decimal('total_kilometer', 10, 2);
             $table->string('image_url');
             $table->decimal('tarif_harian', 10, 2);
             $table->timestamps();
