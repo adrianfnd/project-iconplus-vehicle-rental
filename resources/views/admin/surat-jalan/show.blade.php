@@ -118,7 +118,7 @@
                         </div>
                         <div class="mt-4">
                             <a href="{{ route('admin.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
-                            @if ($suratJalan->penyewaan->status == 'Approved by Fasilitas')
+                            @if ($suratJalan->penyewaan->status == 'Surat Jalan')
                                 <button type="button" class="btn btn-success" id="approveButton">Approve</button>
                             @endif
                         </div>
@@ -146,7 +146,7 @@
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action =
-                        '{{ route('admin.sewa-kendaraan.approve', $suratJalan->penyewaan->id) }}';
+                        '{{ route('admin.surat-jalan.approve', $suratJalan->id) }}';
 
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';

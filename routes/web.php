@@ -80,11 +80,11 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('sewa-kendaraan', [AdminSewaKendaraanController::class, 'index'])->name('admin.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [AdminSewaKendaraanController::class, 'show'])->name('admin.sewa-kendaraan.show');
-    Route::post('sewa-kendaraan/{id}/approve', [AdminSewaKendaraanController::class, 'approve'])->name('admin.sewa-kendaraan.approve');
+    Route::post('sewa-kendaraan-approve-{id}', [AdminSewaKendaraanController::class, 'approve'])->name('admin.sewa-kendaraan.approve');
 
     Route::get('surat-jalan', [AdminSuratJalanController::class, 'index'])->name('admin.surat-jalan.index');
     Route::get('surat-jalan-{id}', [AdminSuratJalanController::class, 'show'])->name('admin.surat-jalan.show');
-    Route::get('surat-jalan/{id}/generate-pdf', [AdminSuratJalanController::class, 'generatePDF'])->name('admin.surat-jalan.generate-pdf');
+    Route::post('surat-jalan-approve-{id}', [AdminSuratJalanController::class, 'approve'])->name('admin.surat-jalan.approve');
     
     Route::get('pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
     Route::post('pembayaran/{id}/approve', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
@@ -99,8 +99,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
     Route::get('sewa-kendaraan', [VendorSewaKendaraanController::class, 'index'])->name('vendor.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [VendorSewaKendaraanController::class, 'show'])->name('vendor.sewa-kendaraan.show');
-    Route::post('sewa-kendaraan/{id}/approve', [VendorSewaKendaraanController::class, 'approve'])->name('vendor.sewa-kendaraan.approve');
-    Route::post('sewa-kendaraan/{id}/decline', [VendorSewaKendaraanController::class, 'decline'])->name('vendor.sewa-kendaraan.decline');
+    Route::post('sewa-kendaraan-approve-{id}', [VendorSewaKendaraanController::class, 'approve'])->name('vendor.sewa-kendaraan.approve');
+    Route::post('sewa-kendaraan-decline-{id}', [VendorSewaKendaraanController::class, 'decline'])->name('vendor.sewa-kendaraan.decline');
     
     Route::get('surat-jalan', [VendorSuratJalanController::class, 'index'])->name('vendor.surat-jalan.index');
     Route::post('surat-jalan', [VendorSuratJalanController::class, 'store'])->name('vendor.surat-jalan.store');

@@ -55,6 +55,7 @@ class VendorSewaKendaraanController extends Controller
         $suratJalan = New SuratJalan();
         $suratJalan->id_penyewaan = $pengajuan->id;
         $suratJalan->link_pdf = null;
+        $suratJalan->status = 'Surat Jalan';
 
         $suratJalan->save();
 

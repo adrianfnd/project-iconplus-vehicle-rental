@@ -170,11 +170,11 @@
                     const driver = Swal.getPopup().querySelector('#driver_id').value;
 
                     if (!vendor) {
-                        Swal.showValidationMessage('Please select a vendor');
+                        Swal.showValidationMessage('Tolong pilih vendor');
                         return false;
                     }
                     if (useDriver && !driver) {
-                        Swal.showValidationMessage('Please select a driver');
+                        Swal.showValidationMessage('Tolong pilih driver');
                         return false;
                     }
                     return {
