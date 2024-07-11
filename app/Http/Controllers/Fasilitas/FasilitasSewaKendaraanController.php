@@ -18,7 +18,7 @@ class FasilitasSewaKendaraanController extends Controller
                         'Approved by Administrasi',
                         'Approved by Vendor'
                     ])->whereNotIn('status', ['Surat Jalan'])
-                    ->get();
+                    ->paginate(10);
         
         return view('fasilitas.sewa-kendaraan.index', compact('pengajuan'));
     }

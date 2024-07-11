@@ -15,7 +15,7 @@ class PemeliharaanSewaKendaraanController extends Controller
     public function index()
     {
         $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan'])
-                            ->get();
+                            ->paginate(10);
         
         return view('pemeliharaan.sewa-kendaraan.index', compact('pengajuan'));
     }
