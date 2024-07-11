@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Vendor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SuratJalan;
-use App\Models\Invoice;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class VendorSuratJalanController extends Controller
 {
@@ -33,20 +34,19 @@ class VendorSuratJalanController extends Controller
         return view('vendor.surat-jalan.show', compact('suratJalan'));
     }
 
-    public function createInvoice(Request $request)
+    public function showPdf($id)
     {
-        $request->validate([
-            'id_surat_jalan' => 'required|uuid',
-            'amount' => 'required|numeric',
-        ]);
+        $suratJalan = SuratJalan::with('penyewaan')
+                            ->findOrFail($id);
+                            
+        $path = str_replace('storage/', 'app/public/', $suratJalan->link_pdf);
 
-        $invoice = Invoice::create([
-            'id_surat_jalan' => $request->id_surat_jalan,
-            'amount' => $request->amount,
-            'status' => 'pending',
-        ]);
+        $pdfPath = storage_path($path);
 
-        return redirect()->route('vendor.surat-jalan.index')
-            ->with('success', 'Pengajuan invoice berhasil dibuat.');
+        if (!$pdfPath) {
+            abort(404, 'PDF tidak ditemukan');
+        }
+
+        return response()->file($pdfPath);
     }
 }

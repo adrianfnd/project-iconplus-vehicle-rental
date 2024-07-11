@@ -103,9 +103,10 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     Route::get('sewa-kendaraan-{id}', [VendorSewaKendaraanController::class, 'show'])->name('vendor.sewa-kendaraan.show');
     Route::post('sewa-kendaraan-approve-{id}', [VendorSewaKendaraanController::class, 'approve'])->name('vendor.sewa-kendaraan.approve');
     Route::post('sewa-kendaraan-decline-{id}', [VendorSewaKendaraanController::class, 'decline'])->name('vendor.sewa-kendaraan.decline');
-    
+
     Route::get('surat-jalan', [VendorSuratJalanController::class, 'index'])->name('vendor.surat-jalan.index');
-    Route::post('surat-jalan', [VendorSuratJalanController::class, 'store'])->name('vendor.surat-jalan.store');
+    Route::get('surat-jalan-{id}', [VendorSuratJalanController::class, 'show'])->name('vendor.surat-jalan.show');
+    Route::get('surat-jalan/pdf-{id}', [VendorSuratJalanController::class, 'showPdf'])->name('vendor.surat-jalan.pdf');
     
     Route::get('pembayaran', [VendorPembayaranController::class, 'index'])->name('vendor.pembayaran.index');
     

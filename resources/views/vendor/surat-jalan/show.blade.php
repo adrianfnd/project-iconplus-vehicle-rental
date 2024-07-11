@@ -23,11 +23,11 @@
                             </a>
                         </div>
                         <div class="pdf-container">
-                            <embed src="{{ url('/pemeliharaan/surat-jalan/pdf-' . $suratJalan->id) }}"
-                                type="application/pdf" width="100%" height="750px" />
+                            <embed src="{{ url('/vendor/surat-jalan/pdf-' . $suratJalan->id) }}" type="application/pdf"
+                                width="100%" height="750px" />
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('pemeliharaan.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
+                            <a href="{{ route('vendor.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
                         </div>
                     </div>
                 </div>

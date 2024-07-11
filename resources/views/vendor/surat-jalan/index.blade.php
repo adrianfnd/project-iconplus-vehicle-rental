@@ -64,10 +64,10 @@
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('pemeliharaan.surat-jalan.show', $item->id) }}"
+                                                    <a href="{{ route('vendor.surat-jalan.show', $item->id) }}"
                                                         class="btn btn-sm btn-primary">Lihat</a>
                                                     @if ($item->status == 'Dalam Perjalanan')
-                                                        <a href="{{ route('pemeliharaan.surat-jalan.detail', $item->id) }}"
+                                                        <a href="{{ route('vendor.surat-jalan.detail', $item->id) }}"
                                                             class="btn btn-sm btn-success">Selesai</a>
                                                     @endif
                                                 </center>
@@ -77,7 +77,7 @@
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end mt-3">
-                                {{ $pengajuan->links('pagination::bootstrap-4') }}
+                                {{ $suratJalan->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
 

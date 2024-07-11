@@ -73,7 +73,7 @@
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end mt-3">
-                                {{ $pengajuan->links('pagination::bootstrap-4') }}
+                                {{ $suratJalan->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
 
