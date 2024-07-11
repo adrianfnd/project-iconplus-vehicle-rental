@@ -18,59 +18,65 @@
                         <h4 class="card-title">Daftar Pengajuan Surat Jalan</h4>
                         <p class="card-description">Berikut adalah daftar pengajuan surat jalan yang telah diajukan.</p>
 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Kontak</th>
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Selesai</th>
-                                    <th>Jumlah Hari</th>
-                                    <th>Nama Kendaraan</th>
-                                    <th>
-                                        <center>Status</center>
-                                    </th>
-                                    <th>
-                                        <center>Aksi</center>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($suratJalan as $index => $item)
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->penyewaan->nama_penyewa }}</td>
-                                        <td>{{ $item->penyewaan->kontak_penyewa }}</td>
-                                        <td>{{ $item->penyewaan->tanggal_mulai }}</td>
-                                        <td>{{ $item->penyewaan->tanggal_selesai }}</td>
-                                        <td>{{ $item->penyewaan->jumlah_hari_sewa }} Hari</td>
-                                        <td>{{ $item->penyewaan->kendaraan->nama }}</td>
-                                        <td>
-                                            <center>
-                                                @if ($item->status == 'Surat Jalan')
-                                                    <span class="badge badge-info">Surat Jalan</span>
-                                                @elseif ($item->status == 'Dalam Perjalanan')
-                                                    <span class="badge badge-warning">Dalam Perjalanan</span>
-                                                @elseif ($item->status == 'Selesai')
-                                                    <span class="badge badge-success">Selesai</span>
-                                                @elseif ($item->status == 'Rejected by ')
-                                                    <span class="badge badge-danger">Rejected by </span>
-                                                @else
-                                                    <span class="badge badge-warning">Status tidak diketahui</span>
-                                                @endif
-                                            </center>
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <a href="{{ route('admin.surat-jalan.show', $item->id) }}"
-                                                    class="btn btn-sm btn-primary">Lihat</a>
-                                            </center>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Kontak</th>
+                                        <th>Tanggal Mulai</th>
+                                        <th>Tanggal Selesai</th>
+                                        <th>Jumlah Hari</th>
+                                        <th>Nama Kendaraan</th>
+                                        <th>
+                                            <center>Status</center>
+                                        </th>
+                                        <th>
+                                            <center>Aksi</center>
+                                        </th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($suratJalan as $index => $item)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $item->penyewaan->nama_penyewa }}</td>
+                                            <td>{{ $item->penyewaan->kontak_penyewa }}</td>
+                                            <td>{{ $item->penyewaan->tanggal_mulai }}</td>
+                                            <td>{{ $item->penyewaan->tanggal_selesai }}</td>
+                                            <td>{{ $item->penyewaan->jumlah_hari_sewa }} Hari</td>
+                                            <td>{{ $item->penyewaan->kendaraan->nama }}</td>
+                                            <td>
+                                                <center>
+                                                    @if ($item->status == 'Surat Jalan')
+                                                        <span class="badge badge-info">Surat Jalan</span>
+                                                    @elseif ($item->status == 'Dalam Perjalanan')
+                                                        <span class="badge badge-warning">Dalam Perjalanan</span>
+                                                    @elseif ($item->status == 'Selesai')
+                                                        <span class="badge badge-success">Selesai</span>
+                                                    @elseif ($item->status == 'Rejected by ')
+                                                        <span class="badge badge-danger">Rejected by </span>
+                                                    @else
+                                                        <span class="badge badge-warning">Status tidak diketahui</span>
+                                                    @endif
+                                                </center>
+                                            </td>
+                                            <td>
+                                                <center>
+                                                    <a href="{{ route('admin.surat-jalan.show', $item->id) }}"
+                                                        class="btn btn-sm btn-primary">Lihat</a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end mt-3">
+                                {{ $pengajuan->links('pagination::bootstrap-4') }}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

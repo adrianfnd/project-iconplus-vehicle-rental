@@ -21,7 +21,7 @@ class PemeliharaanSuratJalanController extends Controller
                             'Selesai'
                         ])
                         ->whereNotIn('status', ['Pengajuan Pembayaran'])
-                        ->get();
+                        ->paginate(10);
 
         return view('pemeliharaan.surat-jalan.index', compact('suratJalan'));
     }

@@ -14,7 +14,7 @@ class AdminSuratJalanController extends Controller
     {
         $suratJalan = SuratJalan::with('penyewaan')
                         ->whereNotIn('status', ['Pengajuan Pembayaran'])
-                        ->get();
+                        ->paginate(10);
 
         return view('admin.surat-jalan.index', compact('suratJalan'));
     }

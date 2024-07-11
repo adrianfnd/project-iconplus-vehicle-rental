@@ -11,8 +11,26 @@ class VendorSuratJalanController extends Controller
 {
     public function index()
     {
-        $suratJalan = SuratJalan::all();
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->whereIn('status', [
+                            'Selesai'
+                        ])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->paginate(10);
+
         return view('vendor.surat-jalan.index', compact('suratJalan'));
+    }
+
+    public function show($id)
+    {
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->whereIn('status', [
+                            'Selesai'
+                        ])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->findOrFail($id);
+
+        return view('vendor.surat-jalan.show', compact('suratJalan'));
     }
 
     public function createInvoice(Request $request)
