@@ -101,7 +101,7 @@
                             </div>
                         @endif
                         <div class="mt-4">
-                            <h5>Catatan Penting:</h5>
+                            <h5>Catatan:</h5>
                             <ul>
                                 <li>Nilai Sewa Di daerah Lingkup Bandung: 250.000/hari</li>
                                 <li>Nilai Sewa Di daerah Luar Bandung: 275.000/hari</li>

@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('id_vendor')->nullable();
+            $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_tagihan');
             $table->foreign('id_tagihan')->references('id')->on('tagihan');
             $table->decimal('jumlah', 10, 2);

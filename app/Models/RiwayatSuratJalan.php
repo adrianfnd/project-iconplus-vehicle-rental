@@ -14,6 +14,7 @@ class RiwayatSuratJalan extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id_vendor',
         'id_surat_jalan',
         'tanggal',
         'keterangan',

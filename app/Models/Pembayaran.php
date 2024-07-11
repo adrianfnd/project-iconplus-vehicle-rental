@@ -14,6 +14,7 @@ class Pembayaran extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id_vendor',
         'id_tagihan',
         'jumlah',
         'tanggal_pembayaran',

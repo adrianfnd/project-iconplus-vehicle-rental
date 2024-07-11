@@ -13,7 +13,9 @@ class VendorSuratJalanController extends Controller
     public function index()
     {
         $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('id_vendor', auth()->user()->vendor->id)
                         ->whereIn('status', [
+                            'Dalam Perjalanan',
                             'Selesai'
                         ])
                         ->whereNotIn('status', ['Pengajuan Pembayaran'])
@@ -25,7 +27,9 @@ class VendorSuratJalanController extends Controller
     public function show($id)
     {
         $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('id_vendor', auth()->user()->vendor->id)
                         ->whereIn('status', [
+                            'Dalam Perjalanan',
                             'Selesai'
                         ])
                         ->whereNotIn('status', ['Pengajuan Pembayaran'])
@@ -48,5 +52,27 @@ class VendorSuratJalanController extends Controller
         }
 
         return response()->file($pdfPath);
+    }
+
+    public function approve(Request $request, $id)
+    {
+        $suratJalan = SuratJalan::with('penyewaan')
+                    ->where('id_vendor', auth()->user()->vendor->id)
+                    ->where('status', 'Selesai')
+                    ->findOrFail($id);
+
+        $suratJalan->status = 'Tagihan';
+        $suratJalan->save();
+
+        $tagihan = new Tagihan();
+        $tagihan->id_penyewaan = $penyewaan->id;
+        $tagihan->tanggal_terbit = now();
+        $tagihan->tanggal_jatuh_tempo = now()->addDays(1);
+        $tagihan->total_tagihan = $suratJalan->penyewaan->total_biaya;
+        $tagihan->status = 'Menunggu Pembayaran';
+
+        $tagihan->save();
+
+        return redirect()->route('vendor.surat-jalan.index')->with('success', 'Pengajuan pembayaran berhasil.');
     }
 }

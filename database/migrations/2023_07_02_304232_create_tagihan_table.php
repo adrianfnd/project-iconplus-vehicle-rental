@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('tagihan', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('id_vendor')->nullable();
+            $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_penyewaan');
             $table->foreign('id_penyewaan')->references('id')->on('penyewaan');
             $table->date('tanggal_terbit');

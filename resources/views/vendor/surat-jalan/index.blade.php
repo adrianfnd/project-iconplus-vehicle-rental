@@ -66,10 +66,6 @@
                                                 <center>
                                                     <a href="{{ route('vendor.surat-jalan.show', $item->id) }}"
                                                         class="btn btn-sm btn-primary">Lihat</a>
-                                                    @if ($item->status == 'Dalam Perjalanan')
-                                                        <a href="{{ route('vendor.surat-jalan.detail', $item->id) }}"
-                                                            class="btn btn-sm btn-success">Selesai</a>
-                                                    @endif
                                                 </center>
                                             </td>
                                         </tr>

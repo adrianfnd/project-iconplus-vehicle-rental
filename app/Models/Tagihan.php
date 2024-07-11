@@ -14,6 +14,7 @@ class Tagihan extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id_vendor',
         'id_penyewaan',
         'tanggal_terbit',
         'tanggal_jatuh_tempo',

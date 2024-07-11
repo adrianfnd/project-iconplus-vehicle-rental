@@ -16,6 +16,7 @@ class SuratJalan extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'id_vendor',
         'id_penyewaan',
         'link_pdf',
         'tanggal_terbit',
