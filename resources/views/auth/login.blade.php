@@ -18,6 +18,30 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+    <style>
+        .auth {
+            background: url('../../assets/images/background.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .auth::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-form-light {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,7 +77,7 @@
                                     <span class="text-danger">{{ $errors->first('credentials') }}</span>
                                 @endif
                                 <div class="my-2 d-flex justify-content-between align-items-center">
-                                    <div class="form-check">
+                                    <div class="form-check" style="margin-top: -5px;">
                                         <label class="form-check-label text-muted">
                                             <input type="checkbox" class="form-check-input"> Ingat saya
                                         </label>
