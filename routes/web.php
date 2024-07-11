@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
     Route::get('surat-jalan/detail-{id}', [PemeliharaanSuratJalanController::class, 'showDone'])->name('pemeliharaan.surat-jalan.detail');
     Route::post('surat-jalan/done-{id}', [PemeliharaanSuratJalanController::class, 'done'])->name('pemeliharaan.surat-jalan.done');
     
-    Route::get('riwayat-surat-jalan', [PemeliharaanRiwayatSuratJalanController::class, 'index'])->name('pemeliharaan.riwayat-surat-jalan.index');
+    Route::get('riwayat', [PemeliharaanRiwayatSuratJalanController::class, 'index'])->name('pemeliharaan.riwayat.index');
     
     Route::get('laporan-mingguan', [PemeliharaanLaporanController::class, 'index'])->name('pemeliharaan.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [PemeliharaanLaporanController::class, 'generatePDF'])->name('pemeliharaan.laporan-mingguan.generate-pdf');
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
     Route::post('pembayaran/{id}/decline', [FasilitasPembayaranController::class, 'decline'])->name('fasilitas.pembayaran.decline');
     Route::post('pembayaran/{id}/bayar', [FasilitasPembayaranController::class, 'bayar'])->name('fasilitas.pembayaran.bayar');
     
-    Route::get('riwayat-surat-jalan', [FasilitasRiwayatSuratJalanController::class, 'index'])->name('fasilitas.riwayat-surat-jalan.index');
+    Route::get('riwayat', [FasilitasRiwayatSuratJalanController::class, 'index'])->name('fasilitas.riwayat.index');
     
     Route::get('laporan-mingguan', [FasilitasLaporanController::class, 'index'])->name('fasilitas.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [FasilitasLaporanController::class, 'generatePDF'])->name('fasilitas.laporan-mingguan.generate-pdf');
@@ -91,7 +91,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
     Route::post('pembayaran/{id}/approve', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
     
-    Route::get('riwayat-surat-jalan', [AdminRiwayatSuratJalanController::class, 'index'])->name('admin.riwayat-surat-jalan.index');
+    Route::get('riwayat', [AdminRiwayatSuratJalanController::class, 'index'])->name('admin.riwayat.index');
     
     Route::get('laporan-mingguan', [AdminLaporanController::class, 'index'])->name('admin.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [AdminLaporanController::class, 'generatePDF'])->name('admin.laporan-mingguan.generate-pdf');
@@ -109,7 +109,7 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     
     Route::get('pembayaran', [VendorPembayaranController::class, 'index'])->name('vendor.pembayaran.index');
     
-    Route::get('riwayat-surat-jalan', [VendorRiwayatSuratJalanController::class, 'index'])->name('vendor.riwayat-surat-jalan.index');
+    Route::get('riwayat', [VendorRiwayatSuratJalanController::class, 'index'])->name('vendor.riwayat.index');
     
     Route::get('laporan-mingguan', [VendorLaporanController::class, 'index'])->name('vendor.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [VendorLaporanController::class, 'generatePDF'])->name('vendor.laporan-mingguan.generate-pdf');

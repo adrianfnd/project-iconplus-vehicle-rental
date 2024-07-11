@@ -39,8 +39,8 @@
                 <div class="collapse" id="riwayat">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('pemeliharaan.riwayat-surat-jalan.index') }}">
-                                Riwayat Surat Jalan
+                            <a class="nav-link" href="{{ route('pemeliharaan.riwayat.index') }}">
+                                Riwayat
                             </a>
                         </li>
                     </ul>
@@ -96,8 +96,8 @@
                 <div class="collapse" id="riwayat">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('fasilitas.riwayat-surat-jalan.index') }}">
-                                Riwayat Surat Jalan
+                            <a class="nav-link" href="{{ route('fasilitas.riwayat.index') }}">
+                                Riwayat
                             </a>
                         </li>
                     </ul>
@@ -158,8 +158,8 @@
                 <div class="collapse" id="riwayat">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.riwayat-surat-jalan.index') }}">
-                                Riwayat Surat Jalan
+                            <a class="nav-link" href="{{ route('admin.riwayat.index') }}">
+                                Riwayat
                             </a>
                         </li>
                     </ul>
@@ -220,8 +220,8 @@
                 <div class="collapse" id="riwayat">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vendor.riwayat-surat-jalan.index') }}">
-                                Riwayat Surat Jalan
+                            <a class="nav-link" href="{{ route('vendor.riwayat.index') }}">
+                                Riwayat
                             </a>
                         </li>
                     </ul>

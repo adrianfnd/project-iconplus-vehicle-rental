@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
+    <title>Icon+ Vehicle Rental</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
@@ -17,7 +17,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="../../assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left p-5">
                             <div class="brand-logo">
-                                <img src="../../assets/images/logo.svg">
+                                <img src="../../assets/images/logo.png">
                             </div>
                             <h4>Hello! let's get started</h4>
                             <h6 class="font-weight-light">Sign in to continue.</h6>

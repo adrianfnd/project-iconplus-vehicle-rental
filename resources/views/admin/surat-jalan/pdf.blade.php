@@ -104,7 +104,7 @@
 <body>
     <div class="container">
         <div class="header">
-            {{-- <img src="{{ asset('assets/images/logo.svg') }}" alt="Logo Perusahaan" class="logo"> --}}
+            {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="Logo Perusahaan" class="logo"> --}}
             <h1>SURAT JALAN RENTAL MOBIL</h1>
         </div>
 
