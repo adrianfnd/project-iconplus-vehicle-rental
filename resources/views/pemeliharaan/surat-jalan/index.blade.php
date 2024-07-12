@@ -64,11 +64,12 @@
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('pemeliharaan.surat-jalan.show', $item->id) }}"
-                                                        class="btn btn-sm btn-primary">Lihat</a>
                                                     @if ($item->status == 'Dalam Perjalanan')
                                                         <a href="{{ route('pemeliharaan.surat-jalan.detail', $item->id) }}"
                                                             class="btn btn-sm btn-success">Selesai</a>
+                                                    @else
+                                                        <a href="{{ route('pemeliharaan.surat-jalan.show', $item->id) }}"
+                                                            class="btn btn-sm btn-primary">Lihat</a>
                                                     @endif
                                                 </center>
                                             </td>

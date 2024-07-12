@@ -131,47 +131,50 @@ class PemeliharaanSuratJalanController extends Controller
         
             $nilaiSewa = $penyewaan->is_outside_bandung ? 275000 : 250000;
             $biayaDriver = $penyewaan->is_outside_bandung ? 175000 : 150000;
-    
-            // Tidak ditambahkan biaya BBM, TOL, dan parkir
-            // $totalSewa = ($nilaiSewa + $biayaDriver) * $penyewaan->jumlah_hari_sewa;
 
-            // Dengan biasa ditambahkan biaya BBM, TOL, dan parkir
-            $totalSewa = ($nilaiSewa + $biayaDriver + $request->jumlah_biaya_bbm_tol_parkir) * $penyewaan->jumlah_hari_sewa;
+            $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
+            $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+
+            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $request->jumlah_biaya_bbm_tol_parkir;
+
             $totalDenda = $denda->jumlah_denda * $request->lebih_hari_input;
+
             $totalBiaya = $totalSewa + $totalDenda;
-        
-            $penyewaan->nilai_sewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
-            $penyewaan->biaya_driver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+
+            $penyewaan->nilai_sewa = $totalNilaiSewa;
+            $penyewaan->biaya_driver = $totalBiayaDriver;
             $penyewaan->total_biaya = $totalBiaya;
         
             $suratJalan->is_lebih_hari = 1;
             $suratJalan->lebih_hari = $request->lebih_hari_input;
-            $suratJalan->jumlah_denda = $denda->jumlah_denda * $request->lebih_hari_input;
+            $suratJalan->jumlah_denda = $totalDenda;
         } else {
             $nilaiSewa = $penyewaan->is_outside_bandung ? 275000 : 250000;
             $biayaDriver = $penyewaan->is_outside_bandung ? 175000 : 150000;
-    
-            // Tidak ditambahkan biaya BBM, TOL, dan parkir
-            // $totalSewa = ($nilaiSewa + $biayaDriver) * $penyewaan->jumlah_hari_sewa;
-            
-            // Dengan biasa ditambahkan biaya BBM, TOL, dan parkir
-            $totalSewa = ($nilaiSewa + $biayaDriver + $request->jumlah_biaya_bbm_tol_parkir) * $penyewaan->jumlah_hari_sewa;
-            
-            $penyewaan->nilai_sewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
-            $penyewaan->biaya_driver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+
+            $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
+            $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+
+            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $request->jumlah_biaya_bbm_tol_parkir;
+
+            $penyewaan->nilai_sewa = $totalNilaiSewa;
+            $penyewaan->biaya_driver = $totalBiayaDriver;
             $penyewaan->total_biaya = $totalSewa;
-            
+
             $suratJalan->is_lebih_hari = 0;
             $suratJalan->lebih_hari = null;
             $suratJalan->jumlah_denda = 0;
         }
+        
     
         $kendaraan = Kendaraan::find($penyewaan->id_kendaraan);
     
         $kendaraan->total_kilometer = $request->kilometer_akhir;
         $kendaraan->save();
     
+        $penyewaan->nomor_io = rand(100000, 999999);
         $penyewaan->save();
+
         $suratJalan->status = 'Selesai';
         $suratJalan->save();
     

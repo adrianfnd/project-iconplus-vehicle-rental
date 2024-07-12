@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Denda;
 use App\Models\SuratJalan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -56,7 +57,20 @@ class VendorSuratJalanController extends Controller
 
     public function showApprove($id)
     {
-        $suratJalan = SuratJalan::where('status', 'Dalam Perjalanan')->findOrFail($id);
+        $suratJalan = SuratJalan::with('penyewaan')
+                    ->where('id_vendor', auth()->user()->vendor->id)
+                    ->where('status', 'Selesai')
+                    ->findOrFail($id);
+
+        $denda = Denda::findOrFail(1);
+
+        $nilaiSewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
+
+        $biayaDriver = $suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
+
+        $suratJalan->nilai_sewa = $nilaiSewa;
+        $suratJalan->biaya_driver = $biayaDriver;
+        $suratJalan->denda = $denda->jumlah_denda;
 
         return view('vendor.surat-jalan.detail', compact('suratJalan'));
     }

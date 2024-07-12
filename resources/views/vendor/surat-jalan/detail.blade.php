@@ -34,142 +34,135 @@
                     <div class="card-body">
                         <h4 class="card-title">Data Penggunaan Kendaraan</h4>
                         <p class="card-description">
-                            Isi data penggunaan kendaraan, termasuk kilometer awal dan akhir, serta unggah bukti biaya BBM,
-                            tol, parkir, dan bukti lainnya. Tandai jika melebihi hari sewa.
+                            Informasi penggunaan kendaraan, termasuk kilometer awal dan akhir, serta biaya BBM, tol, dan
+                            parkir.
                         </p>
 
                         <div class="mt-4">
-                            <form action="{{ route('vendor.surat-jalan.done', $suratJalan->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kilometer_awal">Kilometer Awal</label>
-                                            <input type="number" class="form-control" id="kilometer_awal"
-                                                name="kilometer_awal" value="{{ old('kilometer_awal') }}" required>
-                                            @if ($errors->has('kilometer_awal'))
-                                                <span class="text-danger">{{ $errors->first('kilometer_awal') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kilometer_akhir">Kilometer Akhir</label>
-                                            <input type="number" class="form-control" id="kilometer_akhir"
-                                                name="kilometer_akhir" value="{{ old('kilometer_akhir') }}" required>
-                                            @if ($errors->has('kilometer_akhir'))
-                                                <span class="text-danger">{{ $errors->first('kilometer_akhir') }}</span>
-                                            @endif
-                                        </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Kilometer Awal</label>
+                                        <p>{{ $suratJalan->penyewaan->kilometer_awal ?? 'Tidak ada data' }}</p>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="jumlah_biaya_bbm_tol_parkir">Jumlah Biaya BBM TOL dan Parkir</label>
-                                    <input type="number" class="form-control" id="jumlah_biaya_bbm_tol_parkir"
-                                        name="jumlah_biaya_bbm_tol_parkir" value="{{ old('jumlah_biaya_bbm_tol_parkir') }}"
-                                        required>
-                                    @if ($errors->has('jumlah_biaya_bbm_tol_parkir'))
-                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_bbm_tol_parkir') }}</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Kilometer Akhir</label>
+                                        <p>{{ $suratJalan->penyewaan->kilometer_akhir ?? 'Tidak ada data' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Bukti Biaya BBM TOL dan Parkir</label>
+                                <div class="d-flex flex-wrap">
+                                    @if ($suratJalan->bukti_biaya_bbm_tol_parkir)
+                                        @foreach (json_decode($suratJalan->bukti_biaya_bbm_tol_parkir) as $bukti)
+                                            <img src="{{ asset('storage/' . $bukti) }}" alt="Bukti Biaya"
+                                                style="width: 150px; height: 150px; object-fit: cover; margin: 5px;">
+                                        @endforeach
+                                    @else
+                                        <p>Tidak ada bukti yang diunggah</p>
                                     @endif
                                 </div>
+                            </div>
+                            @if ($suratJalan->bukti_lainnya)
                                 <div class="form-group">
-                                    <label for="bukti_biaya_bbm_tol_parkir">Upload Bukti Biaya BBM TOL dan Parkir</label>
-                                    <input type="file" class="form-control-file" id="bukti_biaya_bbm_tol_parkir"
-                                        value="{{ old('bukti_biaya_bbm_tol_parkir[]') }}"
-                                        name="bukti_biaya_bbm_tol_parkir[]" accept="image/jpeg,image/png" required multiple>
-                                    <br>
-                                    <small class="form-text text-muted mt-1">
-                                        Format file: gambar (JPG, PNG). Anda dapat mengunggah lebih dari satu gambar.
-                                    </small>
-                                    <div id="bukti_biaya_bbm_tol_parkir_preview" class="mt-2 d-flex flex-wrap"></div>
-                                    @if ($errors->has('bukti_biaya_bbm_tol_parkir'))
-                                        <span class="text-danger">{{ $errors->first('bukti_biaya_bbm_tol_parkir') }}</span>
-                                    @endif
+                                    <label>Bukti Lainnya</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach (json_decode($suratJalan->bukti_lainnya) as $bukti)
+                                            <img src="{{ asset('storage/' . $bukti) }}" alt="Bukti Lainnya"
+                                                style="width: 150px; height: 150px; object-fit: cover; margin: 5px;">
+                                        @endforeach
+                                    </div>
                                 </div>
+                            @endif
+                            @if ($suratJalan->penyewaan->keterangan)
                                 <div class="form-group">
-                                    <label for="bukti_lainnya">Upload Bukti Lainnya</label>
-                                    <input type="file" class="form-control-file" id="bukti_lainnya"
-                                        name="bukti_lainnya[]" accept="image/jpeg,image/png" multiple>
-                                    <br>
-                                    <small class="form-text text-muted mt-1">
-                                        Format file: gambar (JPG, PNG). Anda dapat mengunggah lebih dari satu gambar.
-                                    </small>
-                                    <div id="bukti_lainnya_preview" class="mt-2 d-flex flex-wrap"></div>
-                                    @if ($errors->has('bukti_lainnya'))
-                                        <span class="text-danger">{{ $errors->first('bukti_lainnya') }}</span>
-                                    @endif
+                                    <label>Keterangan</label>
+                                    <p>{{ $suratJalan->penyewaan->keterangan }}</p>
                                 </div>
-                                <div class="form-group">
-                                    <label for="keterangan">Keterangan</label>
-                                    <textarea class="form-control" id="keterangan" name="keterangan">{{ old('keterangan') }}</textarea>
-                                    @if ($errors->has('keterangan'))
-                                        <span class="text-danger">{{ $errors->first('keterangan') }}</span>
-                                    @endif
-                                </div>
-                                <div class="form-group">
-                                    <label>
-                                        <input type="checkbox" value="0" id="lebihHariCheckbox"> Lebih dari hari sewa
-                                    </label>
-                                    <input type="number" class="form-control mt-2" id="lebihHariInput"
-                                        value ="{{ old('lebih_hari_input') }}" name="lebih_hari_input"
-                                        placeholder="Jumlah hari lebih" style="display: none;">
-                                    @if ($errors->has('lebih_hari_input'))
-                                        <span class="text-danger">{{ $errors->first('lebih_hari_input') }}</span>
-                                    @endif
-                                </div>
-                                <button type="submit" class="btn btn-success">Selesai</button>
-                                <a href="{{ route('vendor.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
-                            </form>
+                            @endif
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Rincian Keuangan</h4>
+                        <p class="card-description">
+                            Informasi rinci mengenai biaya sewa, biaya driver, dan total biaya.
+                        </p>
 
+                        <table class="table table-bordered mt-4">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Harga Sewa
+                                        <br>
+                                        <small class="text-muted">
+                                            Rp {{ number_format($suratJalan->nilai_sewa, 0, ',', '.') }} x
+                                            {{ $suratJalan->penyewaan->jumlah_hari_sewa }} hari
+                                        </small>
+                                    </td>
+                                    <td class="text-right">
+                                        Rp
+                                        {{ number_format($suratJalan->penyewaan->nilai_sewa, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Biaya Driver
+                                        <br>
+                                        <small class="text-muted">
+                                            Rp {{ number_format($suratJalan->biaya_driver, 0, ',', '.') }} x
+                                            {{ $suratJalan->penyewaan->jumlah_hari_sewa }} hari
+                                        </small>
+                                    </td>
+                                    <td class="text-right">
+                                        Rp
+                                        {{ number_format($suratJalan->penyewaan->biaya_driver, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Biaya BBM, TOL, dan Parkir</td>
+                                    <td class="text-right">
+                                        Rp {{ number_format($suratJalan->penyewaan->biaya_bbm_tol_parkir, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                @if ($suratJalan->is_lebih_hari)
+                                    <tr>
+                                        <td>
+                                            Denda Kelebihan Hari
+                                            <br>
+                                            <small class="text-muted">
+                                                Rp {{ number_format($suratJalan->denda, 0, ',', '.') }} x
+                                                {{ $suratJalan->lebih_hari }} hari
+                                            </small>
+                                        </td>
+                                        <td class="text-right">
+                                            Rp
+                                            {{ number_format($suratJalan->jumlah_denda, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @endif
+                                <tr class="font-weight-bold">
+                                    <td>Total Biaya</td>
+                                    <td class="text-right">
+                                        Rp {{ number_format($suratJalan->penyewaan->total_biaya, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-4">
+                            <a href="{{ route('vendor.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const lebihHariCheckbox = document.querySelector('#lebihHariCheckbox');
-            const lebihHariInput = document.querySelector('#lebihHariInput');
-
-            lebihHariCheckbox.addEventListener('change', () => {
-                if (lebihHariCheckbox.checked) {
-                    lebihHariInput.style.display = 'block';
-                } else {
-                    lebihHariInput.style.display = 'none';
-                }
-            });
-
-            function handleFilePreview(inputElement, previewElement) {
-                inputElement.addEventListener('change', function(event) {
-                    previewElement.innerHTML = '';
-                    const files = event.target.files;
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.style.width = '150px';
-                            img.style.height = '150px';
-                            img.style.objectFit = 'cover';
-                            img.style.margin = '5px';
-                            previewElement.appendChild(img);
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-
-            const biayaInput = document.getElementById('bukti_biaya_bbm_tol_parkir');
-            const biayaPreview = document.getElementById('bukti_biaya_bbm_tol_parkir_preview');
-            handleFilePreview(biayaInput, biayaPreview);
-
-            const bukti_lainnyaInput = document.getElementById('bukti_lainnya');
-            const bukti_lainnyaPreview = document.getElementById('bukti_lainnya_preview');
-            handleFilePreview(bukti_lainnyaInput, bukti_lainnyaPreview);
-        });
-    </script>
 @endsection
