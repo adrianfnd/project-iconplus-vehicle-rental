@@ -21,7 +21,7 @@ class PemeliharaanSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->paginate(10);
 
         return view('pemeliharaan.surat-jalan.index', compact('suratJalan'));
@@ -34,7 +34,7 @@ class PemeliharaanSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->findOrFail($id);
 
         return view('pemeliharaan.surat-jalan.show', compact('suratJalan'));

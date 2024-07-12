@@ -13,7 +13,7 @@ class AdminSuratJalanController extends Controller
     public function index()
     {
         $suratJalan = SuratJalan::with('penyewaan')
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->paginate(10);
 
         return view('admin.surat-jalan.index', compact('suratJalan'));
@@ -22,7 +22,7 @@ class AdminSuratJalanController extends Controller
     public function show($id)
     {
         $suratJalan = SuratJalan::with('penyewaan')
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->findOrFail($id);
 
         $nilaiSewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;

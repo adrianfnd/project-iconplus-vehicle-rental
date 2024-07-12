@@ -21,7 +21,7 @@ class VendorSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->paginate(10);
 
         return view('vendor.surat-jalan.index', compact('suratJalan'));
@@ -35,7 +35,7 @@ class VendorSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
                         ->findOrFail($id);
 
         return view('vendor.surat-jalan.show', compact('suratJalan'));
@@ -84,7 +84,7 @@ class VendorSuratJalanController extends Controller
                     ->where('status', 'Selesai')
                     ->findOrFail($id);
 
-        $suratJalan->status = 'Tagihan';
+        $suratJalan->status = 'Pengajuan Pembayaran';
 
         $suratJalan->save();
 
@@ -92,7 +92,7 @@ class VendorSuratJalanController extends Controller
                     ->where('id', $suratJalan->penyewaan->id)
                     ->firstOrFail();
 
-        $pengajuan->status = 'Tagihan';
+        $pengajuan->status = 'Pengajuan Pembayaran';
         $pengajuan->reject_notes = null;
 
         $pengajuan->save();
@@ -103,7 +103,7 @@ class VendorSuratJalanController extends Controller
         $tagihan->tanggal_terbit = now();
         $tagihan->tanggal_jatuh_tempo = now()->addDays(1);
         $tagihan->total_tagihan = $suratJalan->penyewaan->total_biaya;
-        $tagihan->status = 'Menunggu Pembayaran';
+        $tagihan->status = 'Pengajuan Pembayaran';
 
         $tagihan->save();
 
