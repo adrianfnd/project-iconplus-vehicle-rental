@@ -113,6 +113,8 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     Route::post('surat-jalan/approve-{id}', [VendorSuratJalanController::class, 'approve'])->name('vendor.surat-jalan.approve');
     
     Route::get('pembayaran', [VendorPembayaranController::class, 'index'])->name('vendor.pembayaran.index');
+    Route::get('pembayaran-{id}', [VendorPembayaranController::class, 'show'])->name('vendor.pembayaran.show');
+    Route::get('pembayaran/pdf-{id}', [VendorPembayaranController::class, 'showPdf'])->name('vendor.pembayaran.pdf');
     
     Route::get('riwayat', [VendorRiwayatSuratJalanController::class, 'index'])->name('vendor.riwayat.index');
     

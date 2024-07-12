@@ -29,7 +29,7 @@
                                 width="100%" height="600px" />
                         </div>
                         <div class="mt-4">
-                            <a href="{{ route('fasilitas.sewa-kendaraan.index') }}" class="btn btn-light">Kembali</a>
+                            <a href="{{ route('admin.pembayaran.index') }}" class="btn btn-light">Kembali</a>
                             @if ($tagihan->status == 'Pengajuan Pembayaran')
                                 <button type="button" class="btn btn-success" id="approveButton">Approve</button>
                             @endif
