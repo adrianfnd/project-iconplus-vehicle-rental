@@ -14,8 +14,6 @@ return new class extends Migration
             $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_surat_jalan');
             $table->foreign('id_surat_jalan')->references('id')->on('surat_jalan')->onDelete('cascade');
-            $table->date('tanggal');
-            $table->text('keterangan');
             $table->boolean('sudah_dicetak')->default(false);
             $table->timestamps();
         });

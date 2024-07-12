@@ -17,7 +17,7 @@ class FasilitasSewaKendaraanController extends Controller
                         'Approved by Fasilitas',
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Lunas'])
                     ->paginate(10);
         
         return view('fasilitas.sewa-kendaraan.index', compact('pengajuan'));
@@ -30,7 +30,7 @@ class FasilitasSewaKendaraanController extends Controller
                         'Approved by Fasilitas',
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Lunas'])
                     ->findOrFail($id);
 
         $vendors = Vendor::all();

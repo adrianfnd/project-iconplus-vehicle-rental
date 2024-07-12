@@ -72,6 +72,8 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
     Route::get('pembayaran/pdf-{id}', [FasilitasPembayaranController::class, 'showPdf'])->name('fasilitas.pembayaran.pdf');
     Route::post('pembayaran/approve-{id}', [FasilitasPembayaranController::class, 'approve'])->name('fasilitas.pembayaran.approve');
     Route::post('pembayaran/decline-{id}', [FasilitasPembayaranController::class, 'decline'])->name('fasilitas.pembayaran.decline');
+    Route::get('pembayaran-success/{encrypted_id}', [FasilitasPembayaranController::class, 'success'])->name('fasilitas.pembayaran.success');
+    Route::get('pembayaran-failed/{encrypted_id}', [FasilitasPembayaranController::class, 'failed'])->name('fasilitas.pembayaran.failed');
     
     Route::get('riwayat', [FasilitasRiwayatSuratJalanController::class, 'index'])->name('fasilitas.riwayat.index');
     

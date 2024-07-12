@@ -13,7 +13,7 @@ class AdminPembayaranController extends Controller
     public function index()
     {
         $tagihan = Tagihan::with(['penyewaan'])
-                        ->whereNotIn('status', ['Riwayat'])
+                        ->whereNotIn('status', ['Lunas'])
                         ->paginate(10);
 
         return view('admin.pembayaran.index', compact('tagihan'));
@@ -22,7 +22,7 @@ class AdminPembayaranController extends Controller
     public function show($id)
     {
         $tagihan = Tagihan::with(['penyewaan'])
-                        ->whereNotIn('status', ['Riwayat'])
+                        ->whereNotIn('status', ['Lunas'])
                         ->findOrFail($id);
 
         return view('admin.pembayaran.show', compact('tagihan'));

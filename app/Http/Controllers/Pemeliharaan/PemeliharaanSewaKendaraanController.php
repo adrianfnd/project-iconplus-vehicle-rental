@@ -14,7 +14,7 @@ class PemeliharaanSewaKendaraanController extends Controller
 {
     public function index()
     {
-        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
+        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Lunas'])
                             ->paginate(10);
         
         return view('pemeliharaan.sewa-kendaraan.index', compact('pengajuan'));
@@ -22,7 +22,7 @@ class PemeliharaanSewaKendaraanController extends Controller
 
     public function show($id)
     {
-        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
+        $pengajuan = Penyewaan::whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Lunas'])
                             ->findOrFail($id);
 
         return view('pemeliharaan.sewa-kendaraan.show', compact('pengajuan'));

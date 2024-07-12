@@ -23,7 +23,7 @@ class VendorSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Lunas'])
                         ->paginate(10);
 
         return view('vendor.surat-jalan.index', compact('suratJalan'));
@@ -37,7 +37,7 @@ class VendorSuratJalanController extends Controller
                             'Dalam Perjalanan',
                             'Selesai'
                         ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Riwayat'])
+                        ->whereNotIn('status', ['Pengajuan Pembayaran', 'Lunas'])
                         ->findOrFail($id);
 
         return view('vendor.surat-jalan.show', compact('suratJalan'));

@@ -16,7 +16,7 @@ class VendorPembayaranController extends Controller
     {
         $tagihan = Tagihan::with(['penyewaan'])
                         ->where('id_vendor', auth()->user()->vendor->id)
-                        ->whereNotIn('status', ['Riwayat'])
+                        ->whereNotIn('status', ['Lunas'])
                         ->paginate(10);
 
         return view('vendor.pembayaran.index', compact('tagihan'));
@@ -26,7 +26,7 @@ class VendorPembayaranController extends Controller
     {
         $tagihan = Tagihan::with(['penyewaan'])
                         ->where('id_vendor', auth()->user()->vendor->id)
-                        ->whereNotIn('status', ['Riwayat'])
+                        ->whereNotIn('status', ['Lunas'])
                         ->findOrFail($id);
 
         return view('vendor.pembayaran.show', compact('tagihan'));

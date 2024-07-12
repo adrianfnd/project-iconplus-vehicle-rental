@@ -10,14 +10,14 @@ class RiwayatSuratJalan extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $table = 'riwayat_surat_jalan';
+
     protected $keyType = 'uuid';
     public $incrementing = false;
 
     protected $fillable = [
         'id_vendor',
         'id_surat_jalan',
-        'tanggal',
-        'keterangan',
         'sudah_dicetak',
     ];
 
