@@ -54,6 +54,13 @@ class VendorSuratJalanController extends Controller
         return response()->file($pdfPath);
     }
 
+    public function showApprove($id)
+    {
+        $suratJalan = SuratJalan::where('status', 'Dalam Perjalanan')->findOrFail($id);
+
+        return view('vendor.surat-jalan.detail', compact('suratJalan'));
+    }
+
     public function approve(Request $request, $id)
     {
         $suratJalan = SuratJalan::with('penyewaan')

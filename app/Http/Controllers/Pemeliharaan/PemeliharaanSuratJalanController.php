@@ -58,13 +58,7 @@ class PemeliharaanSuratJalanController extends Controller
 
     public function showDone($id)
     {
-        $suratJalan = SuratJalan::with('penyewaan')
-                        ->whereIn('status', [
-                            'Dalam Perjalanan',
-                            'Selesai'
-                        ])
-                        ->whereNotIn('status', ['Pengajuan Pembayaran'])
-                        ->findOrFail($id);
+        $suratJalan = SuratJalan::where('status', 'Dalam Perjalanan')->findOrFail($id);
 
         return view('pemeliharaan.surat-jalan.detail', compact('suratJalan'));
     }
