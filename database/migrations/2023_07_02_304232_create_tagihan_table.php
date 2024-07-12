@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreign('id_vendor')->references('id')->on('vendor')->onDelete('cascade');
             $table->uuid('id_penyewaan');
             $table->foreign('id_penyewaan')->references('id')->on('penyewaan');
+            $table->string('link_pdf')->nullable();
             $table->date('tanggal_terbit');
             $table->date('tanggal_jatuh_tempo');
             $table->decimal('total_tagihan', 10, 2);

@@ -18,6 +18,7 @@ class Tagihan extends Model
     protected $fillable = [
         'id_vendor',
         'id_penyewaan',
+        'link_pdf',
         'tanggal_terbit',
         'tanggal_jatuh_tempo',
         'total_tagihan',

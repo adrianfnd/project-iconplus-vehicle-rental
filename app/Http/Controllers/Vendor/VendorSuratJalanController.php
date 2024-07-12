@@ -10,6 +10,8 @@ use App\Models\Tagihan;
 use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Str;
+use PDF;
 
 class VendorSuratJalanController extends Controller
 {
@@ -83,20 +85,28 @@ class VendorSuratJalanController extends Controller
                     ->where('id_vendor', auth()->user()->vendor->id)
                     ->where('status', 'Selesai')
                     ->findOrFail($id);
-
+    
         $suratJalan->status = 'Pengajuan Pembayaran';
-
         $suratJalan->save();
-
+    
         $pengajuan = Penyewaan::where('id_vendor', auth()->user()->vendor->id)
                     ->where('id', $suratJalan->penyewaan->id)
                     ->firstOrFail();
-
+    
         $pengajuan->status = 'Pengajuan Pembayaran';
         $pengajuan->reject_notes = null;
-
         $pengajuan->save();
 
+        $pdf = PDF::loadView('vendor.pembayaran.invoice-pdf', [
+            'suratJalan' => $suratJalan,
+            'pengajuan' => $pengajuan
+        ]);
+
+        $filename = 'invoice_' . Str::random(10) . '.pdf';
+        $pdfPath = 'public/invoices/' . auth()->user()->vendor->nama . '/' . $filename;
+    
+        Storage::put($pdfPath, $pdf->output());
+    
         $tagihan = new Tagihan();
         $tagihan->id_vendor = auth()->user()->vendor->id;
         $tagihan->id_penyewaan = $suratJalan->penyewaan->id;
@@ -104,9 +114,9 @@ class VendorSuratJalanController extends Controller
         $tagihan->tanggal_jatuh_tempo = now()->addDays(1);
         $tagihan->total_tagihan = $suratJalan->penyewaan->total_biaya;
         $tagihan->status = 'Pengajuan Pembayaran';
-
+        $tagihan->link_pdf = Storage::url($pdfPath);
         $tagihan->save();
-
+    
         return redirect()->route('vendor.surat-jalan.index')->with('success', 'Pengajuan pembayaran berhasil.');
     }
 }
