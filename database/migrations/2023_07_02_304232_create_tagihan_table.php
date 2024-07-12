@@ -18,7 +18,9 @@ return new class extends Migration
             $table->date('tanggal_terbit');
             $table->date('tanggal_jatuh_tempo');
             $table->decimal('total_tagihan', 10, 2);
+            $table->string('link_pembayaran')->nullable();
             $table->string('status');
+            $table->string('reject_notes')->nullable();
             $table->timestamps();
         });
     }

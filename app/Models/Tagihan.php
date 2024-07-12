@@ -22,7 +22,9 @@ class Tagihan extends Model
         'tanggal_terbit',
         'tanggal_jatuh_tempo',
         'total_tagihan',
+        'link_pembayaran',
         'status',
+        'reject_notes',
     ];
 
     public function penyewaan()

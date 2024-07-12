@@ -68,9 +68,10 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
     Route::post('sewa-kendaraan-decline-{id}', [FasilitasSewaKendaraanController::class, 'decline'])->name('fasilitas.sewa-kendaraan.decline');
     
     Route::get('pembayaran', [FasilitasPembayaranController::class, 'index'])->name('fasilitas.pembayaran.index');
-    Route::post('pembayaran/{id}/approve', [FasilitasPembayaranController::class, 'approve'])->name('fasilitas.pembayaran.approve');
-    Route::post('pembayaran/{id}/decline', [FasilitasPembayaranController::class, 'decline'])->name('fasilitas.pembayaran.decline');
-    Route::post('pembayaran/{id}/bayar', [FasilitasPembayaranController::class, 'bayar'])->name('fasilitas.pembayaran.bayar');
+    Route::get('pembayaran-{id}', [FasilitasPembayaranController::class, 'show'])->name('fasilitas.pembayaran.show');
+    Route::get('pembayaran/pdf-{id}', [FasilitasPembayaranController::class, 'showPdf'])->name('fasilitas.pembayaran.pdf');
+    Route::post('pembayaran/approve-{id}', [FasilitasPembayaranController::class, 'approve'])->name('fasilitas.pembayaran.approve');
+    Route::post('pembayaran/decline-{id}', [FasilitasPembayaranController::class, 'decline'])->name('fasilitas.pembayaran.decline');
     
     Route::get('riwayat', [FasilitasRiwayatSuratJalanController::class, 'index'])->name('fasilitas.riwayat.index');
     
