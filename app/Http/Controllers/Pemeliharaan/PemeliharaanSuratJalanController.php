@@ -89,7 +89,7 @@ class PemeliharaanSuratJalanController extends Controller
             'bukti_biaya_bbm_tol_parkir.*.max' => 'Ukuran file bukti biaya BBM, TOL, dan parkir tidak boleh lebih dari 2MB.',
             'jumlah_biaya_bbm_tol_parkir.required' => 'Biaya BBM, TOL, dan parkir harus diisi.',
             'jumlah_biaya_bbm_tol_parkir.numeric' => 'Biaya BBM, TOL, dan parkir harus berupa angka.',
-            'jumlah_biaya_bbm_tol_parkir.min' => 'Biaya BBM, TOL, dan parkir harus lebih dari 0.',
+            'jumlah_biaya_bbm_tol_parkir.min' => 'Biaya BBM, TOL, dan parkir harus lebih dari 500.',
             'bukti_lainnya.array' => 'Bukti lainnya harus berupa kumpulan file.',
             'bukti_lainnya.*.image' => 'File bukti lainnya harus berupa gambar.',
             'bukti_lainnya.*.mimes' => 'File bukti lainnya harus berformat JPG atau PNG.',

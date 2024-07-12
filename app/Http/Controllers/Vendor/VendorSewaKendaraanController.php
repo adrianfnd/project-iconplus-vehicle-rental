@@ -15,7 +15,7 @@ class VendorSewaKendaraanController extends Controller
                     ->whereIn('status', [
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
                     ->paginate(10);
 
         return view('vendor.sewa-kendaraan.index', compact('pengajuan'));
@@ -27,7 +27,7 @@ class VendorSewaKendaraanController extends Controller
                     ->whereIn('status', [
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
                     ->findOrFail($id);
 
         $nilaiSewa = $pengajuan->is_outside_bandung ? 275000 : 250000;

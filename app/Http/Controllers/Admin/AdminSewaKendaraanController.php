@@ -14,7 +14,7 @@ class AdminSewaKendaraanController extends Controller
                         'Approved by Fasilitas',
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
                     ->paginate(10);
 
         return view('admin.sewa-kendaraan.index', compact('pengajuan'));
@@ -26,7 +26,7 @@ class AdminSewaKendaraanController extends Controller
                         'Approved by Fasilitas',
                         'Approved by Administrasi',
                         'Approved by Vendor'
-                    ])->whereNotIn('status', ['Surat Jalan'])
+                    ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Riwayat'])
                     ->findOrFail($id);
 
         $nilaiSewa = $pengajuan->is_outside_bandung ? 275000 : 250000;
