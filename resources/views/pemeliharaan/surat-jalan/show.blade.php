@@ -16,7 +16,10 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Surat Jalan</h4>
-                        <p class="card-description">Detail Surat Jalan</p>
+                        <p class="card-description">
+                            Informasi rinci mengenai Surat Jalan untuk mobil rental, termasuk detail perjalanan, pengemudi,
+                            serta waktu dan tujuan penyewaan.
+                        </p>
                         <div class="mb-3 d-flex justify-content-end">
                             <a href="{{ url($suratJalan->link_pdf) }}" class="btn btn-primary btn-sm" download>
                                 <i class="mdi mdi-download"></i> Download

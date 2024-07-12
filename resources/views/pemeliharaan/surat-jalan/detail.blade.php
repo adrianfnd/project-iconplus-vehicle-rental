@@ -16,29 +16,61 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Surat Jalan</h4>
-                        <p class="card-description">Detail Surat Jalan</p>
+                        <p class="card-description">
+                            Informasi rinci mengenai Surat Jalan untuk mobil rental, termasuk detail perjalanan, pengemudi,
+                            serta waktu dan tujuan penyewaan.
+                        </p>
                         <div class="pdf-container">
                             <embed src="{{ route('pemeliharaan.surat-jalan.pdf', $suratJalan->id) }}" type="application/pdf"
                                 width="100%" height="750px" />
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Data Penggunaan Kendaraan</h4>
+                        <p class="card-description">
+                            Isi data penggunaan kendaraan, termasuk kilometer awal dan akhir, serta unggah bukti biaya BBM,
+                            tol, parkir, dan bukti lainnya. Tandai jika melebihi hari sewa.
+                        </p>
+
                         <div class="mt-4">
                             <form action="{{ route('pemeliharaan.surat-jalan.done', $suratJalan->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group">
-                                    <label for="kilometer_awal">Kilometer Awal</label>
-                                    <input type="number" class="form-control" id="kilometer_awal" name="kilometer_awal"
-                                        value="{{ old('kilometer_awal') }}" required>
-                                    @if ($errors->has('kilometer_awal'))
-                                        <span class="text-danger">{{ $errors->first('kilometer_awal') }}</span>
-                                    @endif
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="kilometer_awal">Kilometer Awal</label>
+                                            <input type="number" class="form-control" id="kilometer_awal"
+                                                name="kilometer_awal" value="{{ old('kilometer_awal') }}" required>
+                                            @if ($errors->has('kilometer_awal'))
+                                                <span class="text-danger">{{ $errors->first('kilometer_awal') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="kilometer_akhir">Kilometer Akhir</label>
+                                            <input type="number" class="form-control" id="kilometer_akhir"
+                                                name="kilometer_akhir" value="{{ old('kilometer_akhir') }}" required>
+                                            @if ($errors->has('kilometer_akhir'))
+                                                <span class="text-danger">{{ $errors->first('kilometer_akhir') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="kilometer_akhir">Kilometer Akhir</label>
-                                    <input type="number" class="form-control" id="kilometer_akhir" name="kilometer_akhir"
-                                        value="{{ old('kilometer_akhir') }}" required>
-                                    @if ($errors->has('kilometer_akhir'))
-                                        <span class="text-danger">{{ $errors->first('kilometer_akhir') }}</span>
+                                    <label for="jumlah_biaya_bbm_tol_parkir">Jumlah Biaya BBM TOL dan Parkir</label>
+                                    <input type="number" class="form-control" id="jumlah_biaya_bbm_tol_parkir"
+                                        name="jumlah_biaya_bbm_tol_parkir" value="{{ old('jumlah_biaya_bbm_tol_parkir') }}"
+                                        required>
+                                    @if ($errors->has('jumlah_biaya_bbm_tol_parkir'))
+                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_bbm_tol_parkir') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -58,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="bukti_lainnya">Upload Bukti Lainnya</label>
                                     <input type="file" class="form-control-file" id="bukti_lainnya"
-                                        name="bukti_lainnya[]" accept="image/jpeg,image/png" required multiple>
+                                        name="bukti_lainnya[]" accept="image/jpeg,image/png" multiple>
                                     <br>
                                     <small class="form-text text-muted mt-1">
                                         Format file: gambar (JPG, PNG). Anda dapat mengunggah lebih dari satu gambar.
@@ -66,6 +98,13 @@
                                     <div id="bukti_lainnya_preview" class="mt-2 d-flex flex-wrap"></div>
                                     @if ($errors->has('bukti_lainnya'))
                                         <span class="text-danger">{{ $errors->first('bukti_lainnya') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <textarea class="form-control" id="keterangan" name="keterangan">{{ old('keterangan') }}</textarea>
+                                    @if ($errors->has('keterangan'))
+                                        <span class="text-danger">{{ $errors->first('keterangan') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -83,6 +122,7 @@
                                 <a href="{{ route('pemeliharaan.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </div>
