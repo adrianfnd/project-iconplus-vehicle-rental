@@ -159,10 +159,45 @@
                         </table>
                         <div class="mt-4">
                             <a href="{{ route('vendor.surat-jalan.index') }}" class="btn btn-light">Kembali</a>
+                            <button type="button" class="btn btn-success" id="createButton">Create Pengajuan
+                                Pembayaran</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById('createButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Create Pengajuan Pembayaran',
+                text: 'Apakah Anda yakin ingin membuat pengajuan pembayaran dari penyewaan ini?',
+                showCancelButton: true,
+                confirmButtonText: 'Create',
+                cancelButtonText: 'Close',
+                preConfirm: () => {
+                    return true;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action =
+                        '{{ route('vendor.surat-jalan.approve', $suratJalan->id) }}';
+
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = '_token';
+                    csrfToken.value = '{{ csrf_token() }}';
+                    form.appendChild(csrfToken);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

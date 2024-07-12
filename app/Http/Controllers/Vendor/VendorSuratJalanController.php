@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Denda;
 use App\Models\SuratJalan;
+use App\Models\Tagihan;
+use App\Models\Penyewaan;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -83,10 +85,21 @@ class VendorSuratJalanController extends Controller
                     ->findOrFail($id);
 
         $suratJalan->status = 'Tagihan';
+
         $suratJalan->save();
 
+        $pengajuan = Penyewaan::where('id_vendor', auth()->user()->vendor->id)
+                    ->where('id', $suratJalan->penyewaan->id)
+                    ->firstOrFail();
+
+        $pengajuan->status = 'Tagihan';
+        $pengajuan->reject_notes = null;
+
+        $pengajuan->save();
+
         $tagihan = new Tagihan();
-        $tagihan->id_penyewaan = $penyewaan->id;
+        $tagihan->id_vendor = auth()->user()->vendor->id;
+        $tagihan->id_penyewaan = $suratJalan->penyewaan->id;
         $tagihan->tanggal_terbit = now();
         $tagihan->tanggal_jatuh_tempo = now()->addDays(1);
         $tagihan->total_tagihan = $suratJalan->penyewaan->total_biaya;
