@@ -89,7 +89,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('surat-jalan-createpdf-{id}', [AdminSuratJalanController::class, 'createPDF'])->name('admin.surat-jalan.createpdf');
     
     Route::get('pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
-    Route::post('pembayaran/{id}/approve', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
+    Route::get('pembayaran-{id}', [AdminPembayaranController::class, 'show'])->name('admin.pembayaran.show');
+    Route::get('pembayaran/pdf-{id}', [AdminPembayaranController::class, 'showPdf'])->name('admin.pembayaran.pdf');
+    Route::post('pembayaran/approve-{id}', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
     
     Route::get('riwayat', [AdminRiwayatSuratJalanController::class, 'index'])->name('admin.riwayat.index');
     

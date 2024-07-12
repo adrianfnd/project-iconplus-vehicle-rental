@@ -3,11 +3,11 @@
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Pengajuan Surat Jalan </h3>
+            <h3 class="page-title"> Daftar Tagihan </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Pengajuan Surat Jalan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Daftar Tagihan</li>
                 </ol>
             </nav>
         </div>
@@ -15,20 +15,19 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Daftar Pengajuan Surat Jalan</h4>
-                        <p class="card-description">Berikut adalah daftar pengajuan surat jalan yang telah diajukan.</p>
+                        <h4 class="card-title">Daftar Tagihan</h4>
+                        <p class="card-description">Berikut adalah daftar tagihan yang perlu diproses.</p>
 
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Kontak</th>
-                                        <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
-                                        <th>Jumlah Hari</th>
-                                        <th>Nama Kendaraan</th>
+                                        <th>Nomor Tagihan</th>
+                                        <th>Nama Penyewa</th>
+                                        <th>Tanggal Terbit</th>
+                                        <th>Tanggal Jatuh Tempo</th>
+                                        <th>Total Tagihan</th>
                                         <th>
                                             <center>Status</center>
                                         </th>
@@ -38,39 +37,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($suratJalan as $index => $item)
+                                    @foreach ($tagihan as $index => $item)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
+                                            <td>INV-{{ $item->id }}</td>
                                             <td>{{ $item->penyewaan->nama_penyewa }}</td>
-                                            <td>{{ $item->penyewaan->kontak_penyewa }}</td>
-                                            <td>{{ $item->penyewaan->tanggal_mulai }}</td>
-                                            <td>{{ $item->penyewaan->tanggal_selesai }}</td>
-                                            <td>{{ $item->penyewaan->jumlah_hari_sewa }} Hari</td>
-                                            <td>{{ $item->penyewaan->kendaraan->nama }}</td>
+                                            <td>{{ $item->tanggal_terbit }}</td>
+                                            <td>{{ $item->tanggal_jatuh_tempo }}</td>
+                                            <td>Rp {{ number_format($item->total_tagihan, 0, ',', '.') }}</td>
                                             <td>
                                                 <center>
-                                                    @if ($item->status == 'Surat Jalan')
-                                                        <span class="badge badge-info">Surat Jalan</span>
-                                                    @elseif ($item->status == 'Dalam Perjalanan')
-                                                        <span class="badge badge-warning">Dalam Perjalanan</span>
-                                                    @elseif ($item->status == 'Selesai')
-                                                        <span class="badge badge-success">Selesai</span>
-                                                    @elseif ($item->status == 'Rejected by ')
-                                                        <span class="badge badge-danger">Rejected by </span>
+                                                    @if ($item->status == 'Pengajuan Pembayaran')
+                                                        <span class="badge badge-warning">Pengajuan Pembayaran</span>
+                                                    @elseif ($item->status == 'Disetujui')
+                                                        <span class="badge badge-success">Disetujui</span>
+                                                    @elseif ($item->status == 'Ditolak')
+                                                        <span class="badge badge-danger">Ditolak</span>
                                                     @else
-                                                        <span class="badge badge-warning">Status tidak diketahui</span>
+                                                        <span class="badge badge-secondary">{{ $item->status }}</span>
                                                     @endif
                                                 </center>
                                             </td>
                                             <td>
                                                 <center>
-                                                    @if ($item->status == 'Dalam Perjalanan')
-                                                        <a href="{{ route('pemeliharaan.surat-jalan.detail', $item->id) }}"
-                                                            class="btn btn-sm btn-success">Selesai</a>
-                                                    @else
-                                                        <a href="{{ route('pemeliharaan.surat-jalan.show', $item->id) }}"
-                                                            class="btn btn-sm btn-primary">Lihat</a>
-                                                    @endif
+                                                    <a href="{{ route('admin.pembayaran.show', $item->id) }}"
+                                                        class="btn btn-sm btn-primary">Lihat</a>
                                                 </center>
                                             </td>
                                         </tr>
@@ -78,10 +69,9 @@
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end mt-3">
-                                {{ $suratJalan->links('pagination::bootstrap-4') }}
+                                {{ $tagihan->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
