@@ -57,7 +57,7 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('pemeliharaan.laporan-mingguan') }}">
-                                Laporan Mingguan
+                                Laporan
                             </a>
                         </li>
                     </ul>
@@ -114,7 +114,7 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('fasilitas.laporan-mingguan') }}">
-                                Laporan Mingguan
+                                Laporan
                             </a>
                         </li>
                     </ul>
@@ -175,8 +175,8 @@
                 <div class="collapse" id="laporan">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.laporan-mingguan') }}">
-                                Laporan Mingguan
+                            <a class="nav-link" href="{{ route('admin.laporan.index') }}">
+                                Laporan
                             </a>
                         </li>
                     </ul>
@@ -238,7 +238,7 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('vendor.laporan-mingguan') }}">
-                                Laporan Mingguan
+                                Laporan
                             </a>
                         </li>
                     </ul>

@@ -13,7 +13,7 @@ use App\Http\Controllers\Fasilitas\FasilitasLaporanController;
 use App\Http\Controllers\Admin\AdminSewaKendaraanController;
 use App\Http\Controllers\Admin\AdminSuratJalanController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
-use App\Http\Controllers\Admin\AdminRiwayatSuratJalanController;
+use App\Http\Controllers\Admin\AdminRiwayatController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Vendor\VendorSewaKendaraanController;
 use App\Http\Controllers\Vendor\VendorSuratJalanController;
@@ -96,10 +96,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('pembayaran/pdf-{id}', [AdminPembayaranController::class, 'showPdf'])->name('admin.pembayaran.pdf');
     Route::post('pembayaran/approve-{id}', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
     
-    Route::get('riwayat', [AdminRiwayatSuratJalanController::class, 'index'])->name('admin.riwayat.index');
+    Route::get('riwayat', [AdminRiwayatController::class, 'index'])->name('admin.riwayat.index');
+    Route::get('riwayat/{id}', [AdminRiwayatController::class, 'show'])->name('admin.riwayat.show');
+    Route::get('riwayat/pdf-{id}', [AdminRiwayatController::class, 'showPdf'])->name('admin.riwayat.showPdf');
     
-    Route::get('laporan-mingguan', [AdminLaporanController::class, 'index'])->name('admin.laporan-mingguan');
-    Route::get('laporan-mingguan/generate-pdf', [AdminLaporanController::class, 'generatePDF'])->name('admin.laporan-mingguan.generate-pdf');
+    Route::get('laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::post('laporan/generate', [AdminLaporanController::class, 'generate'])->name('admin.laporan.generate');
 });
 
 // Routes Vendor Penyedia
