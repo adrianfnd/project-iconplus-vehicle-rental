@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KendaraanSeeder::class,
             JabatanSeeder::class,
+            DendaSeeder::class,
         ]);
     }
 }

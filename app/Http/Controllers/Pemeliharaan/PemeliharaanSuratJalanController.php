@@ -70,7 +70,9 @@ class PemeliharaanSuratJalanController extends Controller
             'kilometer_akhir' => 'required|numeric|min:1',
             'bukti_biaya_bbm_tol_parkir' => 'required|array',
             'bukti_biaya_bbm_tol_parkir.*' => 'image|mimes:jpeg,png|max:2048',
-            'jumlah_biaya_bbm_tol_parkir' => 'required|numeric|min:500',
+            'jumlah_biaya_bbm' => 'required|numeric|min:500',
+            'jumlah_biaya_tol' => 'required|numeric|min:500',
+            'jumlah_biaya_parkir' => 'required|numeric|min:500',
             'bukti_lainnya' => 'nullable|array',
             'bukti_lainnya.*' => 'image|mimes:jpeg,png|max:2048',
             'lebih_hari_input' => 'nullable|numeric',
@@ -87,9 +89,15 @@ class PemeliharaanSuratJalanController extends Controller
             'bukti_biaya_bbm_tol_parkir.*.image' => 'File bukti biaya BBM, TOL, dan parkir harus berupa gambar.',
             'bukti_biaya_bbm_tol_parkir.*.mimes' => 'File bukti biaya BBM, TOL, dan parkir harus berformat JPG atau PNG.',
             'bukti_biaya_bbm_tol_parkir.*.max' => 'Ukuran file bukti biaya BBM, TOL, dan parkir tidak boleh lebih dari 2MB.',
-            'jumlah_biaya_bbm_tol_parkir.required' => 'Biaya BBM, TOL, dan parkir harus diisi.',
-            'jumlah_biaya_bbm_tol_parkir.numeric' => 'Biaya BBM, TOL, dan parkir harus berupa angka.',
-            'jumlah_biaya_bbm_tol_parkir.min' => 'Biaya BBM, TOL, dan parkir harus lebih dari 500.',
+            'jumlah_biaya_bbm.required' => 'Jumlah biaya BBM harus diisi.',
+            'jumlah_biaya_bbm.numeric' => 'Jumlah biaya BBM harus berupa angka.',
+            'jumlah_biaya_bbm.min' => 'Jumlah biaya BBM harus lebih dari 500.',
+            'jumlah_biaya_tol.required' => 'Jumlah TOL harus diisi.',
+            'jumlah_biaya_tol.numeric' => 'Jumlah TOL harus berupa angka.',
+            'jumlah_biaya_tol.min' => 'Jumlah TOL harus lebih dari 500.',
+            'jumlah_biaya_parkir.required' => 'Jumlah parkir harus diisi.',
+            'jumlah_biaya_parkir.numeric' => 'Jumlah parkir harus berupa angka.',
+            'jumlah_biaya_parkir.min' => 'Jumlah parkir harus lebih dari 500.',
             'bukti_lainnya.array' => 'Bukti lainnya harus berupa kumpulan file.',
             'bukti_lainnya.*.image' => 'File bukti lainnya harus berupa gambar.',
             'bukti_lainnya.*.mimes' => 'File bukti lainnya harus berformat JPG atau PNG.',
@@ -105,7 +113,9 @@ class PemeliharaanSuratJalanController extends Controller
     
         $penyewaan->kilometer_awal = $request->kilometer_awal;
         $penyewaan->kilometer_akhir = $request->kilometer_akhir;
-        $penyewaan->biaya_bbm_tol_parkir = $request->jumlah_biaya_bbm_tol_parkir;
+        $penyewaan->biaya_bbm = $request->jumlah_biaya_bbm;
+        $penyewaan->biaya_tol = $request->jumlah_biaya_tol;
+        $penyewaan->biaya_parkir = $request->jumlah_biaya_parkir;
         $penyewaan->keterangan = $request->keterangan;
     
         if ($request->hasFile('bukti_biaya_bbm_tol_parkir')) {
@@ -135,7 +145,7 @@ class PemeliharaanSuratJalanController extends Controller
             $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
             $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
 
-            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $request->jumlah_biaya_bbm_tol_parkir;
+            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $penyewaan->biaya_bbm + $penyewaan->biaya_tol + $penyewaan->biaya_parkir;
 
             $totalDenda = $denda->jumlah_denda * $request->lebih_hari_input;
 
@@ -155,7 +165,7 @@ class PemeliharaanSuratJalanController extends Controller
             $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
             $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
 
-            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $request->jumlah_biaya_bbm_tol_parkir;
+            $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $penyewaan->biaya_bbm + $penyewaan->biaya_tol + $penyewaan->biaya_parkir;
 
             $penyewaan->nilai_sewa = $totalNilaiSewa;
             $penyewaan->biaya_driver = $totalBiayaDriver;

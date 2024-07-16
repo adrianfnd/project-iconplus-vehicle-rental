@@ -29,7 +29,9 @@ return new class extends Migration
             $table->integer('kilometer_awal')->nullable();
             $table->integer('kilometer_akhir')->nullable();
             $table->decimal('nilai_sewa', 10, 2)->nullable();
-            $table->decimal('biaya_bbm_tol_parkir', 10, 2)->nullable();
+            $table->decimal('biaya_bbm', 10, 2)->nullable();
+            $table->decimal('biaya_tol', 10, 2)->nullable();
+            $table->decimal('biaya_parkir', 10, 2)->nullable();
             $table->decimal('biaya_driver', 10, 2)->nullable();
             $table->decimal('total_biaya', 10, 2)->nullable();
             $table->string('nomor_io')->nullable();

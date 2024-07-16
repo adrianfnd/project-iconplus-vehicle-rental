@@ -65,12 +65,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlah_biaya_bbm_tol_parkir">Jumlah Biaya BBM TOL dan Parkir</label>
-                                    <input type="number" class="form-control" id="jumlah_biaya_bbm_tol_parkir"
-                                        name="jumlah_biaya_bbm_tol_parkir" value="{{ old('jumlah_biaya_bbm_tol_parkir') }}"
-                                        required>
-                                    @if ($errors->has('jumlah_biaya_bbm_tol_parkir'))
-                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_bbm_tol_parkir') }}</span>
+                                    <label for="jumlah_biaya_bbm">Jumlah Biaya BBM</label>
+                                    <input type="number" class="form-control" id="jumlah_biaya_bbm" name="jumlah_biaya_bbm"
+                                        value="{{ old('jumlah_biaya_bbm') }}" required>
+                                    @if ($errors->has('jumlah_biaya_bbm'))
+                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_bbm') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_biaya_tol">Jumlah Biaya TOL</label>
+                                    <input type="number" class="form-control" id="jumlah_biaya_tol" name="jumlah_biaya_tol"
+                                        value="{{ old('jumlah_biaya_tol') }}" required>
+                                    @if ($errors->has('jumlah_biaya_tol'))
+                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_tol') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_biaya_parkir">Jumlah Biaya Parkir</label>
+                                    <input type="number" class="form-control" id="jumlah_biaya_parkir"
+                                        name="jumlah_biaya_parkir" value="{{ old('jumlah_biaya_parkir') }}" required>
+                                    @if ($errors->has('jumlah_biaya_parkir'))
+                                        <span class="text-danger">{{ $errors->first('jumlah_biaya_parkir') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -109,7 +124,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>
-                                        <input type="checkbox" value="0" id="lebihHariCheckbox"> Lebih dari hari sewa
+                                        <input type="checkbox" value="0" id="lebihHariCheckbox"> Lebih dari hari
+                                        sewa
                                     </label>
                                     <input type="number" class="form-control mt-2" id="lebihHariInput"
                                         value ="{{ old('lebih_hari_input') }}" name="lebih_hari_input"
