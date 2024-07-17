@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanSewaKendaraanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanSuratJalanController;
-use App\Http\Controllers\Pemeliharaan\PemeliharaanRiwayatSuratJalanController;
+use App\Http\Controllers\Pemeliharaan\PemeliharaanRiwayatController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanLaporanController;
 use App\Http\Controllers\Fasilitas\FasilitasSewaKendaraanController;
 use App\Http\Controllers\Fasilitas\FasilitasPembayaranController;
-use App\Http\Controllers\Fasilitas\FasilitasRiwayatSuratJalanController;
+use App\Http\Controllers\Fasilitas\FasilitasRiwayatController;
 use App\Http\Controllers\Fasilitas\FasilitasLaporanController;
 use App\Http\Controllers\Admin\AdminSewaKendaraanController;
 use App\Http\Controllers\Admin\AdminSuratJalanController;
@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Vendor\VendorSewaKendaraanController;
 use App\Http\Controllers\Vendor\VendorSuratJalanController;
 use App\Http\Controllers\Vendor\VendorPembayaranController;
-use App\Http\Controllers\Vendor\VendorRiwayatSuratJalanController;
+use App\Http\Controllers\Vendor\VendorRiwayatController;
 use App\Http\Controllers\Vendor\VendorLaporanController;
 
 /*
@@ -54,7 +54,8 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
     Route::get('surat-jalan/detail-{id}', [PemeliharaanSuratJalanController::class, 'showDone'])->name('pemeliharaan.surat-jalan.detail');
     Route::post('surat-jalan/done-{id}', [PemeliharaanSuratJalanController::class, 'done'])->name('pemeliharaan.surat-jalan.done');
     
-    Route::get('riwayat', [PemeliharaanRiwayatSuratJalanController::class, 'index'])->name('pemeliharaan.riwayat.index');
+    Route::get('riwayat', [PemeliharaanRiwayatController::class, 'index'])->name('pemeliharaan.riwayat.index');
+    Route::get('riwayat/{id}', [PemeliharaanRiwayatController::class, 'show'])->name('pemeliharaan.riwayat.show');
     
     Route::get('laporan-mingguan', [PemeliharaanLaporanController::class, 'index'])->name('pemeliharaan.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [PemeliharaanLaporanController::class, 'generatePDF'])->name('pemeliharaan.laporan-mingguan.generate-pdf');
@@ -74,9 +75,10 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
     Route::post('pembayaran/decline-{id}', [FasilitasPembayaranController::class, 'decline'])->name('fasilitas.pembayaran.decline');
     Route::get('pembayaran-success/{encrypted_id}', [FasilitasPembayaranController::class, 'success'])->name('fasilitas.pembayaran.success');
     Route::get('pembayaran-failed/{encrypted_id}', [FasilitasPembayaranController::class, 'failed'])->name('fasilitas.pembayaran.failed');
-    
-    Route::get('riwayat', [FasilitasRiwayatSuratJalanController::class, 'index'])->name('fasilitas.riwayat.index');
-    
+
+    Route::get('riwayat', [FasilitasRiwayatController::class, 'index'])->name('fasilitas.riwayat.index');
+    Route::get('riwayat/{id}', [FasilitasRiwayatController::class, 'show'])->name('fasilitas.riwayat.show');
+
     Route::get('laporan-mingguan', [FasilitasLaporanController::class, 'index'])->name('fasilitas.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [FasilitasLaporanController::class, 'generatePDF'])->name('fasilitas.laporan-mingguan.generate-pdf');
 });
@@ -99,7 +101,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     Route::get('riwayat', [AdminRiwayatController::class, 'index'])->name('admin.riwayat.index');
     Route::get('riwayat/{id}', [AdminRiwayatController::class, 'show'])->name('admin.riwayat.show');
-    Route::get('riwayat/pdf-{id}', [AdminRiwayatController::class, 'showPdf'])->name('admin.riwayat.showPdf');
     
     Route::get('laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
     Route::post('laporan/generate', [AdminLaporanController::class, 'generate'])->name('admin.laporan.generate');
@@ -122,10 +123,10 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     Route::get('pembayaran-{id}', [VendorPembayaranController::class, 'show'])->name('vendor.pembayaran.show');
     Route::get('pembayaran/edit-{id}', [VendorPembayaranController::class, 'edit'])->name('vendor.pembayaran.edit');
     Route::put('pembayaran/{id}', [VendorPembayaranController::class, 'update'])->name('vendor.pembayaran.update');
-    Route::get('pembayaran/pdf-{id}', [VendorPembayaranController::class, 'showPdf'])->name('vendor.pembayaran.pdf');
     
-    Route::get('riwayat', [VendorRiwayatSuratJalanController::class, 'index'])->name('vendor.riwayat.index');
-    
+    Route::get('riwayat', [VendorRiwayatController::class, 'index'])->name('vendor.riwayat.index');
+    Route::get('riwayat/{id}', [VendorRiwayatController::class, 'show'])->name('vendor.riwayat.show');
+
     Route::get('laporan-mingguan', [VendorLaporanController::class, 'index'])->name('vendor.laporan-mingguan');
     Route::get('laporan-mingguan/generate-pdf', [VendorLaporanController::class, 'generatePDF'])->name('vendor.laporan-mingguan.generate-pdf');
 });

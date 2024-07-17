@@ -276,7 +276,7 @@
                             </tbody>
                         </table>
                         <div class="mt-4">
-                            <a href="{{ route('admin.riwayat.index') }}" class="btn btn-light">Kembali</a>
+                            <a href="{{ route('fasilitas.riwayat.index') }}" class="btn btn-light">Kembali</a>
                         </div>
                     </div>
                 </div>

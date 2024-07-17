@@ -69,7 +69,7 @@
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('admin.riwayat.show', $item->id) }}"
+                                                    <a href="{{ route('pemeliharaan.riwayat.show', $item->id) }}"
                                                         class="btn btn-sm btn-primary">Lihat</a>
                                                 </center>
                                             </td>

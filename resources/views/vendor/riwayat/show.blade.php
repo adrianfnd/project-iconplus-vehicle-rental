@@ -65,10 +65,6 @@
                             <p class="form-control">{{ $riwayat->suratJalan->penyewaan->sewa_untuk }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="vendor">Vendor</label>
-                            <p class="form-control">{{ $riwayat->suratJalan->penyewaan->vendor->nama }}</p>
-                        </div>
-                        <div class="form-group">
                             <label for="apakah_luar_bandung">Apakah di luar Bandung?</label>
                             <div class="col-sm-9">
                                 <p class="form-control">
@@ -276,7 +272,7 @@
                             </tbody>
                         </table>
                         <div class="mt-4">
-                            <a href="{{ route('admin.riwayat.index') }}" class="btn btn-light">Kembali</a>
+                            <a href="{{ route('vendor.riwayat.index') }}" class="btn btn-light">Kembali</a>
                         </div>
                     </div>
                 </div>

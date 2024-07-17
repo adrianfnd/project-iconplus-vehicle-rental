@@ -23,7 +23,6 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Vendor</th>
                                         <th>Nama Penyewa</th>
                                         <th>Kendaraan</th>
                                         <th>Tanggal Mulai</th>
@@ -41,7 +40,6 @@
                                     @foreach ($riwayat as $index => $item)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ $item->suratJalan->penyewaan->vendor->nama }}</td>
                                             <td>{{ $item->suratJalan->penyewaan->nama_penyewa }}</td>
                                             <td>{{ $item->suratJalan->penyewaan->kendaraan->nama }}</td>
                                             <td>{{ $item->suratJalan->penyewaan->tanggal_mulai }}</td>
@@ -69,7 +67,7 @@
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="{{ route('admin.riwayat.show', $item->id) }}"
+                                                    <a href="{{ route('vendor.riwayat.show', $item->id) }}"
                                                         class="btn btn-sm btn-primary">Lihat</a>
                                                 </center>
                                             </td>
