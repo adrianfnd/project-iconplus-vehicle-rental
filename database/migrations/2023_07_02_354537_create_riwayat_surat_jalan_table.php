@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id_surat_jalan');
             $table->foreign('id_surat_jalan')->references('id')->on('surat_jalan')->onDelete('cascade');
             $table->boolean('sudah_dicetak')->default(false);
+            $table->date('start_period')->nullable();
+            $table->date('end_period')->nullable(); 
             $table->timestamps();
         });
     }

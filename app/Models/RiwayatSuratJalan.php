@@ -19,6 +19,8 @@ class RiwayatSuratJalan extends Model
         'id_vendor',
         'id_surat_jalan',
         'sudah_dicetak',
+        'start_period',
+        'end_period',
     ];
 
     public function suratJalan()

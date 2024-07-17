@@ -42,12 +42,14 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $item->id }}</td>
-                                            <td>{{ $item->penyewaan->nama_penyewa }}</td>
-                                            <td>{{ $item->penyewaan->vendor->nama }}</td>
-                                            <td>{{ $item->penyewaan->kendaraan->nama }}</td>
-                                            <td>{{ $item->penyewaan->tanggal_mulai }}</td>
-                                            <td>{{ $item->penyewaan->tanggal_selesai }}</td>
-                                            <td>Rp {{ number_format($item->penyewaan->total_biaya, 0, ',', '.') }}</td>
+                                            <td>{{ $item->suratJalan->penyewaan->nama_penyewa }}</td>
+                                            <td>{{ $item->suratJalan->penyewaan->vendor->nama }}</td>
+                                            <td>{{ $item->suratJalan->penyewaan->kendaraan->nama }}</td>
+                                            <td>{{ $item->suratJalan->penyewaan->tanggal_mulai }}</td>
+                                            <td>{{ $item->suratJalan->penyewaan->tanggal_selesai }}</td>
+                                            <td>Rp
+                                                {{ number_format($item->suratJalan->penyewaan->total_biaya, 0, ',', '.') }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -56,7 +58,12 @@
 
                         <div class="mt-4">
                             <a href="{{ route('admin.laporan.index') }}" class="btn btn-light">Kembali</a>
-                            <button onclick="window.print()" class="btn btn-primary">Cetak Laporan</button>
+                            <a href="{{ route('admin.laporan.cetak', [
+                                'start_date' => request('start_date'),
+                                'end_date' => request('end_date'),
+                                'vendor_id' => request('vendor_id'),
+                            ]) }}"
+                                class="btn btn-primary">Cetak Laporan</a>
                         </div>
                     </div>
                 </div>

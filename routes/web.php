@@ -104,6 +104,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     
     Route::get('laporan', [AdminLaporanController::class, 'index'])->name('admin.laporan.index');
     Route::post('laporan/generate', [AdminLaporanController::class, 'generate'])->name('admin.laporan.generate');
+    Route::get('laporan/cetak', [AdminLaporanController::class, 'cetak'])->name('admin.laporan.cetak');
 });
 
 // Routes Vendor Penyedia
