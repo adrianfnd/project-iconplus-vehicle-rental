@@ -56,4 +56,17 @@ class AdminPembayaranController extends Controller
 
         return redirect()->route('admin.sewa-kendaraan.index')->with('success', 'Pengajuan berhasil disetujui.');
     }
+
+    public function decline(Request $request, $id)
+    {
+        $tagihan = Tagihan::with(['penyewaan'])
+                        ->where('status', 'Pengajuan Pembayaran')
+                        ->findOrFail($id);
+
+        $tagihan->status = 'Rejected by Administrasi';
+        $tagihan->reject_notes = $request->reject_notes;
+        $tagihan->save();
+
+        return redirect()->route('admin.sewa-kendaraan.index')->with('success', 'Pengajuan ditolak.');
+    }
 }

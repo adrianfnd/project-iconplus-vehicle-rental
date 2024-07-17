@@ -140,6 +140,7 @@
                         <div class="mt-4">
                             <a href="{{ route('admin.pembayaran.index') }}" class="btn btn-light">Kembali</a>
                             @if ($tagihan->status == 'Pengajuan Pembayaran')
+                                <button type="button" class="btn btn-danger" id="rejectButton">Reject</button>
                                 <button type="button" class="btn btn-success" id="approveButton">Approve</button>
                             @endif
                         </div>
@@ -152,6 +153,48 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        document.getElementById('rejectButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Reject Pengajuan',
+                input: 'textarea',
+                inputLabel: 'Notes',
+                inputPlaceholder: 'Masukan catatan disini...',
+                inputAttributes: {
+                    'aria-label': 'Masukan catatan disini'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Reject',
+                cancelButtonText: 'Close',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Tolong masukkan catatan!'
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const notes = result.value;
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route('admin.pembayaran.decline', $tagihan->id) }}';
+
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = '_token';
+                    csrfToken.value = '{{ csrf_token() }}';
+                    form.appendChild(csrfToken);
+
+                    const notesInput = document.createElement('input');
+                    notesInput.type = 'hidden';
+                    notesInput.name = 'reject_notes';
+                    notesInput.value = notes;
+                    form.appendChild(notesInput);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+
         document.getElementById('approveButton').addEventListener('click', function() {
             Swal.fire({
                 title: 'Approve Pengajuan Pembayaran',

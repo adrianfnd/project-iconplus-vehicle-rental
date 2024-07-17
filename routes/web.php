@@ -95,7 +95,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('pembayaran-{id}', [AdminPembayaranController::class, 'show'])->name('admin.pembayaran.show');
     Route::get('pembayaran/pdf-{id}', [AdminPembayaranController::class, 'showPdf'])->name('admin.pembayaran.pdf');
     Route::post('pembayaran/approve-{id}', [AdminPembayaranController::class, 'approve'])->name('admin.pembayaran.approve');
-    
+    Route::post('pembayaran/decline-{id}', [AdminPembayaranController::class, 'decline'])->name('admin.pembayaran.decline');
+
     Route::get('riwayat', [AdminRiwayatController::class, 'index'])->name('admin.riwayat.index');
     Route::get('riwayat/{id}', [AdminRiwayatController::class, 'show'])->name('admin.riwayat.show');
     Route::get('riwayat/pdf-{id}', [AdminRiwayatController::class, 'showPdf'])->name('admin.riwayat.showPdf');
@@ -119,6 +120,8 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     
     Route::get('pembayaran', [VendorPembayaranController::class, 'index'])->name('vendor.pembayaran.index');
     Route::get('pembayaran-{id}', [VendorPembayaranController::class, 'show'])->name('vendor.pembayaran.show');
+    Route::get('pembayaran/edit-{id}', [VendorPembayaranController::class, 'edit'])->name('vendor.pembayaran.edit');
+    Route::put('pembayaran/{id}', [VendorPembayaranController::class, 'update'])->name('vendor.pembayaran.update');
     Route::get('pembayaran/pdf-{id}', [VendorPembayaranController::class, 'showPdf'])->name('vendor.pembayaran.pdf');
     
     Route::get('riwayat', [VendorRiwayatSuratJalanController::class, 'index'])->name('vendor.riwayat.index');

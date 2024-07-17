@@ -48,21 +48,30 @@
                                             <td>
                                                 <center>
                                                     @if ($item->status == 'Pengajuan Pembayaran')
-                                                        <span class="badge badge-warning">Pengajuan Pembayaran</span>
-                                                    @elseif ($item->status == 'Disetujui')
-                                                        <span class="badge badge-success">Disetujui</span>
-                                                    @elseif ($item->status == 'Ditolak')
-                                                        <span class="badge badge-danger">Ditolak</span>
+                                                        <span class="badge badge-success">Pengajuan Pembayaran</span>
+                                                    @elseif ($item->status == 'Approved by Administrasi')
+                                                        <span class="badge badge-success">Approved by Administrasi</span>
+                                                    @elseif ($item->status == 'Rejected by Administrasi')
+                                                        <span class="badge badge-danger"> Rejected by Administrasi</span>
+                                                    @elseif ($item->status == 'Approved by Fasilitas')
+                                                        <span class="badge badge-success">Approved by Fasilitas</span>
                                                     @else
-                                                        <span class="badge badge-secondary">{{ $item->status }}</span>
+                                                        <span class="badge badge-warning">Status tidak diketahui</span>
                                                     @endif
                                                 </center>
                                             </td>
                                             <td>
-                                                <center>
-                                                    <a href="{{ route('vendor.pembayaran.show', $item->id) }}"
-                                                        class="btn btn-sm btn-primary">Lihat</a>
-                                                </center>
+                                                @if ($item->status == 'Rejected by Administrasi')
+                                                    <center>
+                                                        <a href="{{ route('vendor.pembayaran.edit', $item->id) }}"
+                                                            class="btn btn-sm btn-danger">Ajukan Ulang</a>
+                                                    </center>
+                                                @else
+                                                    <center>
+                                                        <a href="{{ route('vendor.pembayaran.show', $item->id) }}"
+                                                            class="btn btn-sm btn-primary">Lihat</a>
+                                                    </center>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
