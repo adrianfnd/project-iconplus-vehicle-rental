@@ -83,44 +83,50 @@
                                     <tr>
                                         <td>Harga Sewa</td>
                                         <td>
-                                            <input type="number" class="form-control" name="nilai_sewa"
-                                                value="{{ $suratJalan->penyewaan->nilai_sewa }}">
+                                            <input type="text" class="form-control" name="nilai_sewa"
+                                                value="{{ number_format($suratJalan->penyewaan->nilai_sewa, 0, ',', '.') }}"
+                                                placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya Driver</td>
                                         <td>
-                                            <input type="number" class="form-control" name="biaya_driver"
-                                                value="{{ $suratJalan->penyewaan->biaya_driver }}">
+                                            <input type="text" class="form-control" name="biaya_driver"
+                                                value="{{ number_format($suratJalan->penyewaan->biaya_driver, 0, ',', '.') }}"
+                                                placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya BBM</td>
                                         <td>
-                                            <input type="number" class="form-control" name="biaya_bbm"
-                                                value="{{ $suratJalan->penyewaan->biaya_bbm }}">
+                                            <input type="text" class="form-control" name="biaya_bbm"
+                                                value="{{ number_format($suratJalan->penyewaan->biaya_bbm, 0, ',', '.') }}"
+                                                placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya TOL</td>
                                         <td>
-                                            <input type="number" class="form-control" name="biaya_tol"
-                                                value="{{ $suratJalan->penyewaan->biaya_tol }}">
+                                            <input type="text" class="form-control" name="biaya_tol"
+                                                value="{{ number_format($suratJalan->penyewaan->biaya_tol, 0, ',', '.') }}"
+                                                placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya Parkir</td>
                                         <td>
-                                            <input type="number" class="form-control" name="biaya_parkir"
-                                                value="{{ $suratJalan->penyewaan->biaya_parkir }}">
+                                            <input type="text" class="form-control" name="biaya_parkir"
+                                                value="{{ number_format($suratJalan->penyewaan->biaya_parkir, 0, ',', '.') }}"
+                                                placeholder="Rp">
                                         </td>
                                     </tr>
                                     @if ($suratJalan->is_lebih_hari)
                                         <tr>
                                             <td>Denda Kelebihan Hari</td>
                                             <td>
-                                                <input type="number" class="form-control" name="jumlah_denda"
-                                                    value="{{ $suratJalan->jumlah_denda }}">
+                                                <input type="text" class="form-control" name="jumlah_denda"
+                                                    value="{{ number_format($suratJalan->jumlah_denda, 0, ',', '.') }}"
+                                                    placeholder="Rp">
                                             </td>
                                         </tr>
                                     @endif
