@@ -59,9 +59,8 @@ class AdminSuratJalanController extends Controller
 
         $pdf = PDF::loadView('admin.surat-jalan.pdf', compact('suratJalan', 'penyewaan'));
 
-        $vendorName = $penyewaan->vendor->nama;
         $fileName = 'surat_jalan_' . $suratJalan->id . '.pdf';
-        $pdfPath = 'public/surat-jalan/' . $vendorName . '/' . $fileName;
+        $pdfPath = 'public/surat-jalan/' . $penyewaan->vendor->nama . '/' . $penyewaan->nama_penyewa . '/' . $fileName;
         Storage::put($pdfPath, $pdf->output());
 
         $suratJalan->link_pdf = Storage::url($pdfPath);

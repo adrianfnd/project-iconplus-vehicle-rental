@@ -78,8 +78,16 @@
                     </tr>
                 @endif
                 <tr>
-                    <td>Biaya BBM, TOL, dan Parkir</td>
-                    <td>Rp {{ number_format($pengajuan->biaya_bbm_tol_parkir, 0, ',', '.') }}</td>
+                    <td>Biaya BBM</td>
+                    <td>Rp {{ number_format($pengajuan->biaya_bbm, 0, ',', '.') }}</td>
+                </tr>
+                <tr>
+                    <td>Biaya TOL</td>
+                    <td>Rp {{ number_format($pengajuan->biaya_tol, 0, ',', '.') }}</td>
+                </tr>
+                <tr>
+                    <td>Biaya Parkir</td>
+                    <td>Rp {{ number_format($pengajuan->biaya_parkir, 0, ',', '.') }}</td>
                 </tr>
                 @if ($suratJalan->is_lebih_hari)
                     <tr>

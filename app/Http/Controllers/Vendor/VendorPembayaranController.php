@@ -26,6 +26,10 @@ class VendorPembayaranController extends Controller
     {
         $tagihan = Tagihan::with(['penyewaan'])
                         ->where('id_vendor', auth()->user()->vendor->id)
+                        ->whereIn('status', [
+                            'Pengajuan Pembayaran',
+                            'Approved by Administrasi'
+                        ])
                         ->whereNotIn('status', ['Lunas'])
                         ->findOrFail($id);
 
@@ -36,38 +40,37 @@ class VendorPembayaranController extends Controller
         return view('vendor.pembayaran.show', compact('tagihan', 'suratJalan'));
     }
 
-    public function showPdf($id)
-    {
-        $tagihan = Tagihan::with(['penyewaan'])->findOrFail($id);
-                            
-        $path = str_replace('storage/', 'app/public/', $tagihan->link_pdf);
-
-        $pdfPath = storage_path($path);
-
-        if (!$pdfPath) {
-            abort(404, 'PDF tidak ditemukan');
-        }
-
-        return response()->file($pdfPath);
-    }
-
     public function edit($id)
-{
-    $tagihan = Tagihan::with(['penyewaan'])
-                    ->where('id_vendor', auth()->user()->vendor->id)
-                    ->findOrFail($id);
+    {
+        $tagihan = Tagihan::with(['penyewaan'])
+                        ->where('id_vendor', auth()->user()->vendor->id)
+                        ->whereIn('status', [
+                            'Rejected by Administrasi',
+                            'Rejected by Fasilitas'
+                        ])
+                        ->findOrFail($id);
 
-    $suratJalan = SuratJalan::with('penyewaan')
-                    ->where('id_vendor', auth()->user()->vendor->id)
-                    ->where('id_penyewaan', $tagihan->id_penyewaan)->first();
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('id_vendor', auth()->user()->vendor->id)
+                        ->where('id_penyewaan', $tagihan->id_penyewaan)->first();
 
-    return view('vendor.pembayaran.edit', compact('tagihan', 'suratJalan'));
-}
+        return view('vendor.pembayaran.edit', compact('tagihan', 'suratJalan'));
+    }
 
     public function update(Request $request, $id)
     {
-        $tagihan = Tagihan::findOrFail($id);
-        $suratJalan = SuratJalan::where('id_penyewaan', $tagihan->id_penyewaan)->firstOrFail();
+        $tagihan = Tagihan::with(['penyewaan'])
+                        ->where('id_vendor', auth()->user()->vendor->id)
+                        ->whereIn('status', [
+                            'Rejected by Administrasi',
+                            'Rejected by Fasilitas'
+                        ])
+                        ->findOrFail($id);
+
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('id_vendor', auth()->user()->vendor->id)
+                        ->where('id_penyewaan', $tagihan->id_penyewaan)->first();
+
         $penyewaan = Penyewaan::findOrFail($tagihan->id_penyewaan);
 
         $request->validate([
@@ -99,32 +102,49 @@ class VendorPembayaranController extends Controller
         ]);
 
         if ($request->hasFile('bukti_biaya')) {
+            if ($suratJalan->bukti_biaya_bbm_tol_parkir) {
+                foreach (json_decode($suratJalan->bukti_biaya_bbm_tol_parkir) as $oldFile) {
+                    Storage::disk('public')->delete($oldFile);
+                }
+            }
+            
             $bukti_biaya = [];
             foreach ($request->file('bukti_biaya') as $file) {
-                $path = $file->store('bukti_biaya', 'public');
+                $path = $file->store('bukti_biaya_bbm_tol_parkir/' . $penyewaan->vendor->nama . '/' . $penyewaan->nama_penyewa, 'public');
                 $bukti_biaya[] = $path;
             }
             $suratJalan->bukti_biaya_bbm_tol_parkir = json_encode($bukti_biaya);
         }
 
         if ($request->hasFile('bukti_lainnya')) {
+            if ($suratJalan->bukti_lainnya) {
+                foreach (json_decode($suratJalan->bukti_lainnya) as $oldFile) {
+                    Storage::disk('public')->delete($oldFile);
+                }
+            }
+            
             $bukti_lainnya = [];
             foreach ($request->file('bukti_lainnya') as $file) {
-                $path = $file->store('bukti_lainnya', 'public');
+                $path = $file->store('bukti_lainnya/' . $penyewaan->vendor->nama . '/' . $penyewaan->nama_penyewa, 'public');
                 $bukti_lainnya[] = $path;
             }
             $suratJalan->bukti_lainnya = json_encode($bukti_lainnya);
         }
 
+        $suratJalan->status = 'Pengajuan Pembayaran';
         $suratJalan->save();
 
         $total_biaya = $penyewaan->nilai_sewa + $penyewaan->biaya_driver + $penyewaan->biaya_bbm + $penyewaan->biaya_tol + $penyewaan->biaya_parkir + $suratJalan->jumlah_denda;
         $penyewaan->total_biaya = $total_biaya;
+        $penyewaan->status = 'Pengajuan Pembayaran';
+        $penyewaan->reject_notes = null;
         $penyewaan->save();
 
         $tagihan->total_tagihan = $total_biaya;
+        $tagihan->status = 'Pengajuan Pembayaran';
+        $tagihan->reject_notes = null;
         $tagihan->save();
 
-        return redirect()->route('vendor.pembayaran.show', $tagihan->id)->with('success', 'Tagihan berhasil diperbarui');
+        return redirect()->route('vendor.pembayaran.index')->with('success', 'Pengajuan pembayaran berhasil dikirim ulang.');
     }
 }

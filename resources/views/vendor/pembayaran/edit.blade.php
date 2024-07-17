@@ -19,6 +19,12 @@
                         <p class="card-description">
                             Edit informasi rinci mengenai tagihan untuk penyewaan kendaraan.
                         </p>
+                        @if ($tagihan->reject_notes)
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading">Reject Notes:</h4>
+                                <p>{{ $tagihan->reject_notes }}</p>
+                            </div>
+                        @endif
                         <form action="{{ route('vendor.pembayaran.update', $tagihan->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf

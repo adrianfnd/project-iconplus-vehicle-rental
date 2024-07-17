@@ -19,6 +19,12 @@
                         <p class="card-description">
                             Informasi rinci mengenai tagihan untuk penyewaan kendaraan.
                         </p>
+                        @if ($tagihan->reject_notes)
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading">Reject Notes:</h4>
+                                <p>{{ $tagihan->reject_notes }}</p>
+                            </div>
+                        @endif
                         <div class="mt-4">
                             <div class="row">
                                 <div class="col-md-6">
@@ -139,87 +145,10 @@
                         </table>
                         <div class="mt-4">
                             <a href="{{ route('vendor.pembayaran.index') }}" class="btn btn-light">Kembali</a>
-                            @if ($tagihan->status == 'Pengajuan Pembayaran')
-                                <button type="button" class="btn btn-success" id="approveButton">Approve</button>
-                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        document.getElementById('rejectButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Reject Pengajuan',
-                input: 'textarea',
-                inputLabel: 'Notes',
-                inputPlaceholder: 'Masukan catatan disini...',
-                inputAttributes: {
-                    'aria-label': 'Masukan catatan disini'
-                },
-                showCancelButton: true,
-                confirmButtonText: 'Reject',
-                cancelButtonText: 'Close',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Tolong masukkan catatan!'
-                    }
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const notes = result.value;
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '{{ route('admin.pembayaran.decline', $tagihan->id) }}';
-
-                    const csrfToken = document.createElement('input');
-                    csrfToken.type = 'hidden';
-                    csrfToken.name = '_token';
-                    csrfToken.value = '{{ csrf_token() }}';
-                    form.appendChild(csrfToken);
-
-                    const notesInput = document.createElement('input');
-                    notesInput.type = 'hidden';
-                    notesInput.name = 'reject_notes';
-                    notesInput.value = notes;
-                    form.appendChild(notesInput);
-
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        });
-
-        document.getElementById('approveButton').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Approve Pengajuan Pembayaran',
-                text: 'Apakah Anda yakin ingin menyetujui pengajuan pembayaran ini?',
-                showCancelButton: true,
-                confirmButtonText: 'Approve',
-                cancelButtonText: 'Close',
-                preConfirm: () => {
-                    return true;
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const form = document.createElement('form');
-                    form.method = 'POST';
-                    form.action = '{{ route('admin.pembayaran.approve', $tagihan->id) }}';
-
-                    const csrfToken = document.createElement('input');
-                    csrfToken.type = 'hidden';
-                    csrfToken.name = '_token';
-                    csrfToken.value = '{{ csrf_token() }}';
-                    form.appendChild(csrfToken);
-
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        });
-    </script>
 @endsection

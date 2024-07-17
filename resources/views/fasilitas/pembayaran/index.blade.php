@@ -48,13 +48,15 @@
                                             <td>
                                                 <center>
                                                     @if ($item->status == 'Pengajuan Pembayaran')
-                                                        <span class="badge badge-warning">Pengajuan Pembayaran</span>
-                                                    @elseif ($item->status == 'Disetujui')
-                                                        <span class="badge badge-success">Disetujui</span>
-                                                    @elseif ($item->status == 'Ditolak')
-                                                        <span class="badge badge-danger">Ditolak</span>
+                                                        <span class="badge badge-success">Pengajuan Pembayaran</span>
+                                                    @elseif ($item->status == 'Approved by Administrasi')
+                                                        <span class="badge badge-success">Approved by Administrasi</span>
+                                                    @elseif ($item->status == 'Rejected by Administrasi')
+                                                        <span class="badge badge-danger"> Rejected by Administrasi</span>
+                                                    @elseif ($item->status == 'Rejected by Fasilitas')
+                                                        <span class="badge badge-danger">Rejected by Fasilitas</span>
                                                     @else
-                                                        <span class="badge badge-secondary">{{ $item->status }}</span>
+                                                        <span class="badge badge-warning">Status tidak diketahui</span>
                                                     @endif
                                                 </center>
                                             </td>

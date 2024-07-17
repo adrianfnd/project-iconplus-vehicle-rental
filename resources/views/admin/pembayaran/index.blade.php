@@ -53,8 +53,8 @@
                                                         <span class="badge badge-success">Approved by Administrasi</span>
                                                     @elseif ($item->status == 'Rejected by Administrasi')
                                                         <span class="badge badge-danger"> Rejected by Administrasi</span>
-                                                    @elseif ($item->status == 'Approved by Fasilitas')
-                                                        <span class="badge badge-success">Approved by Fasilitas</span>
+                                                    @elseif ($item->status == 'Rejected by Fasilitas')
+                                                        <span class="badge badge-danger">Rejected by Fasilitas</span>
                                                     @else
                                                         <span class="badge badge-warning">Status tidak diketahui</span>
                                                     @endif

@@ -18,7 +18,9 @@ class FasilitasPembayaranController extends Controller
     public function index()
     {
         $tagihan = Tagihan::with(['penyewaan'])
-                        ->where('status', 'Approved by Administrasi')
+                        ->whereIn('status', [
+                            'Approved by Administrasi'
+                        ])
                         ->whereNotIn('status', ['Lunas'])
                         ->paginate(10);
 
@@ -28,7 +30,9 @@ class FasilitasPembayaranController extends Controller
     public function show($id)
     {
         $tagihan = Tagihan::with(['penyewaan'])
-                        ->where('status', 'Approved by Administrasi')
+                        ->whereIn('status', [
+                            'Approved by Administrasi'
+                        ])
                         ->whereNotIn('status', ['Lunas'])
                         ->findOrFail($id);
 
@@ -61,7 +65,7 @@ class FasilitasPembayaranController extends Controller
         
         $tagihan->save();
 
-        return redirect()->route('fasilitas.sewa-kendaraan.index')->with('success', 'Pengajuan berhasil disetujui.');
+        return redirect()->route('fasilitas.pembayaran.index')->with('success', 'Pengajuan berhasil disetujui.');
     }
     
     public function approve($id)
@@ -133,7 +137,7 @@ class FasilitasPembayaranController extends Controller
         $penyewaan->status = 'Lunas';
         $penyewaan->save();
 
-        return redirect()->route('fasilitas.sewa-kendaraan.index')->with('success', 'Pembayaran berhasil dilakukan.');
+        return redirect()->route('fasilitas.pembayaran.index')->with('success', 'Pembayaran berhasil dilakukan.');
     }
 
     public function failed($encrypted_id)
@@ -146,6 +150,6 @@ class FasilitasPembayaranController extends Controller
         $tagihan->status = 'Approved by Administrasi';
         $tagihan->save();
 
-        return redirect()->route('fasilitas.sewa-kendaraan.index')->with('error', 'Pembayaran gagal dilakukan.');
+        return redirect()->route('fasilitas.pembayaran.index')->with('error', 'Pembayaran gagal dilakukan.');
     }
 }

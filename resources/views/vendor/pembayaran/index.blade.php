@@ -53,15 +53,15 @@
                                                         <span class="badge badge-success">Approved by Administrasi</span>
                                                     @elseif ($item->status == 'Rejected by Administrasi')
                                                         <span class="badge badge-danger"> Rejected by Administrasi</span>
-                                                    @elseif ($item->status == 'Approved by Fasilitas')
-                                                        <span class="badge badge-success">Approved by Fasilitas</span>
+                                                    @elseif ($item->status == 'Rejected by Fasilitas')
+                                                        <span class="badge badge-danger">Rejected by Fasilitas</span>
                                                     @else
                                                         <span class="badge badge-warning">Status tidak diketahui</span>
                                                     @endif
                                                 </center>
                                             </td>
                                             <td>
-                                                @if ($item->status == 'Rejected by Administrasi')
+                                                @if ($item->status == 'Rejected by Administrasi' || $item->status == 'Rejected by Fasilitas')
                                                     <center>
                                                         <a href="{{ route('vendor.pembayaran.edit', $item->id) }}"
                                                             class="btn btn-sm btn-danger">Ajukan Ulang</a>

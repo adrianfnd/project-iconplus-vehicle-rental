@@ -19,6 +19,12 @@
                         <p class="card-description">
                             Informasi rinci mengenai tagihan untuk penyewaan kendaraan.
                         </p>
+                        @if ($tagihan->reject_notes)
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading">Reject Notes:</h4>
+                                <p>{{ $tagihan->reject_notes }}</p>
+                            </div>
+                        @endif
                         <div class="mt-4">
                             <div class="row">
                                 <div class="col-md-6">
