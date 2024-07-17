@@ -25,22 +25,10 @@ class AdminPembayaranController extends Controller
                         ->whereNotIn('status', ['Lunas'])
                         ->findOrFail($id);
 
-        return view('admin.pembayaran.show', compact('tagihan'));
-    }
+        $suratJalan = SuratJalan::with('penyewaan')
+                        ->where('id_penyewaan', $tagihan->id_penyewaan)->first();
 
-    public function showPdf($id)
-    {
-        $tagihan = Tagihan::with(['penyewaan'])->findOrFail($id);
-                            
-        $path = str_replace('storage/', 'app/public/', $tagihan->link_pdf);
-
-        $pdfPath = storage_path($path);
-
-        if (!$pdfPath) {
-            abort(404, 'PDF tidak ditemukan');
-        }
-
-        return response()->file($pdfPath);
+        return view('admin.pembayaran.show', compact('tagihan', 'suratJalan'));
     }
 
     public function approve(Request $request, $id)
@@ -48,9 +36,22 @@ class AdminPembayaranController extends Controller
         $tagihan = Tagihan::with(['penyewaan'])
                         ->where('status', 'Pengajuan Pembayaran')
                         ->findOrFail($id);
+
+        $suratJalan = SuratJalan::where('id_penyewaan', $tagihan->id_penyewaan)->first();
+        $pengajuan = Penyewaan::where('id', $tagihan->id_penyewaan)->first();
+                        
+        $pdf = PDF::loadView('vendor.pembayaran.invoice-pdf', [
+            'suratJalan' => $suratJalan,
+            'pengajuan' => $pengajuan
+        ]);
+
+        $filename = 'invoice_' . Str::random(10) . '.pdf';
+        $pdfPath = 'public/invoices/' . auth()->user()->vendor->nama . '/' . $filename;
+    
+        Storage::put($pdfPath, $pdf->output());
         
         $tagihan->status = 'Approved by Administrasi';
-        
+        $tagihan->link_pdf = Storage::url($pdfPath);
         $tagihan->save();
 
         return redirect()->route('admin.sewa-kendaraan.index')->with('success', 'Pengajuan berhasil disetujui.');

@@ -128,9 +128,21 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Biaya BBM, TOL, dan Parkir</td>
+                                    <td>Biaya BBM</td>
                                     <td class="text-right">
-                                        Rp {{ number_format($suratJalan->penyewaan->biaya_bbm_tol_parkir, 0, ',', '.') }}
+                                        Rp {{ number_format($suratJalan->penyewaan->biaya_bbm, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Biaya TOL</td>
+                                    <td class="text-right">
+                                        Rp {{ number_format($suratJalan->penyewaan->biaya_tol, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Biaya Parkir</td>
+                                    <td class="text-right">
+                                        Rp {{ number_format($suratJalan->penyewaan->biaya_parkir, 0, ',', '.') }}
                                     </td>
                                 </tr>
                                 @if ($suratJalan->is_lebih_hari)
