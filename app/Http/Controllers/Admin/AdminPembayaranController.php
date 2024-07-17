@@ -80,6 +80,6 @@ class AdminPembayaranController extends Controller
         $tagihan->reject_notes = $request->reject_notes;
         $tagihan->save();
 
-        return redirect()->route('admin.pembayaran.index')->with('success', 'Pengajuan pembayaran ditolak.');
+        return redirect()->route('admin.pembayaran.index')->with('success', 'Pengajuan pembayaran berhasil ditolak.');
     }
 }

@@ -65,7 +65,7 @@ class FasilitasPembayaranController extends Controller
         
         $tagihan->save();
 
-        return redirect()->route('fasilitas.pembayaran.index')->with('success', 'Pengajuan berhasil disetujui.');
+        return redirect()->route('fasilitas.pembayaran.index')->with('success', 'Pengajuan pembayaran berhasil ditolak.');
     }
     
     public function approve($id)

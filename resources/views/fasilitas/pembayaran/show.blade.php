@@ -3,7 +3,7 @@
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title">Detail Tagihan</h3>
+            <h3 class="page-title">Detail Pembayaran</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Pembayaran</a></li>
@@ -15,7 +15,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Detail Tagihan</h4>
+                        <h4 class="card-title">Detail Pembayaran</h4>
                         <p class="card-description">
                             Informasi rinci mengenai tagihan untuk penyewaan kendaraan.
                         </p>
@@ -32,7 +32,7 @@
                             <a href="{{ route('fasilitas.pembayaran.index') }}" class="btn btn-light">Kembali</a>
                             @if ($tagihan->status == 'Approved by Administrasi')
                                 <button type="button" class="btn btn-danger" id="rejectButton">Reject</button>
-                                <button type="button" class="btn btn-success" id="approveButton">Approve</button>
+                                <button type="button" class="btn btn-success" id="payButton">Pay</button>
                             @endif
                         </div>
                     </div>
@@ -68,7 +68,7 @@
 
         document.getElementById('rejectButton').addEventListener('click', function() {
             Swal.fire({
-                title: 'Reject Pembayaran',
+                title: 'Reject Pengajuan Pembayaran',
                 input: 'textarea',
                 inputLabel: 'Notes',
                 inputPlaceholder: 'Masukan catatan disini...',
@@ -108,12 +108,12 @@
             });
         });
 
-        document.getElementById('approveButton').addEventListener('click', function() {
+        document.getElementById('payButton').addEventListener('click', function() {
             Swal.fire({
-                title: 'Approve Pembayaran',
-                text: 'Apakah Anda yakin ingin menyetujui pembayaran ini?',
+                title: 'Pembayaran',
+                text: 'Apakah Anda yakin ingin membayar pengajuan pembayaran ini?',
                 showCancelButton: true,
-                confirmButtonText: 'Approve',
+                confirmButtonText: 'Pay',
                 cancelButtonText: 'Close',
                 preConfirm: () => {
                     return true;

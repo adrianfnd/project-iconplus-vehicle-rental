@@ -3,11 +3,11 @@
 @section('content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Daftar Tagihan </h3>
+            <h3 class="page-title"> Daftar Pembayaran </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Daftar Tagihan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Daftar Pembayaran</li>
                 </ol>
             </nav>
         </div>
@@ -15,8 +15,8 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Daftar Tagihan</h4>
-                        <p class="card-description">Berikut adalah daftar tagihan yang perlu diproses.</p>
+                        <h4 class="card-title">Daftar Pembayaran</h4>
+                        <p class="card-description">Berikut adalah daftar pembayaran yang perlu diproses.</p>
 
                         <div class="table-responsive">
                             <table class="table table-striped">
