@@ -5,21 +5,34 @@
     <meta charset="utf-8">
     <title>Laporan Surat Jalan</title>
     <style>
+        @page {
+            size: landscape;
+        }
+
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
         }
 
         .header {
             text-align: center;
             margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #b66dff;
         }
 
         .header h2 {
             margin: 0;
+            color: #7945ad;
         }
 
         .header p {
-            margin: 0;
+            margin: 5px 0;
+            color: #666;
         }
 
         table {
@@ -36,12 +49,26 @@
 
         th,
         td {
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f0e6ff;
+            font-weight: bold;
+            color: #7945ad;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f5f0ff;
+        }
+
+        tr {
+            page-break-inside: avoid;
         }
     </style>
 </head>

@@ -58,10 +58,10 @@ class AdminLaporanController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'vendor_id' => 'required|string',
         ]);
-
+    
         $startDate = Carbon::parse($request->start_date)->startOfDay();
         $endDate = Carbon::parse($request->end_date)->endOfDay();
-
+    
         if ($request->vendor_id != 'all') {
             $riwayatSuratJalan = RiwayatSuratJalan::with('suratJalan')
                 ->where('id_vendor', $request->vendor_id)
@@ -74,18 +74,20 @@ class AdminLaporanController extends Controller
                 ->whereBetween('created_at', [$startDate, $endDate])
                 ->get();
         }
-
-        $selectedVendor = $request->vendor_id == 'all' ? 'Semua Vendor' : Vendor::find($request->vendor_id)->nama;
-
+    
+        $selectedVendor = $request->vendor_id == 'all' ? 'Semua_Vendor' : Vendor::find($request->vendor_id)->nama;
+    
         foreach ($riwayatSuratJalan as $item) {
             $item->sudah_dicetak = 1;
             $item->start_period = $startDate;
             $item->end_period = $endDate;
             $item->save();
         }
-
+    
         $pdf = PDF::loadView('admin.laporan.laporan-pdf', compact('riwayatSuratJalan', 'startDate', 'endDate', 'selectedVendor'));
-
-        return $pdf->download('laporan_surat_jalan.pdf');
+    
+        $fileName = 'Laporan_Surat_Jalan_' . $selectedVendor . '_' . $startDate->format('d-m-Y') . '_' . $endDate->format('d-m-Y') . '.pdf';
+    
+        return $pdf->download($fileName);
     }
 }

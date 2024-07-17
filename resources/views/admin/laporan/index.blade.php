@@ -20,13 +20,20 @@
 
                         <form action="{{ route('admin.laporan.generate') }}" method="POST">
                             @csrf
-                            <div class="form-group">
-                                <label for="start_date">Tanggal Mulai</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="end_date">Tanggal Akhir</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" required>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="start_date">Tanggal Mulai</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="end_date">Tanggal Akhir</label>
+                                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="vendor_id">Vendor</label>

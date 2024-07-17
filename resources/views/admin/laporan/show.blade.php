@@ -58,16 +58,34 @@
 
                         <div class="mt-4">
                             <a href="{{ route('admin.laporan.index') }}" class="btn btn-light">Kembali</a>
-                            <a href="{{ route('admin.laporan.cetak', [
-                                'start_date' => request('start_date'),
-                                'end_date' => request('end_date'),
-                                'vendor_id' => request('vendor_id'),
-                            ]) }}"
-                                class="btn btn-primary">Cetak Laporan</a>
+                            <button id="cetakButton" class="btn btn-primary">Cetak Laporan</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById('cetakButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Cetak Laporan',
+                text: 'Setelah mencetak laporan, pastikan untuk menyimpan PDF dengan baik karena tidak dapat dicetak ulang.',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Cetak',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `{!! route('admin.laporan.cetak', [
+                        'start_date' => request('start_date'),
+                        'end_date' => request('end_date'),
+                        'vendor_id' => request('vendor_id'),
+                    ]) !!}`;
+                }
+            });
+        });
+    </script>
 @endsection
