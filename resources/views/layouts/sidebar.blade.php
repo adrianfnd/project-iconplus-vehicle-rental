@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('pemeliharaan.laporan-mingguan') }}">
+            <a class="nav-link" href="{{ route('pemeliharaan.laporan.index') }}">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
@@ -56,7 +56,7 @@
                 <div class="collapse" id="laporan">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('pemeliharaan.laporan-mingguan') }}">
+                            <a class="nav-link" href="{{ route('pemeliharaan.laporan.index') }}">
                                 Laporan
                             </a>
                         </li>
@@ -113,7 +113,7 @@
                 <div class="collapse" id="laporan">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('fasilitas.laporan-mingguan') }}">
+                            <a class="nav-link" href="{{ route('fasilitas.laporan.index') }}">
                                 Laporan
                             </a>
                         </li>
@@ -237,7 +237,7 @@
                 <div class="collapse" id="laporan">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vendor.laporan-mingguan') }}">
+                            <a class="nav-link" href="{{ route('vendor.laporan.index') }}">
                                 Laporan
                             </a>
                         </li>

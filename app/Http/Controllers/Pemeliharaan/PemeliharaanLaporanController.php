@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pemeliharaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,13 +10,13 @@ use App\Models\Vendor;
 use Carbon\Carbon;
 use PDF;
 
-class AdminLaporanController extends Controller
+class PemeliharaanLaporanController extends Controller
 {
     public function index()
     {
         $vendors = Vendor::all();
 
-        return view('admin.laporan.index', compact('vendors'));
+        return view('pemeliharaan.laporan.index', compact('vendors'));
     }
 
     public function generate(Request $request)
@@ -57,7 +57,7 @@ class AdminLaporanController extends Controller
 
         $selectedVendor = $request->vendor_id == 'all' ? 'Semua Vendor' : Vendor::find($request->vendor_id)->nama;
 
-        return view('admin.laporan.show', compact('riwayatSuratJalan', 'startDate', 'endDate', 'selectedVendor'));
+        return view('pemeliharaan.laporan.show', compact('riwayatSuratJalan', 'startDate', 'endDate', 'selectedVendor'));
     }
 
     public function cetak(Request $request)
@@ -95,13 +95,13 @@ class AdminLaporanController extends Controller
         $selectedVendor = $request->vendor_id == 'all' ? 'Semua_Vendor' : Vendor::find($request->vendor_id)->nama;
     
         foreach ($riwayatSuratJalan as $item) {
-            $item->sudah_dicetak = 1;
-            $item->start_period = $startDate;
-            $item->end_period = $endDate;
+            // $item->sudah_dicetak = 1;
+            // $item->start_period = $startDate;
+            // $item->end_period = $endDate;
             $item->save();
         }
     
-        $pdf = PDF::loadView('admin.laporan.laporan-pdf', compact('riwayatSuratJalan', 'startDate', 'endDate', 'selectedVendor'));
+        $pdf = PDF::loadView('pemeliharaan.laporan.laporan-pdf', compact('riwayatSuratJalan', 'startDate', 'endDate', 'selectedVendor'));
     
         $fileName = 'Laporan_Surat_Jalan_' . $selectedVendor . '_' . $startDate->format('d-m-Y') . '_' . $endDate->format('d-m-Y') . '.pdf';
     

@@ -18,7 +18,7 @@
                         <h4 class="card-title">Filter Laporan</h4>
                         <p class="card-description">Pilih rentang tanggal dan vendor untuk generate laporan.</p>
 
-                        <form action="{{ route('admin.laporan.generate') }}" method="POST">
+                        <form action="{{ route('pemeliharaan.laporan.generate') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">

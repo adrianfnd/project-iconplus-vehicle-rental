@@ -57,8 +57,9 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
     Route::get('riwayat', [PemeliharaanRiwayatController::class, 'index'])->name('pemeliharaan.riwayat.index');
     Route::get('riwayat/{id}', [PemeliharaanRiwayatController::class, 'show'])->name('pemeliharaan.riwayat.show');
     
-    Route::get('laporan-mingguan', [PemeliharaanLaporanController::class, 'index'])->name('pemeliharaan.laporan-mingguan');
-    Route::get('laporan-mingguan/generate-pdf', [PemeliharaanLaporanController::class, 'generatePDF'])->name('pemeliharaan.laporan-mingguan.generate-pdf');
+    Route::get('laporan', [PemeliharaanLaporanController::class, 'index'])->name('pemeliharaan.laporan.index');
+    Route::post('laporan/generate', [PemeliharaanLaporanController::class, 'generate'])->name('pemeliharaan.laporan.generate');
+    Route::get('laporan/cetak', [PemeliharaanLaporanController::class, 'cetak'])->name('pemeliharaan.laporan.cetak');
 });
 
 // Routes Staff Fasilitas
@@ -79,8 +80,9 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
     Route::get('riwayat', [FasilitasRiwayatController::class, 'index'])->name('fasilitas.riwayat.index');
     Route::get('riwayat/{id}', [FasilitasRiwayatController::class, 'show'])->name('fasilitas.riwayat.show');
 
-    Route::get('laporan-mingguan', [FasilitasLaporanController::class, 'index'])->name('fasilitas.laporan-mingguan');
-    Route::get('laporan-mingguan/generate-pdf', [FasilitasLaporanController::class, 'generatePDF'])->name('fasilitas.laporan-mingguan.generate-pdf');
+    Route::get('laporan', [FasilitasLaporanController::class, 'index'])->name('fasilitas.laporan.index');
+    Route::post('laporan/generate', [FasilitasLaporanController::class, 'generate'])->name('fasilitas.laporan.generate');
+    Route::get('laporan/cetak', [FasilitasLaporanController::class, 'cetak'])->name('fasilitas.laporan.cetak');
 });
 
 // Routes Staff Admin
@@ -128,6 +130,7 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
     Route::get('riwayat', [VendorRiwayatController::class, 'index'])->name('vendor.riwayat.index');
     Route::get('riwayat/{id}', [VendorRiwayatController::class, 'show'])->name('vendor.riwayat.show');
 
-    Route::get('laporan-mingguan', [VendorLaporanController::class, 'index'])->name('vendor.laporan-mingguan');
-    Route::get('laporan-mingguan/generate-pdf', [VendorLaporanController::class, 'generatePDF'])->name('vendor.laporan-mingguan.generate-pdf');
+    Route::get('laporan', [VendorLaporanController::class, 'index'])->name('vendor.laporan.index');
+    Route::post('laporan/generate', [VendorLaporanController::class, 'generate'])->name('vendor.laporan.generate');
+    Route::get('laporan/cetak', [VendorLaporanController::class, 'cetak'])->name('vendor.laporan.cetak');
 });

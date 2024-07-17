@@ -18,7 +18,7 @@
                         <h4 class="card-title">Filter Laporan</h4>
                         <p class="card-description">Pilih rentang tanggal dan vendor untuk generate laporan.</p>
 
-                        <form action="{{ route('admin.laporan.generate') }}" method="POST">
+                        <form action="{{ route('vendor.laporan.generate') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -40,18 +40,6 @@
                                         @endif
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="vendor_id">Vendor</label>
-                                <select class="form-control form-control-lg" id="vendor_id" name="vendor_id" required>
-                                    <option value="all">Semua Vendor</option>
-                                    @foreach ($vendors as $vendor)
-                                        <option value="{{ $vendor->id }}">{{ $vendor->nama }}</option>
-                                    @endforeach
-                                    @if ($errors->has('vendor_id'))
-                                        <span class="text-danger">{{ $errors->first('vendor_id') }}</span>
-                                    @endif
-                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Generate Laporan</button>
                         </form>
