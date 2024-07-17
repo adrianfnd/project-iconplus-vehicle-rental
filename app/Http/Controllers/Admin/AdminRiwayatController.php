@@ -8,6 +8,7 @@ use App\Models\Tagihan;
 use App\Models\SuratJalan;
 use App\Models\Penyewaan;
 use App\Models\RiwayatSuratJalan;
+use App\Models\Pembayaran;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -26,25 +27,22 @@ class AdminRiwayatController extends Controller
         $riwayat = RiwayatSuratJalan::with('suratJalan')
                     ->findOrFail($id);
 
-        return view('admin.riwayat.show', compact('riwayat'));
-    }
+        $tagihan = Tagihan::with(['penyewaan'])
+                    ->where('id_penyewaan', $riwayat->suratJalan->penyewaan->id)
+                    ->firstOrFail();
 
-    public function showPdf($id)
-    {
-        $tagihan = Tagihan::findOrFail($id);
-        $suratJalan = $tagihan->penyewaan->suratJalan;
+        $pembayaran = Pembayaran::where('id_tagihan', $tagihan->id)
+                    ->firstOrFail();
 
-        if (!$suratJalan || !$suratJalan->link_pdf) {
-            abort(404, 'PDF tidak ditemukan');
-        }
+        $nilaiSewa = $riwayat->suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
 
-        $path = str_replace('storage/', 'app/public/', $suratJalan->link_pdf);
-        $pdfPath = storage_path($path);
+        $biayaDriver = $riwayat->suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
 
-        if (!file_exists($pdfPath)) {
-            abort(404, 'File PDF tidak ditemukan');
-        }
+        $riwayat->suratJalan->penyewaan->nilai_sewa = $nilaiSewa;
+        $riwayat->suratJalan->penyewaan->biaya_driver = $biayaDriver;
+        $riwayat->suratJalan->penyewaan->total_nilai_sewa = $nilaiSewa * $riwayat->suratJalan->penyewaan->jumlah_hari_sewa;
+        $riwayat->suratJalan->penyewaan->total_biaya_driver = $biayaDriver * $riwayat->suratJalan->penyewaan->jumlah_hari_sewa;
 
-        return response()->file($pdfPath);
+        return view('admin.riwayat.show', compact('riwayat', 'tagihan', 'pembayaran'));
     }
 }
