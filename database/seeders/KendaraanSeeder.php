@@ -21,20 +21,27 @@ class KendaraanSeeder extends Seeder
         ];
 
         foreach ($tipeKendaraan as $tipe) {
-            for ($i = 1; $i <= 3; $i++) {
-                DB::table('kendaraan')->insert([
-                    'id' => Str::uuid(),
-                    'nama' => $tipe,
-                    'tipe' => $tipe,
-                    'nomor_plat' => 'B ' . rand(1000, 9999) . ' ' . chr(rand(65, 90)) . chr(rand(65, 90)),
-                    'stok' => rand(1, 5),
-                    'total_kilometer' => rand(10000, 50000),
-                    'image_url' => 'https://example.com/images/' . strtolower($tipe) . '.jpg',
-                    'tarif_harian' => rand(300000, 800000),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+            DB::table('kendaraan')->insert([
+                'id' => Str::uuid(),
+                'nama' => $tipe,
+                'tipe' => $tipe,
+                'nomor_plat' => $this->generateUniquePlateNumber(),
+                'stok' => rand(1, 5),
+                'total_kilometer' => rand(10000, 50000),
+                'image_url' => 'https://example.com/images/' . strtolower($tipe) . '.jpg',
+                'tarif_harian' => rand(300000, 800000),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
+    }
+
+    private function generateUniquePlateNumber()
+    {
+        do {
+            $plateNumber = 'B ' . rand(1000, 9999) . ' ' . chr(rand(65, 90)) . chr(rand(65, 90));
+        } while (DB::table('kendaraan')->where('nomor_plat', $plateNumber)->exists());
+
+        return $plateNumber;
     }
 }
