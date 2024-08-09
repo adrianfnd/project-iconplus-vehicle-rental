@@ -46,8 +46,12 @@ class FasilitasDashboardController extends Controller
 
         $pengajuanPerTahun = Penyewaan::select(
             DB::raw('YEAR(created_at) as tahun'),
-            DB::raw('SUM(CASE WHEN status = "approved" THEN 1 ELSE 0 END) as approved'),
-            DB::raw('SUM(CASE WHEN status = "declined" THEN 1 ELSE 0 END) as declined')
+            DB::raw('SUM(CASE 
+                WHEN status IN ("Pengajuan", "Approved by Fasilitas", "Approved by Administrasi", "Approved by Vendor", "Surat Jalan") THEN 1 
+                ELSE 0 END) as approved'),
+            DB::raw('SUM(CASE 
+                WHEN status IN ("Rejected by Vendor", "Rejected by Fasilitas") THEN 1 
+                ELSE 0 END) as declined')
         )
             ->groupBy('tahun')
             ->orderBy('tahun')

@@ -94,14 +94,13 @@
         });
 
         new Chart(document.getElementById('anggaranChart'), {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: getMonthNames(),
                 datasets: [{
                     label: 'Anggaran Peminjaman',
                     data: {!! json_encode($anggaranPerBulan->pluck('total')) !!},
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    fill: false
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)'
                 }]
             },
             options: {
