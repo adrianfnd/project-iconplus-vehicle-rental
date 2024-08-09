@@ -29,13 +29,13 @@ class AuthController extends Controller
             $user = Auth::user()->load('role');
 
             if ($user->role->name == 'pemeliharaan') {
-                return redirect()->route('pemeliharaan.sewa-kendaraan.index');
+                return redirect()->route('pemeliharaan.dashboard');
             } elseif ($user->role->name == 'fasilitas') {
-                return redirect()->route('fasilitas.sewa-kendaraan.index');
+                return redirect()->route('fasilitas.dashboard');
             } elseif ($user->role->name == 'admin') {
-                return redirect()->route('admin.sewa-kendaraan.index');
+                return redirect()->route('admin.dashboard');
             } elseif ($user->role->name == 'vendor') {
-                return redirect()->route('vendor.sewa-kendaraan.index');
+                return redirect()->route('vendor.dashboard');
             }
         }
     

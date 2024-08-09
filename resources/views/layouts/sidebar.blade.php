@@ -10,6 +10,23 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
                     aria-controls="sewa">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-view-dashboard menu-icon"></i>
+                </a>
+                <div class="collapse" id="sewa">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('pemeliharaan.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
+                    aria-controls="sewa">
                     <span class="menu-title">Sewa</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-car menu-icon"></i>
@@ -64,6 +81,23 @@
                 </div>
             </li>
         @elseif(auth()->user()->role->name == 'fasilitas')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
+                    aria-controls="sewa">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-view-dashboard menu-icon"></i>
+                </a>
+                <div class="collapse" id="sewa">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('fasilitas.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
                     aria-controls="sewa">
@@ -124,12 +158,34 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
                     aria-controls="sewa">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-view-dashboard menu-icon"></i>
+                </a>
+                <div class="collapse" id="sewa">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
+                    aria-controls="sewa">
                     <span class="menu-title">Sewa</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-car menu-icon"></i>
                 </a>
                 <div class="collapse" id="sewa">
                     <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.tanda-tangan.index') }}">
+                                Tanda Tangan
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.sewa-kendaraan.index') }}">
                                 Sewa Kendaraan
@@ -183,6 +239,23 @@
                 </div>
             </li>
         @elseif(auth()->user()->role->name == 'vendor')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
+                    aria-controls="sewa">
+                    <span class="menu-title">Dashboard</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-view-dashboard menu-icon"></i>
+                </a>
+                <div class="collapse" id="sewa">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vendor.dashboard') }}">
+                                Dashboard
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
                     aria-controls="sewa">
