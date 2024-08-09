@@ -39,6 +39,8 @@ return new class extends Migration
             $table->date('tanggal_pembayaran')->nullable();
             $table->string('status');
             $table->string('reject_notes')->nullable();
+            $table->uuid('tanda_tangan_id')->nullable();
+            $table->foreign('tanda_tangan_id')->references('id')->on('tanda_tangan')->onDelete('cascade');
             $table->timestamps();
         });
     }
