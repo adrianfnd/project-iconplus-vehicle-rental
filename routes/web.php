@@ -2,19 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Pemeliharaan\PemeliharaanDashboardController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanSewaKendaraanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanSuratJalanController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanRiwayatController;
 use App\Http\Controllers\Pemeliharaan\PemeliharaanLaporanController;
+use App\Http\Controllers\Fasilitas\FasilitasDashboardController;
 use App\Http\Controllers\Fasilitas\FasilitasSewaKendaraanController;
 use App\Http\Controllers\Fasilitas\FasilitasPembayaranController;
 use App\Http\Controllers\Fasilitas\FasilitasRiwayatController;
 use App\Http\Controllers\Fasilitas\FasilitasLaporanController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminTandaTanganController;
 use App\Http\Controllers\Admin\AdminSewaKendaraanController;
 use App\Http\Controllers\Admin\AdminSuratJalanController;
 use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminRiwayatController;
 use App\Http\Controllers\Admin\AdminLaporanController;
+use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorSewaKendaraanController;
 use App\Http\Controllers\Vendor\VendorSuratJalanController;
 use App\Http\Controllers\Vendor\VendorPembayaranController;
@@ -42,6 +47,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Routes Staff Pemeliharaan dan Aset
 Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(function () {
+    Route::get('dashboard', [PemeliharaanDashboardController::class, 'index'])->name('pemeliharaan.dashboard');
+
     Route::get('sewa-kendaraan', [PemeliharaanSewaKendaraanController::class, 'index'])->name('pemeliharaan.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [PemeliharaanSewaKendaraanController::class, 'show'])->name('pemeliharaan.sewa-kendaraan.show');
     Route::get('sewa-kendaraan/create', [PemeliharaanSewaKendaraanController::class, 'create'])->name('pemeliharaan.sewa-kendaraan.create');
@@ -64,6 +71,8 @@ Route::middleware(['auth', 'role:pemeliharaan'])->prefix('pemeliharaan')->group(
 
 // Routes Staff Fasilitas
 Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(function () {
+    Route::get('dashboard', [FasilitasDashboardController::class, 'index'])->name('fasilitas.dashboard');
+
     Route::get('sewa-kendaraan', [FasilitasSewaKendaraanController::class, 'index'])->name('fasilitas.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [FasilitasSewaKendaraanController::class, 'show'])->name('fasilitas.sewa-kendaraan.show');
     Route::post('sewa-kendaraan-approve-{id}', [FasilitasSewaKendaraanController::class, 'approve'])->name('fasilitas.sewa-kendaraan.approve');
@@ -87,6 +96,13 @@ Route::middleware(['auth', 'role:fasilitas'])->prefix('fasilitas')->group(functi
 
 // Routes Staff Admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('tanda-tangan', [AdminTandaTanganController::class, 'index'])->name('admin.tanda-tangan.index');
+    Route::get('tanda-tangan/create', [AdminTandaTanganController::class, 'create'])->name('admin.tanda-tangan.create');
+    Route::post('tanda-tangan', [AdminTandaTanganController::class, 'store'])->name('admin.tanda-tangan.store');
+    Route::delete('tanda-tangan-{id}', [AdminTandaTanganController::class, 'destroy'])->name('admin.tanda-tangan.destroy');
+
     Route::get('sewa-kendaraan', [AdminSewaKendaraanController::class, 'index'])->name('admin.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [AdminSewaKendaraanController::class, 'show'])->name('admin.sewa-kendaraan.show');
     Route::post('sewa-kendaraan-approve-{id}', [AdminSewaKendaraanController::class, 'approve'])->name('admin.sewa-kendaraan.approve');
@@ -111,6 +127,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 // Routes Vendor Penyedia
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
+    Route::get('dashboard', [VendorDashboardController::class, 'index'])->name('vendor.dashboard');
+
     Route::get('sewa-kendaraan', [VendorSewaKendaraanController::class, 'index'])->name('vendor.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [VendorSewaKendaraanController::class, 'show'])->name('vendor.sewa-kendaraan.show');
     Route::post('sewa-kendaraan-approve-{id}', [VendorSewaKendaraanController::class, 'approve'])->name('vendor.sewa-kendaraan.approve');

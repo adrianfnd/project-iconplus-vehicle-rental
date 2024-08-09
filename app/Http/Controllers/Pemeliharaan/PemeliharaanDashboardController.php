@@ -38,6 +38,7 @@ class PemeliharaanDashboardController extends Controller
 
         $vendorTerbanyak = Penyewaan::select('id_vendor', DB::raw('COUNT(*) as jumlah'))
             ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->whereNotNull('id_vendor')
             ->groupBy('id_vendor')
             ->orderByDesc('jumlah')
             ->limit(5)
@@ -57,14 +58,14 @@ class PemeliharaanDashboardController extends Controller
             ->orderBy('tahun')
             ->get();
 
-        // Bug
         $utilisasiKendaraan = Kendaraan::select(
             'kendaraan.id',
+            'kendaraan.nama',
             DB::raw('(SUM(DATEDIFF(penyewaan.tanggal_selesai, penyewaan.tanggal_mulai)) / (DATEDIFF(?, ?) * COUNT(DISTINCT kendaraan.id))) as utilisasi')
         )
             ->leftJoin('penyewaan', 'kendaraan.id', '=', 'penyewaan.id_kendaraan')
             ->whereBetween('penyewaan.tanggal_mulai', [$startDate, $endDate])
-            ->groupBy('kendaraan.id')
+            ->groupBy('kendaraan.id', 'kendaraan.nama')
             ->addBinding([$endDate, $startDate], 'select')
             ->get();
 

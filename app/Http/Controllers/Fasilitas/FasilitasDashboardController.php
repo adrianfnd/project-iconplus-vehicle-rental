@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Fasilitas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Penyewaan;
+use App\Models\Tagihan;
 use App\Models\Vendor;
 use App\Models\Kendaraan;
 use Carbon\Carbon;
@@ -38,6 +39,7 @@ class FasilitasDashboardController extends Controller
 
         $vendorTerbanyak = Penyewaan::select('id_vendor', DB::raw('COUNT(*) as jumlah'))
             ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->whereNotNull('id_vendor')
             ->groupBy('id_vendor')
             ->orderByDesc('jumlah')
             ->limit(5)
@@ -57,15 +59,34 @@ class FasilitasDashboardController extends Controller
             ->orderBy('tahun')
             ->get();
 
-        $totalKendaraan = Kendaraan::count();
-        $kendaraanDigunakan = Penyewaan::where('status', 'active')->count();
-        $kendaraanPemeliharaan = Kendaraan::count();
-        $kendaraanTersedia = $totalKendaraan - $kendaraanDigunakan - $kendaraanPemeliharaan;
+        $kendaraanNames = Kendaraan::select('nama')->distinct()->get();
 
+        $tersedia = 0;
+        $digunakan = 0;
+        
+        foreach ($kendaraanNames as $kendaraanName) {
+            $kendaraanIds = Kendaraan::where('nama', $kendaraanName->nama)->pluck('id');
+
+            $latestPenyewaan = Penyewaan::whereIn('id_kendaraan', $kendaraanIds)
+                ->orderBy('tanggal_mulai', 'desc')
+                ->first();
+        
+            if ($latestPenyewaan && $latestPenyewaan->status === 'Surat Jalan') {
+                $tagihan = Tagihan::where('id_penyewaan', $latestPenyewaan->id)->first();
+        
+                if ($tagihan && $tagihan->status === 'Lunas') {
+                    $tersedia++;
+                } else {
+                    $digunakan++;
+                }
+            } else {
+                $tersedia++;
+            }
+        }
+        
         $ketersediaanKendaraan = [
-            'tersedia' => $kendaraanTersedia,
-            'digunakan' => $kendaraanDigunakan,
-            'pemeliharaan' => $kendaraanPemeliharaan
+            'tersedia' => $tersedia,
+            'digunakan' => $digunakan
         ];
 
         $pengajuanPerJenisKendaraan = Penyewaan::select(
@@ -78,11 +99,11 @@ class FasilitasDashboardController extends Controller
             ->get();
 
         $waktuResponsPengajuan = Penyewaan::select(
-            DB::raw('MONTH(created_at) as bulan'),
+            DB::raw('MONTH(tanggal_mulai) as bulan'),
             DB::raw('AVG(TIMESTAMPDIFF(HOUR, created_at, updated_at)) as rata_rata_waktu_respon')
         )
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->whereIn('status', ['approved', 'declined'])
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->whereIn('status', ['Approved by Fasilitas'])
             ->groupBy('bulan')
             ->orderBy('bulan')
             ->get();

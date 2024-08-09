@@ -41,6 +41,7 @@ class AdminDashboardController extends Controller
             DB::raw('COUNT(*) as jumlah')
         )
             ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->whereNotNull('id_vendor')
             ->groupBy('id_vendor')
             ->orderByDesc('jumlah')
             ->limit(5)

@@ -173,12 +173,11 @@
         new Chart(document.getElementById('ketersediaanChart'), {
             type: 'pie',
             data: {
-                labels: ['Tersedia', 'Digunakan', 'Pemeliharaan'],
+                labels: ['Tersedia', 'Digunakan'],
                 datasets: [{
                     data: [
                         {!! $ketersediaanKendaraan['tersedia'] !!},
                         {!! $ketersediaanKendaraan['digunakan'] !!},
-                        {!! $ketersediaanKendaraan['pemeliharaan'] !!}
                     ],
                     backgroundColor: [
                         'rgba(75, 192, 192, 0.6)',

@@ -163,7 +163,7 @@
         new Chart(document.getElementById('utilisasiChart'), {
             type: 'line',
             data: {
-                labels: {!! json_encode($utilisasiKendaraan->pluck('id')) !!},
+                labels: {!! json_encode($utilisasiKendaraan->pluck('nama')) !!},
                 datasets: [{
                     label: 'Utilisasi (%)',
                     data: {!! json_encode(
