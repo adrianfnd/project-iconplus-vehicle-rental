@@ -74,12 +74,17 @@ class AdminDashboardController extends Controller
             ->get();
 
         $statusPembayaran = Tagihan::select(
-            'status',
+            DB::raw('
+                CASE 
+                    WHEN status = "Lunas" THEN "Lunas"
+                    ELSE "Pending"
+                END as status
+            '),
             DB::raw('COUNT(*) as jumlah')
         )
             ->groupBy('status')
             ->get();
-
+            
         return view('admin.dashboard.index', compact(
             'peminjamanPerBulan',
             'anggaranPerBulan',
