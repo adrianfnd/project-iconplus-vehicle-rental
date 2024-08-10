@@ -101,7 +101,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('tanda-tangan', [AdminTandaTanganController::class, 'index'])->name('admin.tanda-tangan.index');
     Route::get('tanda-tangan/create', [AdminTandaTanganController::class, 'create'])->name('admin.tanda-tangan.create');
     Route::post('tanda-tangan', [AdminTandaTanganController::class, 'store'])->name('admin.tanda-tangan.store');
-    Route::delete('tanda-tangan-{id}', [AdminTandaTanganController::class, 'destroy'])->name('admin.tanda-tangan.destroy');
+    Route::delete('tanda-tangan-remove-{id}', [AdminTandaTanganController::class, 'destroy'])->name('admin.tanda-tangan.destroy');
 
     Route::get('sewa-kendaraan', [AdminSewaKendaraanController::class, 'index'])->name('admin.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [AdminSewaKendaraanController::class, 'show'])->name('admin.sewa-kendaraan.show');

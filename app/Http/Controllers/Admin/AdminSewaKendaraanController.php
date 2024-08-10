@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TandaTangan;
 use App\Models\Penyewaan;
 
 class AdminSewaKendaraanController extends Controller
@@ -29,6 +30,9 @@ class AdminSewaKendaraanController extends Controller
                     ])->whereNotIn('status', ['Surat Jalan', 'Pengajuan Pembayaran', 'Lunas'])
                     ->findOrFail($id);
 
+        
+        $tandaTangan = TandaTangan::all();
+
         $nilaiSewa = $pengajuan->is_outside_bandung ? 275000 : 250000;
 
         $biayaDriver = $pengajuan->is_outside_bandung ? 175000 : 150000;
@@ -38,7 +42,7 @@ class AdminSewaKendaraanController extends Controller
         $pengajuan->total_nilai_sewa = $nilaiSewa * $pengajuan->jumlah_hari_sewa;
         $pengajuan->total_biaya_driver = $biayaDriver * $pengajuan->jumlah_hari_sewa;
 
-        return view('admin.sewa-kendaraan.show', compact('pengajuan'));
+        return view('admin.sewa-kendaraan.show', compact('pengajuan', 'tandaTangan'));
     }
 
     public function approve(Request $request, $id)
@@ -46,6 +50,7 @@ class AdminSewaKendaraanController extends Controller
         $pengajuan = Penyewaan::where('status', 'Approved by Fasilitas')->findOrFail($id);
         $pengajuan->status = 'Approved by Administrasi';
         $pengajuan->reject_notes = null;
+        $pengajuan->tanda_tangan_id = $request->tanda_tangan_id;
         
         $pengajuan->save();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SuratJalan;
+use App\Models\TandaTangan;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -53,7 +54,18 @@ class AdminSuratJalanController extends Controller
         $penyewaan->biaya_driver = $biayaDriver;
         $penyewaan->total_nilai_sewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
         $penyewaan->total_biaya_driver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
-        $penyewaan->total_biaya = $penyewaan->total_nilai_sewa + $penyewaan->total_biaya_driver;
+
+        if ($penyewaan->include_driver == 1) { 
+            $penyewaan->total_biaya = $penyewaan->total_nilai_sewa + $penyewaan->total_biaya_driver;
+        } else {
+            $penyewaan->total_biaya = $penyewaan->total_nilai_sewa;
+        }
+
+        $tandaTangan = TandaTangan::where('id', $suratJalan->penyewaan->tanda_tangan_id)->first();
+
+        if ($tandaTangan) {
+            $penyewaan->tanda_tangan = $tandaTangan;
+        }
 
         $suratJalan->tanggal_terbit = date('Y-m-d');
 

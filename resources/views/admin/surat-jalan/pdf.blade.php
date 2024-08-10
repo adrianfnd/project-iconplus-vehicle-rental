@@ -72,6 +72,23 @@
             background-color: #f2f2f2;
         }
 
+        .signature-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            text-align: center;
+        }
+
+        .signature-image {
+            max-width: 150px;
+            max-height: 100px;
+        }
+
+        .signature-name {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
         .footer {
             text-align: center;
             font-size: 0.8em;
@@ -176,6 +193,14 @@
                 </tr>
             </table>
         </div>
+    </div>
+
+    <div class="signature-container">
+        @if ($penyewaan->tanda_tangan)
+            <img src="{{ storage_path('app/public' . str_replace('/storage', '', $penyewaan->tanda_tangan->image_url)) }}"
+                alt="Tanda Tangan" class="signature-image">
+            <div class="signature-name">{{ $penyewaan->tanda_tangan->ttd_name }}</div>
+        @endif
     </div>
 
     <div class="footer">

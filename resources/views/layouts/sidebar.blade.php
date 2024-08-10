@@ -1,20 +1,14 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('pemeliharaan.laporan.index') }}">
-                <span class="menu-title">Dashboard</span>
-                <i class="mdi mdi-home menu-icon"></i>
-            </a>
-        </li> --}}
         @if (auth()->user()->role->name == 'pemeliharaan')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
-                    aria-controls="sewa">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#dashboard" aria-expanded="false"
+                    aria-controls="dashboard">
                     <span class="menu-title">Dashboard</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-view-dashboard menu-icon"></i>
                 </a>
-                <div class="collapse" id="sewa">
+                <div class="collapse" id="dashboard">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('pemeliharaan.dashboard') }}">
@@ -82,13 +76,13 @@
             </li>
         @elseif(auth()->user()->role->name == 'fasilitas')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
-                    aria-controls="sewa">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#dashboard" aria-expanded="false"
+                    aria-controls="dashboard">
                     <span class="menu-title">Dashboard</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-view-dashboard menu-icon"></i>
                 </a>
-                <div class="collapse" id="sewa">
+                <div class="collapse" id="dashboard">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('fasilitas.dashboard') }}">
@@ -156,13 +150,13 @@
             </li>
         @elseif(auth()->user()->role->name == 'admin')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
-                    aria-controls="sewa">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#dashboard" aria-expanded="false"
+                    aria-controls="dashboard">
                     <span class="menu-title">Dashboard</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-view-dashboard menu-icon"></i>
                 </a>
-                <div class="collapse" id="sewa">
+                <div class="collapse" id="dashboard">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.dashboard') }}">
@@ -240,13 +234,13 @@
             </li>
         @elseif(auth()->user()->role->name == 'vendor')
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#sewa" aria-expanded="false"
-                    aria-controls="sewa">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#dashboard" aria-expanded="false"
+                    aria-controls="dashboard">
                     <span class="menu-title">Dashboard</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-view-dashboard menu-icon"></i>
                 </a>
-                <div class="collapse" id="sewa">
+                <div class="collapse" id="dashboard">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('vendor.dashboard') }}">
