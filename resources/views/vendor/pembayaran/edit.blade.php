@@ -35,14 +35,14 @@
                                         <div class="form-group">
                                             <label>Kilometer Awal</label>
                                             <input type="number" class="form-control" name="kilometer_awal"
-                                                value="{{ $suratJalan->penyewaan->kilometer_awal }}">
+                                                value="{{ intval($suratJalan->penyewaan->kilometer_awal) }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Kilometer Akhir</label>
                                             <input type="number" class="form-control" name="kilometer_akhir"
-                                                value="{{ $suratJalan->penyewaan->kilometer_akhir }}">
+                                                value="{{ intval($suratJalan->penyewaan->kilometer_akhir) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -84,39 +84,35 @@
                                         <td>Harga Sewa</td>
                                         <td>
                                             <input type="text" class="form-control" name="nilai_sewa"
-                                                value="{{ number_format($suratJalan->penyewaan->nilai_sewa, 0, ',', '.') }}"
-                                                placeholder="Rp">
+                                                value="{{ intval($suratJalan->penyewaan->nilai_sewa) }}" placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya Driver</td>
                                         <td>
                                             <input type="text" class="form-control" name="biaya_driver"
-                                                value="{{ number_format($suratJalan->penyewaan->biaya_driver, 0, ',', '.') }}"
-                                                placeholder="Rp">
+                                                value="{{ intval($suratJalan->penyewaan->biaya_driver) }}" placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya BBM</td>
                                         <td>
                                             <input type="text" class="form-control" name="biaya_bbm"
-                                                value="{{ number_format($suratJalan->penyewaan->biaya_bbm, 0, ',', '.') }}"
-                                                placeholder="Rp">
+                                                value="{{ intval($suratJalan->penyewaan->biaya_bbm) }}" placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya TOL</td>
                                         <td>
                                             <input type="text" class="form-control" name="biaya_tol"
-                                                value="{{ number_format($suratJalan->penyewaan->biaya_tol, 0, ',', '.') }}"
-                                                placeholder="Rp">
+                                                value="{{ intval($suratJalan->penyewaan->biaya_tol) }}" placeholder="Rp">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Biaya Parkir</td>
                                         <td>
                                             <input type="text" class="form-control" name="biaya_parkir"
-                                                value="{{ number_format($suratJalan->penyewaan->biaya_parkir, 0, ',', '.') }}"
+                                                value="{{ intval($suratJalan->penyewaan->biaya_parkir) }}"
                                                 placeholder="Rp">
                                         </td>
                                     </tr>
@@ -125,8 +121,7 @@
                                             <td>Denda Kelebihan Hari</td>
                                             <td>
                                                 <input type="text" class="form-control" name="jumlah_denda"
-                                                    value="{{ number_format($suratJalan->jumlah_denda, 0, ',', '.') }}"
-                                                    placeholder="Rp">
+                                                    value="{{ intval($suratJalan->jumlah_denda) }}" placeholder="Rp">
                                             </td>
                                         </tr>
                                     @endif

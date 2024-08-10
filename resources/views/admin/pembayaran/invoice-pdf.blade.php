@@ -68,12 +68,12 @@
             <tbody>
                 <tr>
                     <td>Harga Sewa ({{ $pengajuan->jumlah_hari_sewa }} hari)</td>
-                    <td>Rp {{ number_format($pengajuan->nilai_sewa * $pengajuan->jumlah_hari_sewa, 0, ',', '.') }}</td>
+                    <td>Rp {{ number_format($pengajuan->nilai_sewa, 0, ',', '.') }}</td>
                 </tr>
                 @if ($pengajuan->include_driver)
                     <tr>
                         <td>Biaya Driver ({{ $pengajuan->jumlah_hari_sewa }} hari)</td>
-                        <td>Rp {{ number_format($pengajuan->biaya_driver * $pengajuan->jumlah_hari_sewa, 0, ',', '.') }}
+                        <td>Rp {{ number_format($pengajuan->biaya_driver, 0, ',', '.') }}
                         </td>
                     </tr>
                 @endif
