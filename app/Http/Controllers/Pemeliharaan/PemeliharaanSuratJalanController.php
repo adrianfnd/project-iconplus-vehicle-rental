@@ -143,7 +143,11 @@ class PemeliharaanSuratJalanController extends Controller
             $biayaDriver = $penyewaan->is_outside_bandung ? 175000 : 150000;
 
             $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
-            $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+            if ($penyewaan->include_driver == 1) { 
+                $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+            } else {
+                $totalBiayaDriver = null;
+            }
 
             $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $penyewaan->biaya_bbm + $penyewaan->biaya_tol + $penyewaan->biaya_parkir;
 
@@ -163,7 +167,11 @@ class PemeliharaanSuratJalanController extends Controller
             $biayaDriver = $penyewaan->is_outside_bandung ? 175000 : 150000;
 
             $totalNilaiSewa = $nilaiSewa * $penyewaan->jumlah_hari_sewa;
-            $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+            if ($penyewaan->include_driver == 1) { 
+                $totalBiayaDriver = $biayaDriver * $penyewaan->jumlah_hari_sewa;
+            } else {
+                $totalBiayaDriver = null;
+            }
 
             $totalSewa = $totalNilaiSewa + $totalBiayaDriver + $penyewaan->biaya_bbm + $penyewaan->biaya_tol + $penyewaan->biaya_parkir;
 
