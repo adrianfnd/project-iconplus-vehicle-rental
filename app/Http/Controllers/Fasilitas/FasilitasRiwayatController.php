@@ -37,11 +37,17 @@ class FasilitasRiwayatController extends Controller
         $nilaiSewa = $riwayat->suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
 
         $biayaDriver = $riwayat->suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
-
+        
         $riwayat->suratJalan->penyewaan->nilai_sewa = $nilaiSewa;
-        $riwayat->suratJalan->penyewaan->biaya_driver = $biayaDriver;
         $riwayat->suratJalan->penyewaan->total_nilai_sewa = $nilaiSewa * $riwayat->suratJalan->penyewaan->jumlah_hari_sewa;
-        $riwayat->suratJalan->penyewaan->total_biaya_driver = $biayaDriver * $riwayat->suratJalan->penyewaan->jumlah_hari_sewa;
+        
+        if ($riwayat->suratJalan->penyewaan->include_driver == 1) {
+            $riwayat->suratJalan->penyewaan->biaya_driver = $biayaDriver;
+            $riwayat->suratJalan->penyewaan->total_biaya_driver = $biayaDriver * $riwayat->suratJalan->penyewaan->jumlah_hari_sewa;
+        } else {
+            $riwayat->suratJalan->penyewaan->biaya_driver = 0;
+            $riwayat->suratJalan->penyewaan->total_biaya_driver = 0;
+        }
 
         return view('fasilitas.riwayat.show', compact('riwayat', 'tagihan', 'pembayaran'));
     }

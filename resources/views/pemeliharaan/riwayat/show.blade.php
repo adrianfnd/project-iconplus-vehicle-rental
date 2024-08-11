@@ -210,7 +210,8 @@
                                         Harga Sewa
                                         <br>
                                         <small class="text-muted">
-                                            Rp {{ number_format($riwayat->suratJalan->nilai_sewa, 0, ',', '.') }} x
+                                            Rp
+                                            {{ number_format($riwayat->suratJalan->penyewaan->nilai_sewa, 0, ',', '.') }} x
                                             {{ $riwayat->suratJalan->penyewaan->jumlah_hari_sewa }} hari
                                         </small>
                                     </td>
@@ -224,7 +225,9 @@
                                         Biaya Driver
                                         <br>
                                         <small class="text-muted">
-                                            Rp {{ number_format($riwayat->suratJalan->biaya_driver, 0, ',', '.') }} x
+                                            Rp
+                                            {{ number_format($riwayat->suratJalan->penyewaan->biaya_driver, 0, ',', '.') }}
+                                            x
                                             {{ $riwayat->suratJalan->penyewaan->jumlah_hari_sewa }} hari
                                         </small>
                                     </td>

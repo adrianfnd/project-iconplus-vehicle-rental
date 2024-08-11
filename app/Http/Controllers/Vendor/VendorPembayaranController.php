@@ -37,6 +37,14 @@ class VendorPembayaranController extends Controller
                         ->where('id_vendor', auth()->user()->vendor->id)
                         ->where('id_penyewaan', $tagihan->id_penyewaan)->first();
 
+        $suratJalan->nilai_sewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
+
+        if ($suratJalan->penyewaan->include_driver == 1) {
+            $suratJalan->biaya_driver = $suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
+        } else {
+            $suratJalan->biaya_driver = 0;
+        }
+
         return view('vendor.pembayaran.show', compact('tagihan', 'suratJalan'));
     }
 

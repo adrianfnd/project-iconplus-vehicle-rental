@@ -40,6 +40,14 @@ class VendorSuratJalanController extends Controller
                         ->whereNotIn('status', ['Pengajuan Pembayaran', 'Lunas'])
                         ->findOrFail($id);
 
+        $suratJalan->nilai_sewa = $suratJalan->penyewaan->is_outside_bandung ? 275000 : 250000;
+
+        if ($suratJalan->penyewaan->include_driver == 1) {
+            $suratJalan->biaya_driver = $suratJalan->penyewaan->is_outside_bandung ? 175000 : 150000;
+        } else {
+            $suratJalan->biaya_driver = 0;
+        }
+
         return view('vendor.surat-jalan.show', compact('suratJalan'));
     }
 
