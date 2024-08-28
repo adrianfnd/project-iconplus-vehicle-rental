@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Tagihan;
 use App\Models\SuratJalan;
 use App\Models\Penyewaan;
+use App\Models\TandaTangan;
+use App\Models\TandaTanganVendor;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use PDF;
@@ -51,6 +53,20 @@ class AdminPembayaranController extends Controller
     
         $suratJalan = SuratJalan::where('id_penyewaan', $tagihan->id_penyewaan)->first();
         $pengajuan = Penyewaan::where('id', $tagihan->id_penyewaan)->first();
+
+        $tandaTangan = TandaTangan::where('id', $pengajuan->tanda_tangan_id)->first();
+
+        if ($tandaTangan) {
+            $pengajuan->tanda_tangan = $tandaTangan;
+        }
+
+        $tandaTanganVendor = TandaTanganVendor::where('id', $pengajuan->tanda_tangan_vendor_id)
+                            ->where('id_vendor', $suratJalan->id_vendor)
+                            ->first();
+
+        if ($tandaTanganVendor) {
+            $pengajuan->tanda_tangan_vendor = $tandaTanganVendor;
+        }
                         
         $pdf = PDF::loadView('admin.pembayaran.invoice-pdf', [
             'suratJalan' => $suratJalan,

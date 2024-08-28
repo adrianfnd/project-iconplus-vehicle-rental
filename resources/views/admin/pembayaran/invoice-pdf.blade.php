@@ -45,6 +45,27 @@
         .total {
             font-weight: bold;
         }
+
+        .signature-wrapper {
+            margin-top: 40px;
+            text-align: right;
+        }
+
+        .signature-container {
+            display: inline-block;
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        .signature-image {
+            max-width: 150px;
+            max-height: 100px;
+        }
+
+        .signature-name {
+            margin-top: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -73,8 +94,7 @@
                 @if ($pengajuan->include_driver)
                     <tr>
                         <td>Biaya Driver ({{ $pengajuan->jumlah_hari_sewa }} hari)</td>
-                        <td>Rp {{ number_format($pengajuan->biaya_driver, 0, ',', '.') }}
-                        </td>
+                        <td>Rp {{ number_format($pengajuan->biaya_driver, 0, ',', '.') }}</td>
                     </tr>
                 @endif
                 <tr>
@@ -101,6 +121,24 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="signature-wrapper">
+            <div class="signature-container">
+                @if ($pengajuan->tanda_tangan)
+                    <img src="{{ storage_path('app/public' . str_replace('/storage', '', $pengajuan->tanda_tangan->image_url)) }}"
+                        alt="Tanda Tangan" class="signature-image">
+                    <div class="signature-name">{{ $pengajuan->tanda_tangan->ttd_name }}</div>
+                @endif
+            </div>
+
+            <div class="signature-container">
+                @if ($pengajuan->tanda_tangan_vendor)
+                    <img src="{{ storage_path('app/public' . str_replace('/storage', '', $pengajuan->tanda_tangan_vendor->image_url)) }}"
+                        alt="Tanda Tangan Vendor" class="signature-image">
+                    <div class="signature-name">{{ $pengajuan->tanda_tangan_vendor->ttd_name }}</div>
+                @endif
+            </div>
+        </div>
     </div>
 </body>
 
