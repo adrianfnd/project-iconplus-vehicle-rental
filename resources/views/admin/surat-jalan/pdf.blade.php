@@ -72,11 +72,25 @@
             background-color: #f2f2f2;
         }
 
+        .signature-wrapper {
+            position: relative;
+            margin-top: 20px;
+            height: 150px;
+        }
+
         .signature-container {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
             text-align: center;
+            display: inline-block;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+
+        .signature-container:first-child {
+            float: left;
+        }
+
+        .signature-container:last-child {
+            float: right;
         }
 
         .signature-image {
@@ -195,12 +209,22 @@
         </div>
     </div>
 
-    <div class="signature-container">
-        @if ($penyewaan->tanda_tangan)
-            <img src="{{ storage_path('app/public' . str_replace('/storage', '', $penyewaan->tanda_tangan->image_url)) }}"
-                alt="Tanda Tangan" class="signature-image">
-            <div class="signature-name">{{ $penyewaan->tanda_tangan->ttd_name }}</div>
-        @endif
+    <div class="signature-wrapper">
+        <div class="signature-container">
+            @if ($penyewaan->tanda_tangan)
+                <img src="{{ storage_path('app/public' . str_replace('/storage', '', $penyewaan->tanda_tangan->image_url)) }}"
+                    alt="Tanda Tangan" class="signature-image">
+                <div class="signature-name">{{ $penyewaan->tanda_tangan->ttd_name }}</div>
+            @endif
+        </div>
+
+        <div class="signature-container">
+            @if ($penyewaan->tanda_tangan_vendor)
+                <img src="{{ storage_path('app/public' . str_replace('/storage', '', $penyewaan->tanda_tangan_vendor->image_url)) }}"
+                    alt="Tanda Tangan Kedua" class="signature-image">
+                <div class="signature-name">{{ $penyewaan->tanda_tangan_vendor->ttd_name }}</div>
+            @endif
+        </div>
     </div>
 
     <div class="footer">

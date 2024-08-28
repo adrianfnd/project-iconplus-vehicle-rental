@@ -81,6 +81,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="apakah_luar_bandung">Apakah pakai driver?</label>
+                            <div class="col-sm-9">
+                                <p class="form-control">
+                                    @if ($pengajuan->include_driver == 1)
+                                        Ya
+                                    @else
+                                        Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                         @if ($pengajuan->include_driver == 1)
                             <div class="row">
                                 <div class="col-md-6">

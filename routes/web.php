@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\AdminPembayaranController;
 use App\Http\Controllers\Admin\AdminRiwayatController;
 use App\Http\Controllers\Admin\AdminLaporanController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
+use App\Http\Controllers\Vendor\VendorTandaTanganController;
 use App\Http\Controllers\Vendor\VendorSewaKendaraanController;
 use App\Http\Controllers\Vendor\VendorSuratJalanController;
 use App\Http\Controllers\Vendor\VendorPembayaranController;
@@ -128,6 +129,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 // Routes Vendor Penyedia
 Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () {
     Route::get('dashboard', [VendorDashboardController::class, 'index'])->name('vendor.dashboard');
+
+    Route::get('tanda-tangan', [VendorTandaTanganController::class, 'index'])->name('vendor.tanda-tangan.index');
+    Route::get('tanda-tangan/create', [VendorTandaTanganController::class, 'create'])->name('vendor.tanda-tangan.create');
+    Route::post('tanda-tangan', [VendorTandaTanganController::class, 'store'])->name('vendor.tanda-tangan.store');
+    Route::delete('tanda-tangan-remove-{id}', [VendorTandaTanganController::class, 'destroy'])->name('vendor.tanda-tangan.destroy');
 
     Route::get('sewa-kendaraan', [VendorSewaKendaraanController::class, 'index'])->name('vendor.sewa-kendaraan.index');
     Route::get('sewa-kendaraan-{id}', [VendorSewaKendaraanController::class, 'show'])->name('vendor.sewa-kendaraan.show');

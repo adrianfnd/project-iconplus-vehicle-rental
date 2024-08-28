@@ -41,12 +41,18 @@ class Penyewaan extends Model
         'tanggal_pembayaran',
         'status',
         'reject_notes',
-        'tanda_tangan_id'
+        'tanda_tangan_id',
+        'tanda_tangan_vendor_id'
     ];
 
     public function tandaTangan()
     {
         return $this->belongsTo(TandaTangan::class, 'tanda_tangan_id');
+    }
+
+    public function tandaTanganVendor()
+    {
+        return $this->belongsTo(TandaTanganVendor::class, 'tanda_tangan_vendor_id');
     }
 
     public function kendaraan()

@@ -41,6 +41,8 @@ return new class extends Migration
             $table->string('reject_notes')->nullable();
             $table->uuid('tanda_tangan_id')->nullable();
             $table->foreign('tanda_tangan_id')->references('id')->on('tanda_tangan')->onDelete('cascade');
+            $table->uuid('tanda_tangan_vendor_id')->nullable();
+            $table->foreign('tanda_tangan_vendor_id')->references('id')->on('tanda_tangan_vendor')->onDelete('cascade');
             $table->timestamps();
         });
     }

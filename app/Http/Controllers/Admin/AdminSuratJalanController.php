@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SuratJalan;
 use App\Models\TandaTangan;
+use App\Models\TandaTanganVendor;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -65,6 +66,14 @@ class AdminSuratJalanController extends Controller
 
         if ($tandaTangan) {
             $penyewaan->tanda_tangan = $tandaTangan;
+        }
+
+        $tandaTanganVendor = TandaTanganVendor::where('id', $suratJalan->penyewaan->tanda_tangan_vendor_id)
+                            ->where('id_vendor', $suratJalan->id_vendor)
+                            ->first();
+
+        if ($tandaTanganVendor) {
+            $penyewaan->tanda_tangan_vendor = $tandaTanganVendor;
         }
 
         $suratJalan->tanggal_terbit = date('Y-m-d');

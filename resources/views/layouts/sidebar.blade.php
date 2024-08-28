@@ -260,6 +260,11 @@
                 <div class="collapse" id="sewa">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vendor.tanda-tangan.index') }}">
+                                Tanda Tangan
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('vendor.sewa-kendaraan.index') }}">
                                 Sewa Kendaraan
                             </a>

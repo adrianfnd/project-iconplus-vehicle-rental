@@ -77,6 +77,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="apakah_luar_bandung">Apakah pakai driver?</label>
+                            <div class="col-sm-9">
+                                <p class="form-control">
+                                    @if ($pengajuan->include_driver == 1)
+                                        Ya
+                                    @else
+                                        Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
                         @if ($pengajuan->include_driver == 1)
                             <div class="row">
                                 <div class="col-md-6">
@@ -169,13 +181,44 @@
 
         document.getElementById('approveButton').addEventListener('click', function() {
             Swal.fire({
-                title: 'Approve Pengajuan',
-                text: 'Apakah Anda yakin ingin menyetujui pengajuan ini?',
+                title: 'Pilih Tanda Tangan',
+                html: `
+                    <select id="tandaTanganSelect" class="swal2-select">
+                        <option value="">Pilih Tanda Tangan</option>
+                        @foreach ($tandaTangan as $ttd)
+                            <option name="tanda_tangan_vendor" value="{{ $ttd->id }}" data-image="{{ asset($ttd->image_url) }}">{{ $ttd->ttd_name }}</option>
+                        @endforeach
+                    </select>
+                    <div id="tandaTanganPreview" style="margin-top: 10px;"></div>
+                `,
                 showCancelButton: true,
                 confirmButtonText: 'Approve',
-                cancelButtonText: 'Close',
+                cancelButtonText: 'Batal',
+                didOpen: () => {
+                    const tandaTanganSelect = Swal.getPopup().querySelector('#tandaTanganSelect');
+                    const tandaTanganPreview = Swal.getPopup().querySelector('#tandaTanganPreview');
+
+                    tandaTanganSelect.addEventListener('change', function() {
+                        const selectedOption = this.options[this.selectedIndex];
+                        const imageUrl = selectedOption.getAttribute('data-image');
+
+                        if (imageUrl) {
+                            tandaTanganPreview.innerHTML =
+                                `<img src="${imageUrl}" alt="Preview Tanda Tangan" style="max-width: 200px; max-height: 100px;">`;
+                        } else {
+                            tandaTanganPreview.innerHTML = '';
+                        }
+                    });
+                },
                 preConfirm: () => {
-                    return true;
+                    const tandaTanganSelect = Swal.getPopup().querySelector('#tandaTanganSelect');
+                    const selectedTtd = tandaTanganSelect.value;
+                    if (!selectedTtd) {
+                        Swal.showValidationMessage('Silakan pilih tanda tangan');
+                    }
+                    return {
+                        tandaTanganId: selectedTtd
+                    };
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -188,6 +231,12 @@
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
                     form.appendChild(csrfToken);
+
+                    const tandaTanganInput = document.createElement('input');
+                    tandaTanganInput.type = 'hidden';
+                    tandaTanganInput.name = 'tanda_tangan_vendor_id';
+                    tandaTanganInput.value = result.value.tandaTanganId;
+                    form.appendChild(tandaTanganInput);
 
                     document.body.appendChild(form);
                     form.submit();
