@@ -73,13 +73,26 @@
             return ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
         }
 
+        function fillMissingMonths(data, totalMonths = 12) {
+            const filledData = Array(totalMonths).fill(0);
+
+            data.forEach(item => {
+                filledData[item.bulan - 1] = item.jumlah || item.total;
+            });
+
+            return filledData;
+        }
+
+        const peminjamanData = fillMissingMonths({!! json_encode($peminjamanPerBulan) !!}, 9);
+        const anggaranData = fillMissingMonths({!! json_encode($anggaranPerBulan) !!}, 9);
+
         new Chart(document.getElementById('peminjamanChart'), {
             type: 'bar',
             data: {
-                labels: getMonthNames(),
+                labels: getMonthNames().slice(0, 12),
                 datasets: [{
                     label: 'Jumlah Peminjaman',
-                    data: {!! json_encode($peminjamanPerBulan->pluck('jumlah')) !!},
+                    data: peminjamanData,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)'
                 }]
             },
@@ -96,10 +109,10 @@
         new Chart(document.getElementById('anggaranChart'), {
             type: 'bar',
             data: {
-                labels: getMonthNames(),
+                labels: getMonthNames().slice(0, 12),
                 datasets: [{
                     label: 'Anggaran Peminjaman',
-                    data: {!! json_encode($anggaranPerBulan->pluck('total')) !!},
+                    data: anggaranData,
                     backgroundColor: 'rgba(255, 99, 132, 0.6)'
                 }]
             },

@@ -49,7 +49,7 @@ class FasilitasDashboardController extends Controller
         $pengajuanPerTahun = Penyewaan::select(
             DB::raw('YEAR(created_at) as tahun'),
             DB::raw('SUM(CASE 
-                WHEN status IN ("Pengajuan", "Approved by Fasilitas", "Approved by Administrasi", "Approved by Vendor", "Surat Jalan") THEN 1 
+                WHEN status IN ("Approved by Fasilitas", "Approved by Administrasi", "Approved by Vendor", "Surat Jalan") THEN 1 
                 ELSE 0 END) as approved'),
             DB::raw('SUM(CASE 
                 WHEN status IN ("Rejected by Vendor", "Rejected by Fasilitas") THEN 1 
@@ -108,6 +108,18 @@ class FasilitasDashboardController extends Controller
             ->orderBy('bulan')
             ->get();
 
+        $pengeluaranOperasional = Penyewaan::select(
+                DB::raw('MONTH(tanggal_mulai) as bulan'),
+                DB::raw('SUM(biaya_bbm) as bbm'),
+                DB::raw('SUM(biaya_tol) as tol'),
+                DB::raw('SUM(biaya_parkir) as parkir'),
+                DB::raw('SUM(biaya_driver) as driver')
+            )
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+                ->groupBy('bulan')
+                ->orderBy('bulan')
+                ->get();
+
         return view('fasilitas.dashboard.index', compact(
             'peminjamanPerBulan',
             'anggaranPerBulan',
@@ -115,7 +127,8 @@ class FasilitasDashboardController extends Controller
             'pengajuanPerTahun',
             'ketersediaanKendaraan',
             'pengajuanPerJenisKendaraan',
-            'waktuResponsPengajuan'
+            'waktuResponsPengajuan',
+            'pengeluaranOperasional'
         ));
     }
 }
