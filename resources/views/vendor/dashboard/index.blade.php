@@ -200,11 +200,20 @@
                 labels: {!! json_encode($statusPembayaran->pluck('status')) !!},
                 datasets: [{
                     data: {!! json_encode($statusPembayaran->pluck('jumlah')) !!},
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(255, 99, 132, 0.6)'
-                    ]
+                    backgroundColor: {!! json_encode(
+                        $statusPembayaran->pluck('status')->map(function ($status) {
+                            switch ($status) {
+                                case 'Lunas':
+                                    return 'rgba(75, 192, 192, 0.6)';
+                                case 'Pending':
+                                    return 'rgba(255, 99, 132, 0.6)';
+                                case 'Overdue':
+                                    return 'rgba(255, 206, 86, 0.6)';
+                                default:
+                                    return 'rgba(201, 203, 207, 0.6)';
+                            }
+                        }),
+                    ) !!}
                 }]
             },
             options: {

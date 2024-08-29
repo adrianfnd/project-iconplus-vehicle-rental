@@ -214,11 +214,11 @@
                 labels: {!! json_encode($statusPembayaran->pluck('status')) !!},
                 datasets: [{
                     data: {!! json_encode($statusPembayaran->pluck('jumlah')) !!},
-                    backgroundColor: [
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(255, 99, 132, 0.6)'
-                    ]
+                    backgroundColor: {!! json_encode(
+                        $statusPembayaran->pluck('status')->map(function ($status) {
+                            return $status === 'Lunas' ? 'rgba(75, 192, 192, 0.6)' : 'rgba(255, 99, 132, 0.6)';
+                        }),
+                    ) !!}
                 }]
             },
             options: {
