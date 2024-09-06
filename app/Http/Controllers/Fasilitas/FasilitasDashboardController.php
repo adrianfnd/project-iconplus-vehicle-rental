@@ -100,10 +100,10 @@ class FasilitasDashboardController extends Controller
 
         $waktuResponsPengajuan = Penyewaan::select(
             DB::raw('MONTH(tanggal_mulai) as bulan'),
-            DB::raw('AVG(TIMESTAMPDIFF(HOUR, created_at, updated_at)) as rata_rata_waktu_respon')
+            DB::raw('AVG(TIMESTAMPDIFF(MINUTE, created_at, updated_at)) as rata_rata_waktu_respon')
         )
             ->whereBetween('tanggal_mulai', [$startDate, $endDate])
-            ->whereIn('status', ['Approved by Fasilitas'])
+            ->whereBetween('penyewaan.tanggal_mulai', [$startDate, $endDate])
             ->groupBy('bulan')
             ->orderBy('bulan')
             ->get();

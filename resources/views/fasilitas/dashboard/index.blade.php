@@ -232,13 +232,28 @@
             }
         });
 
+        function fillMissingMonthsWaktuRespons(data, totalMonths = 12) {
+            const filledData = Array(totalMonths).fill(0);
+
+            data.forEach(item => {
+                if (item.bulan >= 1 && item.bulan <= totalMonths) {
+                    filledData[item.bulan - 1] = item.rata_rata_waktu_respon || 0;
+                }
+            });
+
+            return filledData;
+        }
+
+
+        const waktuResponsData = fillMissingMonthsWaktuRespons({!! json_encode($waktuResponsPengajuan->toArray()) !!}, 12);
+
         new Chart(document.getElementById('waktuResponsChart'), {
             type: 'line',
             data: {
                 labels: getMonthNames(),
                 datasets: [{
                     label: 'Waktu Respons Rata-rata (Jam)',
-                    data: {!! json_encode($waktuResponsPengajuan->pluck('rata_rata_waktu_respon')) !!},
+                    data: waktuResponsData,
                     borderColor: 'rgba(153, 102, 255, 1)',
                     fill: false
                 }]
