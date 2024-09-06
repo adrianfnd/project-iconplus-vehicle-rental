@@ -173,25 +173,48 @@
             }
         });
 
+        const pengeluaranBBMData = fillMissingMonths({!! json_encode(
+            $pengeluaranOperasional->map(function ($item) {
+                return ['bulan' => $item->bulan, 'jumlah' => $item->bbm];
+            }),
+        ) !!}, 12);
+        const pengeluaranTolData = fillMissingMonths({!! json_encode(
+            $pengeluaranOperasional->map(function ($item) {
+                return ['bulan' => $item->bulan, 'jumlah' => $item->tol];
+            }),
+        ) !!}, 12);
+        const pengeluaranParkirData = fillMissingMonths({!! json_encode(
+            $pengeluaranOperasional->map(function ($item) {
+                return ['bulan' => $item->bulan, 'jumlah' => $item->parkir];
+            }),
+        ) !!}, 12);
+        const pengeluaranDriverData = fillMissingMonths({!! json_encode(
+            $pengeluaranOperasional->map(function ($item) {
+                return ['bulan' => $item->bulan, 'jumlah' => $item->driver];
+            }),
+        ) !!}, 12);
+
+        const monthLabels = getMonthNames().slice(0, 12);
+
         new Chart(document.getElementById('pengeluaranChart'), {
             type: 'bar',
             data: {
-                labels: getMonthNames(),
+                labels: monthLabels,
                 datasets: [{
                     label: 'BBM',
-                    data: {!! json_encode($pengeluaranOperasional->pluck('bbm')) !!},
+                    data: pengeluaranBBMData,
                     backgroundColor: 'rgba(255, 99, 132, 0.6)'
                 }, {
                     label: 'Tol',
-                    data: {!! json_encode($pengeluaranOperasional->pluck('tol')) !!},
+                    data: pengeluaranTolData,
                     backgroundColor: 'rgba(54, 162, 235, 0.6)'
                 }, {
                     label: 'Parkir',
-                    data: {!! json_encode($pengeluaranOperasional->pluck('parkir')) !!},
+                    data: pengeluaranParkirData,
                     backgroundColor: 'rgba(255, 206, 86, 0.6)'
                 }, {
                     label: 'Driver',
-                    data: {!! json_encode($pengeluaranOperasional->pluck('driver')) !!},
+                    data: pengeluaranDriverData,
                     backgroundColor: 'rgba(75, 192, 192, 0.6)'
                 }]
             },
@@ -202,7 +225,8 @@
                         stacked: true,
                     },
                     y: {
-                        stacked: true
+                        stacked: true,
+                        beginAtZero: true
                     }
                 }
             }
