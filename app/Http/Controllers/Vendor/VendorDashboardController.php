@@ -73,7 +73,7 @@ class VendorDashboardController extends Controller
             ->orderBy('bulan')
             ->get();
 
-            $statusPembayaran = DB::table(function($query) use ($vendorId) {
+        $statusPembayaran = DB::table(function($query) use ($vendorId) {
                 $query->select(DB::raw("
                     CASE 
                         WHEN status = 'Lunas' THEN 'Lunas'

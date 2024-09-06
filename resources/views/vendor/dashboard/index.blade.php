@@ -132,7 +132,7 @@
                 labels: getMonthNames(),
                 datasets: [{
                     label: 'Jumlah Penggunaan',
-                    data: {!! json_encode($vendorTerbanyakPerBulan->pluck('jumlah')) !!},
+                    data: fillMissingMonths({!! json_encode($vendorTerbanyakPerBulan) !!}),
                     backgroundColor: 'rgba(54, 162, 235, 0.6)'
                 }]
             },
