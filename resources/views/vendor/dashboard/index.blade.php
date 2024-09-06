@@ -173,13 +173,26 @@
             }
         });
 
+        function fillMissingMonthsDurasi(data, totalMonths = 12) {
+            const filledData = Array(totalMonths).fill(0);
+
+            data.forEach(item => {
+                if (item.bulan >= 1 && item.bulan <= totalMonths) {
+                    filledData[item.bulan - 1] = item.jumlah || item.total || item.durasi_rata_rata;
+                }
+            });
+
+            return filledData;
+        }
+
+
         new Chart(document.getElementById('durasiChart'), {
             type: 'line',
             data: {
                 labels: getMonthNames(),
                 datasets: [{
                     label: 'Durasi Rata-rata (hari)',
-                    data: {!! json_encode($durasiPerjalanan->pluck('durasi_rata_rata')) !!},
+                    data: fillMissingMonthsDurasi({!! json_encode($durasiPerjalanan) !!}),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     tension: 0.1
                 }]
