@@ -128,6 +128,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        var errorMessage = '{{ session('error') }}';
+        if (errorMessage) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: errorMessage,
+                showCloseButton: true,
+                showConfirmButton: true
+            });
+        }
+
         function confirmSubmit() {
             Swal.fire({
                 title: 'Apakah Anda yakin?',

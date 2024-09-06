@@ -67,6 +67,22 @@ class PemeliharaanSewaKendaraanController extends Controller
             'apakah_luar_bandung.required' => 'Kolom apakah luar bandung harus diisi.',
         ]);
 
+        $existingPengajuan = Penyewaan::where('nama_penyewa', $request->input('nama'))
+            ->whereNotIn('status', ['Lunas', 'Rejected by Fasilitas', 'Rejected by Vendor'])
+            ->first();
+
+        if ($existingPengajuan) {
+            return redirect()->back()->with('error', 'Penyewa ini sudah memiliki pengajuan yang sedang diproses. Silakan tunggu hingga pengajuan sebelumnya selesai diproses.');
+        }
+
+        $rejectedPengajuan = Penyewaan::where('nama_penyewa', $request->input('nama'))
+            ->whereIn('status', ['Rejected by Fasilitas', 'Rejected by Vendor'])
+            ->first();
+
+        if ($rejectedPengajuan) {
+            return redirect()->back()->with('error', 'Penyewa ini memiliki pengajuan yang ditolak. Silakan Buat Ulang.');
+        }
+
         $tanggalMulai = Carbon::parse($request->input('tanggal_mulai'));
         $tanggalSelesai = Carbon::parse($request->input('tanggal_selesai'));
         $jumlahHariSewa = $tanggalMulai->diffInDays($tanggalSelesai) + 1; 
